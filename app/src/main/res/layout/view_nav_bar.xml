@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="@dimen/activityTitleHeight"
-    android:background="@color/color_333333"
+    android:background="@color/colorPrimary"
    >
 
 
@@ -13,14 +13,32 @@
         android:layout_width="match_parent"
         android:layout_height="47dp">
 
-        <ImageView
-            android:id="@+id/ivMenuLeft"
+        <RelativeLayout
+            android:id="@+id/relaLeft"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:paddingRight="@dimen/spacing_small"
-            android:paddingLeft="@dimen/dp_22"
-            android:scaleType="fitCenter" />
+            android:layout_height="match_parent">
 
+            <ImageView
+                android:id="@+id/ivMenuLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingRight="6dp"
+                android:paddingLeft="19dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/sy_zd"/>
+
+            <TextView
+                android:id="@+id/txtLeftView"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_toEndOf="@+id/ivMenuLeft"
+                android:layout_toRightOf="@+id/ivMenuLeft"
+                android:text="账单"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:textColor="@color/white"/>
+
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/tv_title"
@@ -34,9 +52,9 @@
             android:marqueeRepeatLimit="marquee_forever"
             android:singleLine="true"
             android:textIsSelectable="false"
-            tools:text="标题"
-            android:textColor="@color/app_red"
-            android:textSize="@dimen/sp_16"
+            tools:text="@string/app_title_name"
+            android:textColor="@color/white"
+            android:textSize="18sp"
             android:layout_alignBaseline="@+id/ivMenuRightTxt"
             android:layout_alignBottom="@+id/ivMenuRightTxt"
             android:layout_centerHorizontal="true" />
@@ -54,8 +72,6 @@
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
-
-
 
     </RelativeLayout>
 
