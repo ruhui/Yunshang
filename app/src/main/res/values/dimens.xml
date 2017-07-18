@@ -1,0 +1,35 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="spacing_small">10dp</dimen>
+    <dimen name="font_normal">13sp</dimen>
+    <dimen name="font_xxxlarge">20sp</dimen>
+    <dimen name="dp_30">30dp</dimen>
+    <dimen name="actionbar_heigh">65dp</dimen>
+    <dimen name="font_xlarge">14sp</dimen>
+    <dimen name="halfdp">0.5dp</dimen>
+
+    <dimen name="activityTitleHeight">47dp</dimen>
+    <dimen name="indicator_right_padding">10dp</dimen>
+    <dimen name="indicator_corner_radius">12dp</dimen>
+    <dimen name="indicator_internal_padding">4dp</dimen>
+    <dimen name="header_footer_left_right_padding">24dp</dimen>
+    <dimen name="header_footer_top_bottom_padding">12dp</dimen>
+    <dimen name="popwidth">150dp</dimen>
+
+    <!-- 顶部按钮栏高度 -->
+    <dimen name="pickerview_topbar_height">44dp</dimen>
+    <!-- 顶部按钮paddingRight -->
+    <dimen name="pickerview_topbar_paddingright">30dp</dimen>
+    <dimen name="pickerview_topbar_title_textsize">21sp</dimen>
+    <dimen name="dime_1_0">-10dp</dimen>
+    <dimen name="size_15">15dp</dimen>
+    <dimen name="sp_14">14sp</dimen>
+    <dimen name="dp_14">14dp</dimen>
+    <dimen name="sp_16">16sp</dimen>
+    <dimen name="sp_12">12sp</dimen>
+    <dimen name="dp_10">10dp</dimen>
+    <dimen name="dp_40">40dp</dimen>
+    <dimen name="dp_22">22dp</dimen>
+</resources>

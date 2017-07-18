@@ -1,0 +1,55 @@
+<resources>
+    <string name="app_name">商付宝</string>
+    <string name="app_login">登录</string>
+    <string name="state_network_no">当前网络异常，请检查网络设置</string>
+    <string name="submit_sure">确认</string>
+    <string name="tab_home">首页</string>
+    <string name="tab_carfrom">车源</string>
+    <string name="tab_shangji">商机</string>
+    <string name="tab_message">消息</string>
+    <string name="tab_mine">我的</string>
+    <string name="search">筛选</string>
+
+    <string name="views_load_more_loading">加载中...</string>
+    <string name="views_load_more_click_to_load_more">点击加载更多</string>
+    <string name="views_load_more_loaded_no_more">全部数据加载完毕</string>
+    <string name="views_load_more_loaded_empty">数据为空</string>
+    <string name="views_load_more_error">加载失败,点击重试</string>
+
+    <string name="paixu">排序</string>
+    <string name="qudao">渠道</string>
+    <string name="brand">品牌</string>
+    <string name="price">价格</string>
+
+    <string name="pull_to_refresh_pull_label">下拉刷新...</string>
+    <string name="pull_to_refresh_release_label">释放刷新...</string>
+    <string name="pull_to_refresh_refreshing_label">正在加载...</string>
+
+    <!-- Just use standard Pull Down String when pulling up. These can be set for languages which require it -->
+    <string name="pull_to_refresh_from_bottom_pull_label">@string/pull_to_refresh_pull_label</string>
+    <string name="pull_to_refresh_from_bottom_release_label">@string/pull_to_refresh_release_label</string>
+    <string name="pull_to_refresh_from_bottom_refreshing_label">@string/pull_to_refresh_refreshing_label</string>
+
+    <string name="pickerview_cancel">取消</string>
+    <string name="pickerview_submit">确定</string>
+    <string name="pickerview_year">年</string>
+    <string name="pickerview_month">月</string>
+    <string name="pickerview_day">日</string>
+    <string name="pickerview_hours">时</string>
+    <string name="pickerview_minutes">分</string>
+    <string name="pickerview_seconds">秒</string>
+
+    <string name="authen_usermsg">商户信息</string>
+    <string name="authen_photo">上传照片</string>
+    <string name="app_login_getcode">获取验证码</string>
+    <string name="attach_voice_carform">车源</string>
+
+    <string name="tab_mybuy_all">全部</string>
+    <string name="tab_mybuy_daizhifu">待支付</string>
+    <string name="tab_mybuy_daimaijiazhifu">待卖家支付</string>
+    <string name="tab_mybuy_daiqueren">待确认</string>
+    <string name="tab_mybuy_daiwancheng">完成</string>
+    <string name="tab_mysale_daimaifangzhifu">待买方支付</string>
+
+
+</resources>

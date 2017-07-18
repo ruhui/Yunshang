@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:clickable="true"
+    android:descendantFocusability="blocksDescendants"
+    android:gravity="center">
+
+    <LinearLayout
+        android:id="@+id/progressview_layout"
+        android:layout_width="115dp"
+        android:layout_height="110dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/bg_progress_dialog"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <ProgressBar
+            style="@android:style/Widget.ProgressBar.Large"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:indeterminateDrawable="@drawable/custom_progress_bar" />
+
+        <TextView
+            android:id="@+id/tvMsg"
+            style="@style/TextNormal.White"
+            android:layout_width="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            tools:text="正在注册" />
+    </LinearLayout>
+
+</LinearLayout>
