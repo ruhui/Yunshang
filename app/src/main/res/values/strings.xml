@@ -11,6 +11,20 @@
     <string name="tab_mine">我的</string>
     <string name="search">筛选</string>
 
+    <string name="home_tabtitle">时代云商</string>
+    <string name="zf_yinlian">银联支付</string>
+    <string name="zf_saoma">扫码支付</string>
+    <string name="sy_tixian">提现</string>
+    <string name="home_sy_qywsc">首页微商城</string>
+    <string name="home_sy_zbsc">珠宝商城</string>
+    <string name="home_sy_wyfs">无己服饰</string>
+    <string name="home_sy_zqjy">证券交易</string>
+    <string name="home_sy_wysj">我要升级</string>
+    <string name="home_sy_syph">收益排行</string>
+    <string name="home_sy_wdkf">我的客服</string>
+    <string name="home_sy_gd">更多</string>
+
+
     <string name="views_load_more_loading">加载中...</string>
     <string name="views_load_more_click_to_load_more">点击加载更多</string>
     <string name="views_load_more_loaded_no_more">全部数据加载完毕</string>

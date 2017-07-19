@@ -16,7 +16,8 @@
         <RelativeLayout
             android:id="@+id/relaLeft"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:gravity="center">
 
             <ImageView
                 android:id="@+id/ivMenuLeft"
@@ -25,7 +26,10 @@
                 android:paddingRight="6dp"
                 android:paddingLeft="19dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/sy_zd"/>
+                android:src="@drawable/sy_zd"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
             <TextView
                 android:id="@+id/txtLeftView"
@@ -44,7 +48,7 @@
             android:id="@+id/tv_title"
             style="@style/TextTitle"
             android:layout_width="160dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:ellipsize="marquee"
             android:focusable="true"
             android:focusableInTouchMode="true"

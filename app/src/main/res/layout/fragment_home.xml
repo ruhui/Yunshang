@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/windowbackcolor">
 
     <com.shidai.yunshang.view.widget.NavBar_
         android:id="@+id/mNavbar"
@@ -24,8 +25,216 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="321dp"
-            android:background="@color/colorPrimary">
+            android:layout_height="match_parent"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="321dp"
+                android:background="@color/colorPrimary"
+                >
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="600dp"
+                android:orientation="vertical"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="128dp"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/textView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/zf_yinlian"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="13sp"
+                            android:layout_marginTop="5dp"
+                            android:layout_below="@+id/imageView"
+                            android:layout_centerHorizontal="true" />
+
+                        <ImageView
+                            android:id="@+id/imageView"
+                            android:layout_width="58dp"
+                            android:layout_height="58dp"
+                            android:scaleType="center"
+                            android:layout_marginTop="20dp"
+                            app:srcCompat="@drawable/sy_ylzf"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/textView1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/zf_saoma"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="13sp"
+                            android:layout_marginTop="5dp"
+                            android:layout_below="@+id/imageView1"
+                            android:layout_centerHorizontal="true" />
+
+                        <ImageView
+                            android:id="@+id/imageView1"
+                            android:layout_width="58dp"
+                            android:layout_height="58dp"
+                            android:scaleType="center"
+                            android:layout_marginTop="20dp"
+                            app:srcCompat="@drawable/sy_smzf"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/sy_tixian"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="13sp"
+                            android:layout_marginTop="5dp"
+                            android:layout_below="@+id/imageView2"
+                            android:layout_centerHorizontal="true" />
+
+                        <ImageView
+                            android:id="@+id/imageView2"
+                            android:layout_width="58dp"
+                            android:layout_height="58dp"
+                            android:scaleType="center"
+                            android:layout_marginTop="20dp"
+                            app:srcCompat="@drawable/sy_tx"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <com.jude.rollviewpager.RollPagerView
+                    android:id="@+id/mRollPagerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="116dp"
+                    android:background="@color/windowbackcolor"
+                    app:rollviewpager_play_delay="3000"></com.jude.rollviewpager.RollPagerView>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
+
+                    <com.shidai.yunshang.view.widget.PicTextView45_
+                        android:id="@+id/picText5"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="15dp"
+                        >
+                    </com.shidai.yunshang.view.widget.PicTextView45_>
+
+                    <com.shidai.yunshang.view.widget.PicTextView45_
+                        android:id="@+id/picText6"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        >
+                    </com.shidai.yunshang.view.widget.PicTextView45_>
+
+                    <com.shidai.yunshang.view.widget.PicTextView45_
+                        android:id="@+id/picText7"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        >
+                    </com.shidai.yunshang.view.widget.PicTextView45_>
+
+                    <com.shidai.yunshang.view.widget.PicTextView45_
+                        android:id="@+id/picText8"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_marginRight="15dp"
+                        >
+                    </com.shidai.yunshang.view.widget.PicTextView45_>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="130dp"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="6dp"
+                    android:background="@color/white">
+
+
+                    <com.shidai.yunshang.view.widget.PicTextView45_
+                        android:id="@+id/picText1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="15dp"
+                        >
+                    </com.shidai.yunshang.view.widget.PicTextView45_>
+
+                    <com.shidai.yunshang.view.widget.PicTextView45_
+                        android:id="@+id/picText2"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        >
+                    </com.shidai.yunshang.view.widget.PicTextView45_>
+
+                    <com.shidai.yunshang.view.widget.PicTextView45_
+                        android:id="@+id/picText3"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        >
+                    </com.shidai.yunshang.view.widget.PicTextView45_>
+
+                    <com.shidai.yunshang.view.widget.PicTextView45_
+                        android:id="@+id/picText4"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_marginRight="15dp"
+                        >
+                    </com.shidai.yunshang.view.widget.PicTextView45_>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="82dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@color/colorPrimary"/>
+            </LinearLayout>
 
         </RelativeLayout>
 

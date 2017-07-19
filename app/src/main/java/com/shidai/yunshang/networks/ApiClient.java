@@ -8,6 +8,8 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
+import com.shidai.yunshang.managers.ZZCService;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
@@ -25,7 +27,7 @@ import rx.Subscription;
  **/
 public class ApiClient {
     /* 测试URL */
-    public static final String BASE_URL_TEST = "http://47.89.48.28:5001/";
+    public static final String BASE_URL_TEST = "http://47.89.48.28:6001/";
     /* 超时时间*/
     private static final int DEFAULT_TIMEOUT = 5;
 

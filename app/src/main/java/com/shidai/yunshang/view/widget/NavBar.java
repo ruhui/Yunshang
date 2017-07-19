@@ -73,8 +73,6 @@ public class NavBar extends Toolbar {
         txtLeftView.setText(leftText);
     }
 
-
-
     public void setRightTxt(String str) {
         ivMenuRightTxt.setText(str);
     }
@@ -100,6 +98,13 @@ public class NavBar extends Toolbar {
 
     @Override
     public void setTitle(@StringRes int titleRes) {
+        if (titleRes <= 0) {
+            return;
+        }
+        mTitleTextView.setText(titleRes);
+    }
+
+    public void setMiddleText(@StringRes int titleRes){
         if (titleRes <= 0) {
             return;
         }

@@ -1,5 +1,6 @@
-package com.shidai.yunshang.networks;
+package com.shidai.yunshang.managers;
 
+import com.shidai.yunshang.networks.ResponseParent;
 import com.shidai.yunshang.networks.requests.LoginRequest;
 import com.shidai.yunshang.networks.responses.LoginResponse;
 

@@ -12,6 +12,10 @@ import android.widget.TextView;
 import com.shidai.yunshang.R;
 import com.shidai.yunshang.activities.base.BaseActivity;
 import com.shidai.yunshang.fragments.HomeFragment_;
+import com.shidai.yunshang.intefaces.ResponseResultListener;
+import com.shidai.yunshang.managers.UserManager;
+import com.shidai.yunshang.networks.PosetSubscriber;
+import com.shidai.yunshang.networks.responses.LoginResponse;
 import com.shidai.yunshang.view.widget.NoScrollViewPager;
 import com.viewpagerindicator.IconPagerAdapter;
 
@@ -21,6 +25,8 @@ import org.androidannotations.annotations.ViewById;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
+
+import rx.Subscriber;
 
 @EActivity(R.layout.activity_main)
 public class MainActivity extends BaseActivity {
@@ -34,7 +40,13 @@ public class MainActivity extends BaseActivity {
 
     @AfterViews
     void initView(){
+        userLogin();
         setup();
+    }
+
+    private void userLogin() {
+        Subscriber subscriber = new PosetSubscriber<LoginResponse>().getSubscriber(callback_login);
+        UserManager.login("18965209824", "111111", subscriber);
     }
 
     private void setup() {
@@ -43,16 +55,16 @@ public class MainActivity extends BaseActivity {
         TabInfo homeTabInfo = new TabInfo(HomeFragment_.builder().build(), R.drawable.tab_home, R.string.tab_home);
         infos.add(homeTabInfo);
 
-        TabInfo preheatTabInfo = new TabInfo(HomeFragment_.builder().build(), R.drawable.tab_home, R.string.tab_wallet);
+        TabInfo preheatTabInfo = new TabInfo(HomeFragment_.builder().build(), R.drawable.tab_wallet, R.string.tab_wallet);
         infos.add(preheatTabInfo);
 
-        TabInfo shopingTabInfo = new TabInfo(HomeFragment_.builder().build(), R.drawable.tab_home, R.string.tab_share);
+        TabInfo shopingTabInfo = new TabInfo(HomeFragment_.builder().build(), R.drawable.tab_share, R.string.tab_share);
         infos.add(shopingTabInfo);
 
-        TabInfo mineTabInfo = new TabInfo(HomeFragment_.builder().build(), R.drawable.tab_home, R.string.tab_profit);
+        TabInfo mineTabInfo = new TabInfo(HomeFragment_.builder().build(), R.drawable.tab_profit, R.string.tab_profit);
         infos.add(mineTabInfo);
 
-        TabInfo mineTabInfos = new TabInfo(HomeFragment_.builder().build(), R.drawable.tab_home, R.string.tab_mine);
+        TabInfo mineTabInfos = new TabInfo(HomeFragment_.builder().build(), R.drawable.tab_mine, R.string.tab_mine);
         infos.add(mineTabInfos);
 
         TabFragmentAdapter adapter = new TabFragmentAdapter(infos);
@@ -144,4 +156,17 @@ public class MainActivity extends BaseActivity {
     public void setPageCurturPage(int page){
         mPager.setCurrentItem(page);
     }
+
+
+    ResponseResultListener callback_login = new ResponseResultListener() {
+        @Override
+        public void success(Object returnMsg) {
+
+        }
+
+        @Override
+        public void fialed(String resCode, String message) {
+
+        }
+    };
 }

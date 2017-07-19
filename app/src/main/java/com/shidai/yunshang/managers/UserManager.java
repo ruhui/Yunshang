@@ -23,7 +23,7 @@ public class UserManager {
     /**
      * 众众车登录接口
      */
-    public static void loginzzc(String teltphone, String password, Subscriber<ResponseParent<LoginResponse>> subscriber){
+    public static void login(String teltphone, String password, Subscriber<ResponseParent<LoginResponse>> subscriber){
         LoginRequest loginResult = new LoginRequest(teltphone,password);
 
         ZZCHeaders zzcHeaders = new ZZCHeaders(loginResult);
