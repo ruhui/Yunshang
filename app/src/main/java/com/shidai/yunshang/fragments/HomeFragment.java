@@ -1,11 +1,15 @@
 package com.shidai.yunshang.fragments;
 
+import android.os.Bundle;
+import android.widget.RelativeLayout;
+
 import com.shidai.yunshang.R;
 import com.shidai.yunshang.fragments.base.BaseFragment;
 import com.shidai.yunshang.view.widget.NavBar;
 import com.shidai.yunshang.view.widget.PicTextView45;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
@@ -38,7 +42,6 @@ public class HomeFragment extends BaseFragment {
     @ViewById(R.id.picText8)
     PicTextView45 picText8;
 
-
     @AfterViews
     void initView(){
         mNavbar.setMiddleText(R.string.home_tabtitle);
@@ -51,5 +54,35 @@ public class HomeFragment extends BaseFragment {
         picText6.setTextView(R.string.home_sy_syph);picText6.setImageResource(R.drawable.sy_syph);
         picText7.setTextView(R.string.home_sy_wdkf);picText7.setImageResource(R.drawable.sy_wdkf);
         picText8.setTextView(R.string.home_sy_gd);picText8.setImageResource(R.drawable.sy_gd);
+    }
+
+    /*银联支付*/
+    @Click(R.id.relaYinlian)
+    void payYinlian(){
+        InputMoneyFragment fragment = InputMoneyFragment_.builder().build();
+        Bundle bundle = new Bundle();
+        bundle.putString("navbarTitle", "银联支付");
+        fragment.setArguments(bundle);
+        showFragment(getActivity(), fragment);
+    }
+
+    /*扫码*/
+    @Click(R.id.relaSaoma)
+    void paySaoma(){
+        InputMoneyFragment fragment = InputMoneyFragment_.builder().build();
+        Bundle bundle = new Bundle();
+        bundle.putString("navbarTitle", "扫码支付");
+        fragment.setArguments(bundle);
+        showFragment(getActivity(), fragment);
+    }
+
+    /*提现*/
+    @Click(R.id.relaTixian)
+    void payTixian(){
+        InputMoneyFragment fragment = InputMoneyFragment_.builder().build();
+        Bundle bundle = new Bundle();
+        bundle.putString("navbarTitle", "提现");
+        fragment.setArguments(bundle);
+        showFragment(getActivity(), fragment);
     }
 }

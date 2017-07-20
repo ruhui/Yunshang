@@ -489,4 +489,44 @@ public class Tool {
         }
         return dest;
     }
+
+
+    /**
+     * 输入金额界面
+     * @param money 输入的金额
+     * @param str 输入的字符
+     * @return
+     */
+    public static String formatInputPrice(String money, String str){
+        if (str.equals(".")){
+            if (!money.contains(".")){
+                //没有小数点
+                money += str;
+            }
+        }else if (str.equals("sc")){
+            //删除
+            if (Double.valueOf(money) == 0){
+                money = "0";
+            }else if (money.indexOf(".") == money.length()-1){
+                if (Double.valueOf(money) == 0){
+                    money = "0";
+                }else{
+                    money = money.substring(0, money.length() - 2);
+                }
+            }else{
+                money = money.substring(0, money.length() - 1);
+            }
+        }else{
+            if (Double.valueOf(money) == 0){
+                money = str;
+            }else{
+                money += str;
+            }
+        }
+        if (Double.valueOf(money) == 0){
+            return money;
+        }
+        money = formatPrice(money);
+        return money;
+    }
 }

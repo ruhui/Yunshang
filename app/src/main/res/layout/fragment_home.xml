@@ -49,6 +49,7 @@
                     android:orientation="horizontal">
 
                     <RelativeLayout
+                        android:id="@+id/relaYinlian"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1">
@@ -78,6 +79,7 @@
                     </RelativeLayout>
 
                     <RelativeLayout
+                        android:id="@+id/relaSaoma"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1">
@@ -106,6 +108,7 @@
                     </RelativeLayout>
 
                     <RelativeLayout
+                        android:id="@+id/relaTixian"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1">
@@ -144,49 +147,6 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@color/white"
-                    android:orientation="horizontal">
-
-                    <com.shidai.yunshang.view.widget.PicTextView45_
-                        android:id="@+id/picText5"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:layout_marginLeft="15dp"
-                        >
-                    </com.shidai.yunshang.view.widget.PicTextView45_>
-
-                    <com.shidai.yunshang.view.widget.PicTextView45_
-                        android:id="@+id/picText6"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        >
-                    </com.shidai.yunshang.view.widget.PicTextView45_>
-
-                    <com.shidai.yunshang.view.widget.PicTextView45_
-                        android:id="@+id/picText7"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        >
-                    </com.shidai.yunshang.view.widget.PicTextView45_>
-
-                    <com.shidai.yunshang.view.widget.PicTextView45_
-                        android:id="@+id/picText8"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:layout_marginRight="15dp"
-                        >
-                    </com.shidai.yunshang.view.widget.PicTextView45_>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
                     android:layout_height="130dp"
                     android:orientation="horizontal"
                     android:layout_marginTop="6dp"
@@ -220,6 +180,49 @@
 
                     <com.shidai.yunshang.view.widget.PicTextView45_
                         android:id="@+id/picText4"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_marginRight="15dp"
+                        >
+                    </com.shidai.yunshang.view.widget.PicTextView45_>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
+
+                    <com.shidai.yunshang.view.widget.PicTextView45_
+                        android:id="@+id/picText5"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="15dp"
+                        >
+                    </com.shidai.yunshang.view.widget.PicTextView45_>
+
+                    <com.shidai.yunshang.view.widget.PicTextView45_
+                        android:id="@+id/picText6"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        >
+                    </com.shidai.yunshang.view.widget.PicTextView45_>
+
+                    <com.shidai.yunshang.view.widget.PicTextView45_
+                        android:id="@+id/picText7"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        >
+                    </com.shidai.yunshang.view.widget.PicTextView45_>
+
+                    <com.shidai.yunshang.view.widget.PicTextView45_
+                        android:id="@+id/picText8"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
