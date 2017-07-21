@@ -1,4 +1,4 @@
-package com.shidai.yunshang.utils;
+package com.shidai.yunshang.view.widget;
 
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;

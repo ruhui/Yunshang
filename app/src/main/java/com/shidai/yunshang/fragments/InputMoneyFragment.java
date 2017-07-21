@@ -1,6 +1,7 @@
 package com.shidai.yunshang.fragments;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
@@ -16,7 +17,7 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
 /**
- * 描述：
+ * 描述：输入金额
  * 创建作者： 黄如辉
  * 创建时间： 2017/7/20 14:26
  **/
@@ -136,6 +137,12 @@ public class InputMoneyFragment extends BaseFragment {
     /*提交，收款*/
     @Click(R.id.btnSubmit)
     void btnSubmit(){
-
+        SurePayFragment fragment = SurePayFragment_.builder().build();
+        Bundle bundle = new Bundle();
+        bundle.putString("orderId", "");
+        bundle.putString("orderType", "");
+        bundle.putString("orderMoney", Tool.formatPrice(moneyDes));
+        fragment.setArguments(bundle);
+        showFragment(getActivity(), fragment);
     }
 }

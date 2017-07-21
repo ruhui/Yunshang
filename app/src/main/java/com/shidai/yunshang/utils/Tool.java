@@ -155,9 +155,29 @@ public class Tool {
      * @return
      */
     public static String formatPrice(double number) {
+        int num = 2;
         BigDecimal b = new BigDecimal(number);
-        double f1 = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-        return f1 + "";
+        double f1 = b.setScale(num, BigDecimal.ROUND_HALF_UP).doubleValue();
+        String res = f1 + "";
+        res = res.substring(res.indexOf(".") + 1);
+        if (Integer.valueOf(res) > 9){
+            //判断位数是否为0
+            int last = Integer.valueOf(res) % 10;
+            if (last == 0){
+                res = f1 + "";
+                res = res.substring(0, res.indexOf(".") + 1);
+            }else{
+                res = f1 + "";
+            }
+        }else if (Integer.valueOf(res) <= 9 && Integer.valueOf(res) > 0){
+            //直接显示
+            res = f1 + "";
+        }else if (Integer.valueOf(res) == 0){
+            //显示整数
+            res = f1 + "";
+            res = res.substring(0, res.indexOf("."));
+        }
+        return res;
     }
 
     /**
@@ -167,13 +187,36 @@ public class Tool {
      * @return
      */
     public static String formatPrice(String number) {
+        int num = 2;
+        if (TextUtils.isEmpty(number)){
+            number = "0";
+        }
         String res;
         try {
             BigDecimal b = new BigDecimal(number);
-            res = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue() + "";
+            res = b.setScale(num, BigDecimal.ROUND_HALF_UP).doubleValue() + "";
         } catch (Exception e) {
             e.printStackTrace();
             res = number;
+        }
+        String f1 = res;
+        res = res.substring(res.indexOf(".") + 1);
+        if (Integer.valueOf(res) > 9){
+            //判断位数是否为0
+            int last = Integer.valueOf(res) % 10;
+            if (last == 0){
+                res = f1 + "";
+                res = res.substring(0, res.indexOf(".") + 1);
+            }else{
+                res = f1 + "";
+            }
+        }else if (Integer.valueOf(res) <= 9 && Integer.valueOf(res) > 0){
+            //直接显示
+            res = f1 + "";
+        }else if (Integer.valueOf(res) == 0){
+            //显示整数
+            res = f1 + "";
+            res = res.substring(0, res.indexOf("."));
         }
         return res;
     }
@@ -517,16 +560,33 @@ public class Tool {
                 money = money.substring(0, money.length() - 1);
             }
         }else{
-            if (Double.valueOf(money) == 0){
-                money = str;
+            if (money.equals("0.")){
+                if (!str.equals(".")){
+                    money += str;
+                }
             }else{
-                money += str;
+                if (Double.valueOf(money) == 0){
+                    money = str;
+                }else{
+                    money += str;
+                }
             }
         }
-        if (Double.valueOf(money) == 0){
+        if (TextUtils.isEmpty(money) || Double.valueOf(money) == 0){
+            if (money.equals("0.")){
+                if (!str.equals(".")){
+                    if (!str.equals("sc")){
+                        money += str;
+                    }else{
+                        money = "0";
+                    }
+                }
+            }else{
+                money = "0";
+            }
             return money;
         }
-        money = formatPrice(money);
+//        money = formatPrice(money);
         return money;
     }
 }
