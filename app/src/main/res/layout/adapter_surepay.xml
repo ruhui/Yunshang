@@ -31,7 +31,7 @@
             android:layout_toRightOf="@+id/imageView4"
             android:layout_toEndOf="@+id/imageView4"
             android:id="@+id/textView10"
-            android:layout_marginRight="@dimen/dp_10"
+            android:layout_marginRight="30dp"
             android:layout_marginTop="15dp"
             android:layout_marginLeft="@dimen/dp_10"
             android:textSize="12sp"
@@ -50,5 +50,17 @@
             android:textColor="@color/grey"
             android:layout_alignRight="@+id/textView10"
             android:layout_alignEnd="@+id/textView10" />
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/in"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+
     </RelativeLayout>
 </LinearLayout>

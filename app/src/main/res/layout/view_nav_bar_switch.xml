@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/activityTitleHeight"
+    android:background="@color/colorPrimary"
+   >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="47dp">
+
+        <RelativeLayout
+            android:id="@+id/relaLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/ivMenuLeft"
+                android:layout_width="42dp"
+                android:layout_height="36dp"
+                android:paddingRight="6dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/back"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+        </RelativeLayout>
+
+       <LinearLayout
+           android:layout_width="214dp"
+           android:layout_height="match_parent"
+           android:orientation="horizontal"
+           android:layout_alignParentTop="true"
+           android:layout_centerHorizontal="true">
+
+           <RelativeLayout
+               android:id="@+id/relaXinyCard"
+               android:layout_width="0dp"
+               android:layout_height="match_parent"
+               android:layout_weight="1"
+               android:layout_gravity="center"
+               >
+               <TextView
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:textSize="18sp"
+                   android:textColor="@color/white"
+                   android:text="信用卡"
+                   android:layout_alignParentTop="true"
+                   android:layout_alignParentLeft="true"
+                   android:layout_alignParentStart="true"
+                   android:gravity="center"
+                   android:layout_above="@+id/view" />
+
+               <TextView
+                   android:id="@+id/view"
+                   android:layout_width="66dp"
+                   android:layout_height="2dp"
+                   android:background="@color/line_yellow"
+                   android:layout_alignParentBottom="true"
+                   android:layout_centerHorizontal="true"
+                   android:layout_marginBottom="5dp"/>
+
+           </RelativeLayout>
+
+
+           <RelativeLayout
+               android:id="@+id/relaBlankCard"
+               android:layout_width="0dp"
+               android:layout_height="match_parent"
+               android:layout_weight="1"
+               android:layout_gravity="center"
+               >
+               <TextView
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:textSize="18sp"
+                   android:textColor="@color/white"
+                   android:text="银行卡"
+                   android:layout_alignParentTop="true"
+                   android:layout_alignParentLeft="true"
+                   android:layout_alignParentStart="true"
+                   android:gravity="center"
+                   android:layout_above="@+id/view1" />
+
+               <TextView
+                   android:id="@+id/view1"
+                   android:layout_width="66dp"
+                   android:layout_height="2dp"
+                   android:background="@color/line_yellow"
+                   android:layout_alignParentBottom="true"
+                   android:layout_centerHorizontal="true"
+                   android:layout_marginBottom="5dp"
+                   android:visibility="invisible"/>
+
+           </RelativeLayout>
+
+       </LinearLayout>
+
+    </RelativeLayout>
+
+
+
+
+</LinearLayout>

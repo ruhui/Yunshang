@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.shidai.yunshang.adapters.SurePayAdapter;
+import com.shidai.yunshang.intefaces.AdapterListener;
 import com.shidai.yunshang.models.SuerPayModel;
 import com.shidai.yunshang.R;
 import com.shidai.yunshang.fragments.base.BaseFragment;
@@ -51,7 +52,15 @@ public class SurePayFragment extends BaseFragment{
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mNavbar.setTitle("确认支付");
+        orderId = getArguments().getString("orderId");
+        orderType = getArguments().getString("orderType");
+        orderMoney = getArguments().getString("orderMoney");
+    }
+
+    @AfterViews
+    void initView(){
+
+        mNavbar.setBarTitle("确认支付");
         mNavbar.setOnMenuClickListener(new NavBarBack.OnMenuClickListener() {
             @Override
             public void onLeftMenuClick(View view) {
@@ -60,13 +69,6 @@ public class SurePayFragment extends BaseFragment{
             }
         });
 
-        orderId = getArguments().getString("orderId");
-        orderType = getArguments().getString("orderType");
-        orderMoney = getArguments().getString("orderMoney");
-    }
-
-    @AfterViews
-    void initView(){
         initData();
 
         txtOrderId.setText(orderId);
@@ -76,7 +78,7 @@ public class SurePayFragment extends BaseFragment{
         FullyLinearLayoutManager manager = new FullyLinearLayoutManager(getActivity());
         manager.setSmoothScrollbarEnabled(true);
         mRecycleView.setLayoutManager(manager);
-        mRecycleView.setAdapter(adapter_surepay = new SurePayAdapter());
+        mRecycleView.setAdapter(adapter_surepay = new SurePayAdapter(adapterListener));
         adapter_surepay.addAll(listModel);
     }
 
@@ -86,4 +88,12 @@ public class SurePayFragment extends BaseFragment{
             listModel.add(model);
         }
     }
+
+
+    AdapterListener adapterListener = new AdapterListener<SuerPayModel>() {
+        @Override
+        public void setItemClickListener(SuerPayModel suerPayModel, int position) {
+            showFragment(getActivity(), SelectBankcardFragment_.builder().build());
+        }
+    };
 }

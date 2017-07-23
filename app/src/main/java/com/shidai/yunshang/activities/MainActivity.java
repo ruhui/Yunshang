@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.shidai.yunshang.R;
 import com.shidai.yunshang.activities.base.BaseActivity;
 import com.shidai.yunshang.fragments.HomeFragment_;
+import com.shidai.yunshang.fragments.MineFragment_;
 import com.shidai.yunshang.intefaces.ResponseResultListener;
 import com.shidai.yunshang.managers.UserManager;
 import com.shidai.yunshang.networks.PosetSubscriber;
@@ -64,7 +65,7 @@ public class MainActivity extends BaseActivity {
         TabInfo mineTabInfo = new TabInfo(HomeFragment_.builder().build(), R.drawable.tab_profit, R.string.tab_profit);
         infos.add(mineTabInfo);
 
-        TabInfo mineTabInfos = new TabInfo(HomeFragment_.builder().build(), R.drawable.tab_mine, R.string.tab_mine);
+        TabInfo mineTabInfos = new TabInfo(MineFragment_.builder().build(), R.drawable.tab_mine, R.string.tab_mine);
         infos.add(mineTabInfos);
 
         TabFragmentAdapter adapter = new TabFragmentAdapter(infos);

@@ -102,6 +102,9 @@ public class NavBarBack extends Toolbar {
         mTitleTextView.setText(titleRes);
     }
 
+    public void setBarTitle(String title) {
+        mTitleTextView.setText(title);
+    }
 
     public void setMiddleTitle(CharSequence title) {
         mTitleTextView.setText(title);

@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/windowbackcolor">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="340dp"
+                android:background="@color/colorPrimary"
+                >
+
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="106dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:background="@color/colorPrimary"
+                    android:id="@+id/relativeLayout">
+
+                    <ImageView
+                        android:id="@+id/imageView8"
+                        android:layout_width="67dp"
+                        android:layout_height="67dp"
+                        android:layout_marginLeft="22dp"
+                        android:layout_marginStart="22dp"
+                        android:layout_marginTop="10dp"
+                        app:srcCompat="@drawable/dj_yh"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="24sp"
+                        android:textColor="@color/white"
+                        android:text="name"
+                        android:layout_marginLeft="20dp"
+                        android:layout_alignTop="@+id/imageView8"
+                        android:layout_toRightOf="@+id/imageView8"
+                        android:layout_toEndOf="@+id/imageView8"
+                        android:id="@+id/textView12" />
+
+                    <ImageView
+                        android:id="@+id/imgErweima"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/wd_ewm"
+                        android:layout_marginRight="30dp"
+                        android:layout_alignTop="@+id/textView12"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true" />
+
+                    <TextView
+                        android:id="@+id/textView13"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/textView12"
+                        android:layout_alignStart="@+id/textView12"
+                        android:layout_below="@+id/textView12"
+                        android:text="帐号： 159847849855"
+                        android:layout_marginTop="7dp"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        />
+
+
+                    <ImageView
+                        android:id="@+id/imageView9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/dj_tb"
+                        android:layout_below="@+id/imageView8"
+                        android:layout_alignLeft="@+id/imageView8"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_alignStart="@+id/imageView8" />
+
+                    <TextView
+                        android:id="@+id/textView14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="授权资质:微商版"
+                        android:textSize="@dimen/sp_14"
+                        android:textColor="@color/white"
+                        android:layout_marginLeft="10dp"
+                        android:layout_alignTop="@+id/imageView9"
+                        android:layout_toRightOf="@+id/imageView9"
+                        android:layout_toEndOf="@+id/imageView9" />
+
+                    <ImageView
+                        android:id="@+id/imgjs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/wd_js"
+                        android:layout_alignBottom="@+id/textView14"
+                        android:layout_alignRight="@+id/imgErweima"
+                        android:layout_alignEnd="@+id/imgErweima" />
+
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="4dp"
+                        android:layout_below="@+id/imageView9"
+                        android:layout_alignLeft="@+id/imageView8"
+                        android:layout_alignStart="@+id/imageView8"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="25dp"
+                        android:layout_marginTop="15dp"
+                        android:progressDrawable="@drawable/progressbar_drawable"
+                        android:layout_alignParentEnd="true"
+                        android:max="100"
+                        android:progress="50"/>
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_below="@+id/relativeLayout"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true">
+
+                    <com.shidai.yunshang.view.widget.ItemView1_
+                        android:id="@+id/itemView1"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp">
+
+                    </com.shidai.yunshang.view.widget.ItemView1_>
+
+                    <com.shidai.yunshang.view.widget.ItemView1_
+                        android:id="@+id/itemView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp">
+
+                    </com.shidai.yunshang.view.widget.ItemView1_>
+
+
+                    <com.shidai.yunshang.view.widget.ItemView1_
+                        android:id="@+id/itemView3"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp">
+
+                    </com.shidai.yunshang.view.widget.ItemView1_>
+
+                    <com.shidai.yunshang.view.widget.ItemView1_
+                        android:id="@+id/itemView4"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp">
+
+                    </com.shidai.yunshang.view.widget.ItemView1_>
+
+                    <com.shidai.yunshang.view.widget.ItemView1_
+                        android:id="@+id/itemView5"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp">
+
+                    </com.shidai.yunshang.view.widget.ItemView1_>
+
+                    <com.shidai.yunshang.view.widget.ItemView1_
+                        android:id="@+id/itemView6"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp">
+
+                    </com.shidai.yunshang.view.widget.ItemView1_>
+
+                    <com.shidai.yunshang.view.widget.ItemView1_
+                        android:id="@+id/itemView7"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp">
+
+                    </com.shidai.yunshang.view.widget.ItemView1_>
+
+                    <com.shidai.yunshang.view.widget.ItemView1_
+                        android:id="@+id/itemView8"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp">
+
+                    </com.shidai.yunshang.view.widget.ItemView1_>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:background="@color/white"/>
+
+                </LinearLayout>
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+    
+</LinearLayout>
