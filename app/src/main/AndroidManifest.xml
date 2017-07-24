@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:name=".MyApplication"
@@ -15,12 +16,19 @@
 
 
         <activity android:name=".activities.MainActivity_">
+
+        </activity>
+
+        <activity android:name=".activities.LoginActivity_">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".activities.RegistActivity_"
+            android:launchMode="singleInstance"/>
     </application>
 
 </manifest>

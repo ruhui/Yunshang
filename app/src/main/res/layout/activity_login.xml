@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/windowbackcolor">
+
+
+    <com.shidai.yunshang.view.widget.NavBarBack_
+        android:id="@+id/mNavbar"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        android:gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:background="@color/colorPrimary">
+
+    </com.shidai.yunshang.view.widget.NavBarBack_>
+
+
+    <RelativeLayout
+        android:id="@+id/relaTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mNavbar"
+        android:layout_above="@+id/txtRegist">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="321dp"
+            android:background="@color/colorPrimary">
+
+        </RelativeLayout>
+        
+        <RelativeLayout
+            android:id="@+id/relaMiddle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:layout_marginTop="80dp"
+            android:background="@color/white">
+
+            <RelativeLayout
+                android:id="@+id/relaPhone"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="80dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginLeft="23dp"
+                >
+
+                <EditText
+                    android:id="@+id/edtTelphone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:textSize="24sp"
+                    android:textColor="@color/black"
+                    android:hint="请输入手机号码"
+                    android:gravity="center"
+                    android:textColorHint="#A1A6BB"
+                    />
+
+                <View
+                    android:id="@+id/line1"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/windowbackcolor"
+                    android:layout_alignParentBottom="true"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relaPwd"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginLeft="23dp"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/relaPhone"
+                >
+
+                <EditText
+                    android:id="@+id/edtPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:textSize="24sp"
+                    android:textColor="@color/black"
+                    android:hint="请输入密码"
+                    android:gravity="center"
+                    android:textColorHint="#A1A6BB"
+                    />
+
+                <View
+                    android:id="@+id/line2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/windowbackcolor"
+                    android:layout_alignParentBottom="true"/>
+            </RelativeLayout>
+
+
+            <ImageView
+                android:id="@+id/imgSelect"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@drawable/dl_jzmm"
+                android:scaleType="center"
+                android:layout_marginTop="30dp"
+                android:layout_below="@+id/relaPwd"
+                android:layout_alignLeft="@+id/relaPwd"
+                android:layout_alignStart="@+id/relaPwd" />
+
+            <TextView
+                android:id="@+id/textView21"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="记住密码"
+                android:gravity="center"
+                android:textSize="@dimen/sp_14"
+                android:textColor="@color/colorPrimary"
+                android:layout_alignTop="@+id/imgSelect"
+                android:layout_toRightOf="@+id/imgSelect"
+                android:layout_toEndOf="@+id/imgSelect"
+                android:layout_alignBottom="@+id/imgSelect" />
+
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="忘记密码？"
+                android:textSize="@dimen/sp_14"
+                android:textColor="#B6B6B6"
+                android:gravity="center"
+                android:layout_alignRight="@+id/relaPwd"
+                android:layout_alignEnd="@+id/relaPwd"
+                android:layout_alignBottom="@+id/textView21"
+                android:layout_alignTop="@+id/textView21" />
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="186dp"
+                android:layout_height="40dp"
+                android:text="登录"
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                android:background="@drawable/shape_blue_radio"
+                android:layout_below="@+id/textView21"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp" />
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/txtRegist"
+        android:layout_width="match_parent"
+        android:layout_height="83dp"
+        android:textSize="18sp"
+        android:text="免费注册"
+        android:gravity="center"
+        android:textColor="@color/colorPrimary"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+    </TextView>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:visibility="visible"
+        >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/dl_tx"
+            android:layout_gravity="center"
+            />
+    </FrameLayout>
+</RelativeLayout>

@@ -27,7 +27,7 @@ import rx.Subscription;
  **/
 public class ApiClient {
     /* 测试URL */
-    public static final String BASE_URL_TEST = "http://47.89.48.28:6001/";
+    public static final String BASE_URL_TEST = "http://47.89.48.28:5084/";
     /* 超时时间*/
     private static final int DEFAULT_TIMEOUT = 5;
 
