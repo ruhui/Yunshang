@@ -49,6 +49,7 @@
                 android:layout_marginRight="30dp">
                 
                 <EditText
+                    android:id="@+id/edtPhone"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@null"
@@ -110,15 +111,45 @@
                 android:layout_below="@+id/relaCode">
 
                 <EditText
+                    android:id="@+id/edtPassword"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@null"
                     android:hint="密码"
                     android:textColorHint="#A1A6BB"
                     android:paddingLeft="5dp"
+                    android:inputType="textPassword"
                     />
                 <View
                     android:id="@+id/line3"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/windowbackcolor"
+                    android:layout_alignParentBottom="true"/>
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/relaRePassword"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_below="@+id/relaPassword"
+                >
+
+                <EditText
+                    android:id="@+id/edtRePassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:hint="确认密码"
+                    android:textColorHint="#A1A6BB"
+                    android:paddingLeft="5dp"
+                    android:inputType="textPassword"
+                    />
+                <View
+                    android:id="@+id/line8"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/windowbackcolor"
@@ -131,9 +162,10 @@
                 android:layout_height="56dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
-                android:layout_below="@+id/relaPassword">
+                android:layout_below="@+id/relaRePassword">
 
                 <EditText
+                    android:id="@+id/edtRecommender"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@null"
@@ -180,9 +212,9 @@
                 android:textSize="18sp"
                 android:textColor="@color/white"
                 android:background="@drawable/shape_blue_radio"
-                android:layout_below="@+id/textView24"
+                android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="55dp" />
+                android:layout_marginBottom="30dp"/>
         </RelativeLayout>
 
         <TextView

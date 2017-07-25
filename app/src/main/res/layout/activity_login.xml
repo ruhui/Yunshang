@@ -59,6 +59,7 @@
                     android:hint="请输入手机号码"
                     android:gravity="center"
                     android:textColorHint="#A1A6BB"
+                    android:inputType="phone"
                     />
 
                 <View
@@ -89,6 +90,7 @@
                     android:hint="请输入密码"
                     android:gravity="center"
                     android:textColorHint="#A1A6BB"
+                    android:inputType="textPassword"
                     />
 
                 <View

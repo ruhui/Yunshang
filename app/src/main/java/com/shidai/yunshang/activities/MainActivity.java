@@ -41,13 +41,7 @@ public class MainActivity extends BaseActivity {
 
     @AfterViews
     void initView(){
-        userLogin();
         setup();
-    }
-
-    private void userLogin() {
-        Subscriber subscriber = new PosetSubscriber<LoginResponse>().getSubscriber(callback_login);
-        UserManager.login("18965209824", "111111", subscriber);
     }
 
     private void setup() {
@@ -158,16 +152,4 @@ public class MainActivity extends BaseActivity {
         mPager.setCurrentItem(page);
     }
 
-
-    ResponseResultListener callback_login = new ResponseResultListener() {
-        @Override
-        public void success(Object returnMsg) {
-
-        }
-
-        @Override
-        public void fialed(String resCode, String message) {
-
-        }
-    };
 }

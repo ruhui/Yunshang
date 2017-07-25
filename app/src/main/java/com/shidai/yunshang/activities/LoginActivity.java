@@ -1,6 +1,8 @@
 package com.shidai.yunshang.activities;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -11,6 +13,7 @@ import com.shidai.yunshang.intefaces.ResponseResultListener;
 import com.shidai.yunshang.managers.UserManager;
 import com.shidai.yunshang.networks.PosetSubscriber;
 import com.shidai.yunshang.networks.responses.LoginResponse;
+import com.shidai.yunshang.utils.SecurePreferences;
 import com.shidai.yunshang.utils.ToastUtil;
 import com.shidai.yunshang.utils.Tool;
 import com.shidai.yunshang.view.widget.NavBarBack;
@@ -41,10 +44,36 @@ public class LoginActivity extends BaseActivity {
 
     private boolean remindPassword = false;
 
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (!this.isTaskRoot()) {
+            Intent intent = getIntent();
+            if (intent != null) {
+                String action = intent.getAction();
+                if (intent.hasCategory(Intent.CATEGORY_LAUNCHER) && Intent.ACTION_MAIN.equals(action)) {
+                    finish();
+                    return;
+                }
+            }
+        }
+    }
+
     @AfterViews
     void initView(){
         mNavbar.setDisplayLeftMenu(false);
         mNavbar.setMiddleTitle("登录");
+
+        remindPassword = SecurePreferences.getInstance().getBoolean("REMINDPASSWORD", false);
+        if (remindPassword){
+            String phone = SecurePreferences.getInstance().getString("USERMOBILE", "");
+            String userpassword = SecurePreferences.getInstance().getString("USERPASSWORD", "");
+            edtTelphone.setText(phone);
+            edtPassword.setText(userpassword);
+            imgSelect.setImageResource(R.drawable.dl_jzmm_xz);
+        }else{
+            imgSelect.setImageResource(R.drawable.dl_jzmm);
+        }
     }
 
     /*注册*/
@@ -64,6 +93,13 @@ public class LoginActivity extends BaseActivity {
             remindPassword = true;
             imgSelect.setImageResource(R.drawable.dl_jzmm_xz);
         }
+    }
+
+    /*忘记密码*/
+    @Click(R.id.textView22)
+    void forgetPassword(){
+        Intent intent = new Intent(LoginActivity.this, ForgetPwdActivity_.class);
+        startActivity(intent);
     }
 
     /*登录*/
@@ -92,6 +128,24 @@ public class LoginActivity extends BaseActivity {
         @Override
         public void success(LoginResponse returnMsg) {
             closeProgress();
+            ToastUtil.showToast("登录成功");
+            SecurePreferences.getInstance().edit().putString("Authorization", returnMsg.getAccess_token()).commit();
+            SecurePreferences.getInstance().edit().putString("EXPIRESDATE", returnMsg.getExpires_date()).commit();
+            if (remindPassword){
+                String phonenum = edtTelphone.getText().toString();
+                String password = edtPassword.getText().toString();
+                SecurePreferences.getInstance().edit().putString("USERMOBILE", phonenum).commit();
+                SecurePreferences.getInstance().edit().putString("USERPASSWORD", password).commit();
+                SecurePreferences.getInstance().edit().putBoolean("REMINDPASSWORD", true).commit();
+            }else{
+                SecurePreferences.getInstance().edit().putString("USERMOBILE", "").commit();
+                SecurePreferences.getInstance().edit().putString("USERPASSWORD", "").commit();
+                SecurePreferences.getInstance().edit().putBoolean("REMINDPASSWORD", false).commit();
+            }
+
+            Intent intent = new Intent(LoginActivity.this, MainActivity_.class);
+            startActivity(intent);
+            finish();
         }
 
         @Override
