@@ -16,8 +16,12 @@ public class UsermsgResponse {
     private String auth_status_name;
     private String grade_name;
     private int parent_id;
+    private int grade_count;
+    private int grade_id;
 
-    public UsermsgResponse(String qrcode, String recommender, int id, int auth_status, String mobile, String name, String photo, String auth_status_name, String grade_name, int parent_id) {
+    public UsermsgResponse(String qrcode, String recommender, int id, int auth_status,
+                           String mobile, String name, String photo, String auth_status_name,
+                           String grade_name, int parent_id, int grade_count, int grade_id) {
         this.qrcode = qrcode;
         this.recommender = recommender;
         this.id = id;
@@ -28,6 +32,24 @@ public class UsermsgResponse {
         this.auth_status_name = auth_status_name;
         this.grade_name = grade_name;
         this.parent_id = parent_id;
+        this.grade_count = grade_count;
+        this.grade_id = grade_id;
+    }
+
+    public int getGrade_count() {
+        return grade_count;
+    }
+
+    public void setGrade_count(int grade_count) {
+        this.grade_count = grade_count;
+    }
+
+    public int getGrade_id() {
+        return grade_id;
+    }
+
+    public void setGrade_id(int grade_id) {
+        this.grade_id = grade_id;
     }
 
     public String getQrcode() {

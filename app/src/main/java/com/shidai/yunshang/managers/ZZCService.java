@@ -4,10 +4,11 @@ import com.shidai.yunshang.networks.ResponseParent;
 import com.shidai.yunshang.networks.requests.LoginRequest;
 import com.shidai.yunshang.networks.requests.RegistRequest;
 import com.shidai.yunshang.networks.requests.SendRegsmsRequest;
+import com.shidai.yunshang.networks.responses.BulletinResponse;
 import com.shidai.yunshang.networks.responses.LoginResponse;
 import com.shidai.yunshang.networks.responses.RegistResponse;
+import com.shidai.yunshang.networks.responses.SystemResponse;
 import com.shidai.yunshang.networks.responses.UsermsgResponse;
-
 import java.util.Map;
 
 import retrofit2.http.Body;
@@ -38,4 +39,13 @@ public interface ZZCService {
     /*获取我的资料*/
     @GET("account/user")
     Observable<ResponseParent<UsermsgResponse>> getusermsg(@QueryMap  Map<String, String> hashMap, @HeaderMap Map<String, String> header);
+
+    /*公告总数和第一条*/
+    @GET("msg/bulletin")
+    Observable<ResponseParent<BulletinResponse>> getbulletin(@QueryMap  Map<String, String> hashMap, @HeaderMap Map<String, String> header);
+
+    /*系统消息*/
+    @GET("msg/system")
+    Observable<ResponseParent<SystemResponse>> getsystemmsg(@QueryMap  Map<String, String> hashMap, @HeaderMap Map<String, String> header);
+
 }

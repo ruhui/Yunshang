@@ -7,8 +7,10 @@ import com.shidai.yunshang.networks.ZZCHeaders;
 import com.shidai.yunshang.networks.requests.LoginRequest;
 import com.shidai.yunshang.networks.requests.RegistRequest;
 import com.shidai.yunshang.networks.requests.SendRegsmsRequest;
+import com.shidai.yunshang.networks.responses.BulletinResponse;
 import com.shidai.yunshang.networks.responses.LoginResponse;
 import com.shidai.yunshang.networks.responses.RegistResponse;
+import com.shidai.yunshang.networks.responses.SystemResponse;
 import com.shidai.yunshang.networks.responses.UsermsgResponse;
 import com.shidai.yunshang.utils.SecurePreferences;
 
@@ -16,7 +18,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import rx.Subscriber;
-import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -83,6 +84,40 @@ public class UserManager {
 
         ZZCHeaders zzcHeaders = new ZZCHeaders(Authorization, hashmap);
         ApiClient.getApiService().getusermsg(hashmap, zzcHeaders.getHashMap())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 公告总数和第一条
+     * @param subscriber
+     */
+    public static void getBulletin(Subscriber<ResponseParent<BulletinResponse>> subscriber) {
+        String Authorization = SecurePreferences.getInstance().getString("Authorization", "");
+        Map<String, String> hashmap = new HashMap<>();
+
+        ZZCHeaders zzcHeaders = new ZZCHeaders(Authorization, hashmap);
+        ApiClient.getApiService().getbulletin(hashmap, zzcHeaders.getHashMap())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 系统消息
+     * @param subscriber
+     */
+    public static void getsystemmsg(int curturnpage, Subscriber<ResponseParent<SystemResponse>> subscriber) {
+        String Authorization = SecurePreferences.getInstance().getString("Authorization", "");
+        Map<String, String> hashmap = new HashMap<>();
+        hashmap.put("page", String.valueOf(curturnpage));
+        hashmap.put("size", "10");
+
+        ZZCHeaders zzcHeaders = new ZZCHeaders(Authorization, hashmap);
+        ApiClient.getApiService().getsystemmsg(hashmap, zzcHeaders.getHashMap())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

@@ -42,13 +42,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/imageView12"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
             android:layout_toEndOf="@+id/imageView12"
             android:layout_toRightOf="@+id/imageView12"
-            android:text="TextView"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="10dp"
+            android:text="平台公告"
             android:textColor="@color/black"
-            android:textSize="18sp"/>
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/textView19"
@@ -57,10 +57,10 @@
             android:layout_alignLeft="@+id/textView18"
             android:layout_alignStart="@+id/textView18"
             android:layout_below="@+id/textView18"
-            android:text="TextView"
-            android:textSize="12sp"
             android:layout_marginTop="3dp"
-            android:textColor="#858585"/>
+            android:text="TextView"
+            android:textColor="#858585"
+            android:textSize="12sp" />
 
         <ImageView
             android:id="@+id/imageView13"
@@ -69,31 +69,31 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            app:srcCompat="@drawable/in"
-            android:layout_marginRight="20dp"/>
+            android:layout_marginRight="20dp"
+            app:srcCompat="@drawable/in" />
 
         <TextView
             android:id="@+id/textView20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
             android:layout_toLeftOf="@+id/imageView13"
             android:layout_toStartOf="@+id/imageView13"
-            android:text="20"
-            android:padding="5dp"
-            android:textSize="11sp"
             android:background="@drawable/shape_cicle"
+            android:padding="5dp"
+            android:text=""
             android:textColor="@color/white"
-            android:layout_marginRight="15dp"/>
+            android:textSize="11sp" />
     </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/mRecycleView"
+    <com.shidai.yunshang.view.widget.pullview.PullRecyclerView_
+        android:id="@+id/pull_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:divider="@color/color_999999"
         android:layout_marginTop="10dp"
         android:layout_marginRight="6dp"
-        android:layout_marginLeft="6dp">
+        android:layout_marginLeft="6dp"/>
 
-    </android.support.v7.widget.RecyclerView>
 </LinearLayout>

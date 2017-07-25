@@ -2,6 +2,7 @@ package com.shidai.yunshang.fragments;
 
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.shidai.yunshang.R;
@@ -63,6 +64,9 @@ public class MineFragment extends BaseFragment implements MyscrollerView.Scrolle
     /*等级*/
     @ViewById(R.id.textView14)
     TextView txtGride;
+    @ViewById(R.id.progressBar)
+    ProgressBar progressBar;
+
 
     @AfterViews
     void initView(){
@@ -137,6 +141,9 @@ public class MineFragment extends BaseFragment implements MyscrollerView.Scrolle
             txtPhone.setText("账号："+returnMsg.getMobile());
             txtGride.setText("授权资质:" +returnMsg.getGrade_name());
             itemView1.setRightTxt(returnMsg.getRecommender());
+
+            progressBar.setMax(returnMsg.getGrade_count());
+            progressBar.setProgress(returnMsg.getGrade_id());
         }
 
         @Override

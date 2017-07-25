@@ -28,6 +28,7 @@ public class LoadMoreDefaultFooterView extends RelativeLayout implements LoadMor
     private void setupViews() {
         LayoutInflater.from(getContext()).inflate(R.layout.views_load_more_default_footer, this);
         mTextView = (TextView) findViewById(R.id.cube_views_load_more_default_footer_text_view);
+        mTextView.setTextColor(getResources().getColor(R.color.color_C8C7C7));
     }
 
     @Override
