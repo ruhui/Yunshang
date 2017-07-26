@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.shidai.yunshang.view.widget.NavBarBack_
+        android:id="@+id/mNavbar"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        android:gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:background="@color/colorPrimary">
+
+    </com.shidai.yunshang.view.widget.NavBarBack_>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="321dp"
+                android:background="@color/colorPrimary"
+                >
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="570dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:layout_marginTop="15dp"
+                android:orientation="vertical"
+                android:background="@color/white"
+                android:gravity="center">
+
+                <com.shidai.yunshang.view.widget.ItemView2_
+                    android:id="@+id/itemView1"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginTop="5dp">
+
+                </com.shidai.yunshang.view.widget.ItemView2_>
+
+                <com.shidai.yunshang.view.widget.ItemView2_
+                    android:id="@+id/itemView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp">
+
+                </com.shidai.yunshang.view.widget.ItemView2_>
+
+                <com.shidai.yunshang.view.widget.ItemView2_
+                    android:id="@+id/itemView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp">
+
+                </com.shidai.yunshang.view.widget.ItemView2_>
+
+                <com.shidai.yunshang.view.widget.ItemView2_
+                    android:id="@+id/itemView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp">
+
+                </com.shidai.yunshang.view.widget.ItemView2_>
+
+                <com.shidai.yunshang.view.widget.ItemView2_
+                    android:id="@+id/itemView5"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp">
+
+                </com.shidai.yunshang.view.widget.ItemView2_>
+
+                <com.shidai.yunshang.view.widget.ItemView2_
+                    android:id="@+id/itemView6"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp">
+
+                </com.shidai.yunshang.view.widget.ItemView2_>
+
+                <com.shidai.yunshang.view.widget.ItemView2_
+                    android:id="@+id/itemView7"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp">
+
+                </com.shidai.yunshang.view.widget.ItemView2_>
+
+                <RelativeLayout
+                    android:id="@+id/relaCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_below="@+id/relaPhone">
+
+                    <TextView
+                        android:id="@+id/textView23"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="获取验证码"
+                        android:gravity="center|right"
+                        android:textSize="18sp"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_alignParentTop="true"
+                        android:layout_toRightOf="@+id/editText"
+                        android:layout_toEndOf="@+id/editText" />
+
+                    <EditText
+                        android:layout_width="190dp"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:hint="验证码"
+                        android:textColorHint="#A1A6BB"
+                        android:paddingLeft="5dp"
+                        android:id="@+id/editText" />
+                    <View
+                        android:id="@+id/line2"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/windowbackcolor"
+                        android:layout_alignParentBottom="true"/>
+                </RelativeLayout>
+
+                <Button
+                    android:id="@+id/button2"
+                    android:layout_width="186dp"
+                    android:layout_height="40dp"
+                    android:text="提交"
+                    android:textSize="18sp"
+                    android:layout_marginTop="25dp"
+                    android:textColor="@color/white"
+                    android:background="@drawable/shape_blue_radio"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="30dp"/>
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+</LinearLayout>

@@ -205,4 +205,13 @@ public class RegistActivity extends BaseActivity {
             closeProgress();
         }
     };
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (myCount !=null){
+            myCount.onFinish();
+            myCount.cancel();
+        }
+    }
 }

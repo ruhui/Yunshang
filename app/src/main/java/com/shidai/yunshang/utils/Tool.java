@@ -13,6 +13,7 @@ import android.view.inputmethod.InputMethodManager;
 import com.google.gson.Gson;
 import com.shidai.yunshang.MyApplication;
 import com.shidai.yunshang.constants.Constant;
+import com.shidai.yunshang.models.IDCardBackModel;
 
 import java.io.File;
 import java.math.BigDecimal;
@@ -589,4 +590,26 @@ public class Tool {
 //        money = formatPrice(money);
         return money;
     }
+
+
+    /**
+     * 比较真实完整的判断身份证号码的工具
+     *
+     * @param IdCard 用户输入的身份证号码
+     * @return [true符合规范, false不符合规范]
+     */
+    public static IDCardBackModel isRealIDCard(String IdCard) {
+        IDCardBackModel model;
+        IdCardUtil idCardUtil = new IdCardUtil(IdCard);
+        if (IdCard != null) {
+            int correct = idCardUtil.isCorrect();
+            if (0 == correct) {// 符合规范
+                model = new IDCardBackModel(true, "");
+                return model;
+            }
+        }
+        model = new IDCardBackModel(false, idCardUtil.getErrMsg());
+        return model;
+    }
+
 }

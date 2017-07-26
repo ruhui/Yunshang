@@ -173,6 +173,7 @@ public class MyBankCardFragment extends BaseFragment {
         public void addBankListener(int bankType) {
             if (bankType == 0){
                 //信用卡
+                showFragment(getActivity(), BindCreditFragment_.builder().build());
             }else{
                 //银行卡
             }
