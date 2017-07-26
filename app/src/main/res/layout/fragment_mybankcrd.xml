@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:ptr="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,42 +18,24 @@
 
     </com.shidai.yunshang.view.widget.NavBarSwitch_>
 
-
-    <ScrollView
+    <com.shidai.yunshang.view.pulltorefresh.PullToRefreshScrollView
+        android:id="@+id/pullToRefreshScrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        ptr:ptrAnimationStyle="flip"
+        ptr:ptrMode="both"
+        android:scrollbars="none"
+        android:fillViewport="true"
+        >
 
-        <LinearLayout
+        <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
+            android:id="@+id/mSwipeMenuRecycleView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/mRecycleView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="6dp"
-                android:layout_marginRight="6dp"
-                android:layout_marginTop="15dp"
-                android:overScrollMode="never">
+        </com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView>
 
-            </android.support.v7.widget.RecyclerView>
+    </com.shidai.yunshang.view.pulltorefresh.PullToRefreshScrollView>
 
-            <TextView
-                android:id="@+id/txtAddCard"
-                android:layout_width="match_parent"
-                android:layout_height="64dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginRight="28dp"
-                android:layout_marginLeft="28dp"
-                android:textSize="18sp"
-                android:backgroundTint="@color/white"
-                android:textColor="@color/colorPrimary"
-                android:text="+ 添加另一张银行卡"
-                android:background="@drawable/line_ditted"
-                android:gravity="center"
-                android:layout_marginBottom="15dp"/>
-        </LinearLayout>
-    </ScrollView>
 
 </LinearLayout>

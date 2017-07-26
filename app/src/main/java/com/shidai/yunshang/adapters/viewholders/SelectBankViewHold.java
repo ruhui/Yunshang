@@ -8,7 +8,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.shidai.yunshang.R;
-import com.shidai.yunshang.models.SelectBankCardModel;
 
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
@@ -23,8 +22,8 @@ public class SelectBankViewHold extends LinearLayout {
 
     @ViewById(R.id.txtCardNum)
     TextView txtCardNum;
-    @ViewById(R.id.imageView6)
-    ImageView imgCardIcon;
+//    @ViewById(R.id.imageView6)
+//    ImageView imgCardIcon;
 
 
     public SelectBankViewHold(Context context) {
@@ -35,7 +34,4 @@ public class SelectBankViewHold extends LinearLayout {
         super(context, attrs);
     }
 
-    public void bind(SelectBankCardModel model){
-        txtCardNum.setText(model.getCardNum());
-    }
 }

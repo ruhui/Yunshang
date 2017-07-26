@@ -1,9 +1,11 @@
 package com.shidai.yunshang.managers;
 
 import com.shidai.yunshang.networks.ResponseParent;
+import com.shidai.yunshang.networks.requests.BandDeleteRequest;
 import com.shidai.yunshang.networks.requests.LoginRequest;
 import com.shidai.yunshang.networks.requests.RegistRequest;
 import com.shidai.yunshang.networks.requests.SendRegsmsRequest;
+import com.shidai.yunshang.networks.responses.BankmsgResponse;
 import com.shidai.yunshang.networks.responses.BulletinResponse;
 import com.shidai.yunshang.networks.responses.LoginResponse;
 import com.shidai.yunshang.networks.responses.RegistResponse;
@@ -47,5 +49,15 @@ public interface ZZCService {
     /*系统消息*/
     @GET("msg/system")
     Observable<ResponseParent<SystemResponse>> getsystemmsg(@QueryMap  Map<String, String> hashMap, @HeaderMap Map<String, String> header);
+
+    /*获取我的银行卡信息*/
+    @GET("account/bank")
+    Observable<ResponseParent<BankmsgResponse>> getbankmsg(@QueryMap  Map<String, String> hashMap, @HeaderMap Map<String, String> header);
+
+    /*删除银行卡*/
+    @POST("account/bank_delete")
+    Observable<ResponseParent<Boolean>> bankDelete(@Body BandDeleteRequest request, @HeaderMap Map<String, String> header);
+
+
 
 }

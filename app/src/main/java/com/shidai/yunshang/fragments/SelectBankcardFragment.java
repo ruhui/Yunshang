@@ -8,7 +8,6 @@ import android.widget.TextView;
 import com.shidai.yunshang.R;
 import com.shidai.yunshang.adapters.SelectBankCardAdapter;
 import com.shidai.yunshang.fragments.base.BaseFragment;
-import com.shidai.yunshang.models.SelectBankCardModel;
 import com.shidai.yunshang.view.widget.NavBarBack;
 
 import org.androidannotations.annotations.AfterViews;
@@ -34,7 +33,7 @@ public class SelectBankcardFragment extends BaseFragment {
     TextView txtAddCard;
 
     private SelectBankCardAdapter adapter_brankcard;
-    private List<SelectBankCardModel> listmodel = new ArrayList<>();
+//    private List<SelectBankCardModel> listmodel = new ArrayList<>();
 
     @AfterViews
     void initView(){
@@ -47,12 +46,11 @@ public class SelectBankcardFragment extends BaseFragment {
             }
         });
 
-        initData();
 
         mRecycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecycleView.setAdapter(adapter_brankcard = new SelectBankCardAdapter());
-        mRecycleView.setNestedScrollingEnabled(false);
-        adapter_brankcard.addAll(listmodel);
+//        mRecycleView.setAdapter(adapter_brankcard = new SelectBankCardAdapter());
+//        mRecycleView.setNestedScrollingEnabled(false);
+//        adapter_brankcard.addAll(listmodel);
 
         /*添加银行卡*/
         txtAddCard.setOnClickListener(new View.OnClickListener() {
@@ -63,11 +61,6 @@ public class SelectBankcardFragment extends BaseFragment {
         });
     }
 
-    private void initData() {
-        for (int i = 0; i<=6; i++){
-            SelectBankCardModel model = new SelectBankCardModel("", "", "**** **** **** 5567");
-            listmodel.add(model);
-        }
-    }
+
 
 }

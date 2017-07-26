@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <TextView
+        android:id="@+id/txtAddCard"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="28dp"
+        android:layout_marginLeft="28dp"
+        android:textSize="18sp"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/colorPrimary"
+        android:text="+ 添加另一张银行卡"
+        android:background="@drawable/line_ditted"
+        android:gravity="center"
+        android:layout_marginBottom="15dp"/>
+
+</LinearLayout>

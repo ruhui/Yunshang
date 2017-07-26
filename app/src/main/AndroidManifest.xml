@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="58ef20a6cae7e7474500182a" />
 
         <activity android:name=".activities.MainActivity_"
             android:launchMode="singleTask">
@@ -34,6 +37,8 @@
             android:theme="@style/Translucent"/>
 
         <activity android:name=".activities.ForgetPwdActivity_"/>
+
+
     </application>
 
 </manifest>
