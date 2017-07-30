@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="77dp"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text=""
+            android:textColor="#FF000000"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/textView46" />
+
+        <ImageView
+            android:id="@+id/imgHead"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginLeft="@dimen/size_15"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/textView46"
+            android:layout_toEndOf="@+id/textView46" />
+
+        <TextView
+            android:layout_width="86dp"
+            android:layout_height="match_parent"
+            android:text=""
+            android:textColor="#FF000000"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:layout_marginLeft="@dimen/size_15"
+            android:layout_toRightOf="@+id/imgHead"
+            android:layout_toEndOf="@+id/imgHead"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/textView47" />
+
+
+        <RelativeLayout
+            android:id="@+id/relaTop"
+            android:layout_width="wrap_content"
+            android:layout_height="77dp"
+            android:layout_toRightOf="@+id/textView47"
+            android:layout_toEndOf="@+id/textView47"
+            android:gravity="center|right"
+            android:layout_marginLeft="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¥0"
+                android:textColor="@color/colorPrimary"
+                android:textSize="24sp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:id="@+id/textView45"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginRight="23dp"/>
+
+            <TextView
+                android:id="@+id/txtDes"
+                android:layout_width="74dp"
+                android:layout_height="14dp"
+                android:text="本月累计分润"
+                android:textColor="#FF000000"
+                android:textSize="12sp"
+                android:visibility="gone"
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/textView45"
+                android:layout_alignRight="@+id/textView45"
+                android:layout_alignEnd="@+id/textView45" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+</LinearLayout>

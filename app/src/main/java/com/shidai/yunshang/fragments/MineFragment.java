@@ -12,6 +12,7 @@ import com.shidai.yunshang.managers.UserManager;
 import com.shidai.yunshang.networks.PosetSubscriber;
 import com.shidai.yunshang.networks.responses.UsermsgResponse;
 import com.shidai.yunshang.utils.ImageLoader;
+import com.shidai.yunshang.utils.SecurePreferences;
 import com.shidai.yunshang.utils.Tool;
 import com.shidai.yunshang.view.widget.ItemView1;
 import com.shidai.yunshang.view.widget.MyscrollerView;
@@ -79,8 +80,8 @@ public class MineFragment extends BaseFragment implements MyscrollerView.Scrolle
         itemView2.setLeftIcon(R.drawable.wd_smrz);itemView2.setMiddelTxt("实名认证");
         itemView3.setLeftIcon(R.drawable.wd_yhkgl);itemView3.setMiddelTxt("银行卡管理");
         itemView4.setLeftIcon(R.drawable.wd_xxtz);itemView4.setMiddelTxt("消息通知");
-        itemView5.setLeftIcon(R.drawable.wd_dd);itemView5.setMiddelTxt("我的订单");
-        itemView6.setLeftIcon(R.drawable.wd_shdz);itemView6.setMiddelTxt("收货地址");
+        itemView5.setLeftIcon(R.drawable.wd_dd);itemView5.setMiddelTxt("我的订单");itemView5.setVisibility(View.GONE);
+        itemView6.setLeftIcon(R.drawable.wd_shdz);itemView6.setMiddelTxt("收货地址");itemView6.setVisibility(View.GONE);
         itemView7.setLeftIcon(R.drawable.wd_kf);itemView7.setMiddelTxt("QQ客服");
         itemView8.setLeftIcon(R.drawable.wd_gd);itemView8.setMiddelTxt("更多");itemView8.setLineVisiable(false);
 
@@ -99,8 +100,6 @@ public class MineFragment extends BaseFragment implements MyscrollerView.Scrolle
                 showFragment(getActivity(), MyBankCardFragment_.builder().build());
             }
         });
-
-
     }
 
 
@@ -139,11 +138,24 @@ public class MineFragment extends BaseFragment implements MyscrollerView.Scrolle
             ImageLoader.loadImage(Tool.getPicUrl(getActivity(), returnMsg.getPhoto(), 67, 67), imgHeadView, R.drawable.dj_yh);
             txtName.setText(returnMsg.getName());
             txtPhone.setText("账号："+returnMsg.getMobile());
-            txtGride.setText("授权资质:" +returnMsg.getGrade_name());
+            txtGride.setText(getResources().getString(R.string.shouquanzizhi)  +"  " + returnMsg.getGrade_name());
             itemView1.setRightTxt(returnMsg.getRecommender());
 
             progressBar.setMax(returnMsg.getGrade_count());
             progressBar.setProgress(returnMsg.getGrade_id());
+
+            SecurePreferences.getInstance().edit().putString("USERQRCODE", returnMsg.getQrcode()).commit();
+            SecurePreferences.getInstance().edit().putString("USERRRECOMMENDER", returnMsg.getRecommender()).commit();
+            SecurePreferences.getInstance().edit().putInt("USERID", returnMsg.getId()).commit();
+            SecurePreferences.getInstance().edit().putInt("USERAUTHSTATUS", returnMsg.getAuth_status()).commit();
+            SecurePreferences.getInstance().edit().putString("USERMOBILE", returnMsg.getMobile()).commit();
+            SecurePreferences.getInstance().edit().putInt("USERGRADEID", returnMsg.getGrade_id()).commit();
+            SecurePreferences.getInstance().edit().putString("USERNAME", returnMsg.getName()).commit();
+            SecurePreferences.getInstance().edit().putString("USERPHOTO", returnMsg.getPhoto()).commit();
+            SecurePreferences.getInstance().edit().putString("USERAUTHSTATUSNAME", returnMsg.getAuth_status_name()).commit();
+            SecurePreferences.getInstance().edit().putString("USERGRADENAME", returnMsg.getGrade_name()).commit();
+            SecurePreferences.getInstance().edit().putInt("USERPARENT", returnMsg.getParent_id()).commit();
+            SecurePreferences.getInstance().edit().putInt("USERGRADECOUNT", returnMsg.getGrade_count()).commit();
         }
 
         @Override

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.shidai.yunshang.view.widget.NavBarWallet_
+        android:id="@+id/mNavbar"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        android:gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:background="@color/colorPrimary">
+
+    </com.shidai.yunshang.view.widget.NavBarWallet_>
+
+    <com.shidai.yunshang.view.widget.MyScrollview
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/relaTop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mNavbar"
+            android:layout_above="@+id/txtRegist">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="321dp"
+                android:background="@color/colorPrimary">
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relaTopTop"
+                android:layout_width="match_parent"
+                android:layout_height="262dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="174dp"
+                    android:background="@color/windowbackcolor">
+                    <TextView
+                        android:id="@+id/txtMoney"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="36sp"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_marginTop="41dp"
+                        android:text="0"
+                        android:gravity="center"
+                        />
+
+                    <TextView
+                        android:id="@+id/txtDes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="当前可提现余额    "
+                        android:textColor="@color/color_999999"
+                        android:textSize="18sp"
+                        android:gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:layout_below="@+id/txtMoney"
+                        />
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="88dp"
+                    android:background="@color/white"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:gravity="center|bottom">
+
+                    <TextView
+                        android:id="@+id/txtShouKuan"
+                        android:layout_width="match_parent"
+                        android:layout_height="42dp"
+                        android:gravity="center|top"
+                        android:text="共累计收款："
+                        android:textColor="@color/color_999999"
+                        android:textSize="12sp"
+
+                        />
+
+                </RelativeLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    >
+                    <Button
+                        android:id="@+id/button2"
+                        android:layout_width="186dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:background="@drawable/shape_blue_radio"
+                        android:text="立即提现"
+                        android:layout_gravity="center|bottom"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:layout_marginBottom="68dp"/>
+                </FrameLayout>
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:layout_marginRight="6dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:layout_below="@+id/relaTopTop">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:orientation="vertical"
+                    android:id="@+id/linearLayout">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:text="结算费率"
+                        android:textColor="#FF000000"
+                        android:textSize="14sp"
+                        android:layout_marginLeft="20dp"
+                        android:paddingTop="20dp"
+                        android:layout_weight="1"
+                        />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1">
+                        <com.shidai.yunshang.view.widget.SwitchPayTypeView_
+                            android:id="@+id/mSwitchPayTypeView"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </com.shidai.yunshang.view.widget.SwitchPayTypeView_>
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/mRecycleView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/linearLayout">
+
+                </android.support.v7.widget.RecyclerView>
+            </RelativeLayout>
+        </RelativeLayout>
+    </com.shidai.yunshang.view.widget.MyScrollview>
+
+</LinearLayout>

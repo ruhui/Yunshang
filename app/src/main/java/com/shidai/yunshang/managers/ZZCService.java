@@ -6,11 +6,17 @@ import com.shidai.yunshang.networks.requests.LoginRequest;
 import com.shidai.yunshang.networks.requests.RegistRequest;
 import com.shidai.yunshang.networks.requests.SendRegsmsRequest;
 import com.shidai.yunshang.networks.responses.BankmsgResponse;
+import com.shidai.yunshang.networks.responses.BillbagResponse;
+import com.shidai.yunshang.networks.responses.BillprofitResponse;
 import com.shidai.yunshang.networks.responses.BulletinResponse;
 import com.shidai.yunshang.networks.responses.LoginResponse;
 import com.shidai.yunshang.networks.responses.RegistResponse;
+import com.shidai.yunshang.networks.responses.ShowupResponse;
+import com.shidai.yunshang.networks.responses.SortResponse;
 import com.shidai.yunshang.networks.responses.SystemResponse;
 import com.shidai.yunshang.networks.responses.UsermsgResponse;
+
+import java.util.List;
 import java.util.Map;
 
 import retrofit2.http.Body;
@@ -58,6 +64,21 @@ public interface ZZCService {
     @POST("account/bank_delete")
     Observable<ResponseParent<Boolean>> bankDelete(@Body BandDeleteRequest request, @HeaderMap Map<String, String> header);
 
+    /*钱包*/
+    @GET("account/bill_bag")
+    Observable<ResponseParent<BillbagResponse>> getBillbag(@QueryMap  Map<String, String> hashMap, @HeaderMap Map<String, String> header);
+
+    /*升级浏览等级的费率和结算*/
+    @GET("account/show_up")
+    Observable<ResponseParent<List<ShowupResponse>>> getShowup(@QueryMap  Map<String, String> hashMap, @HeaderMap Map<String, String> header);
+
+    /*收益*/
+    @GET("account/bill_profit")
+    Observable<ResponseParent<BillprofitResponse>> getBillprofit(@QueryMap  Map<String, String> hashMap, @HeaderMap Map<String, String> header);
+
+    /*排行*/
+    @GET("account/sort_er")
+    Observable<ResponseParent<List<SortResponse>>> getSorter(@QueryMap  Map<String, String> hashMap, @HeaderMap Map<String, String> header);
 
 
 }

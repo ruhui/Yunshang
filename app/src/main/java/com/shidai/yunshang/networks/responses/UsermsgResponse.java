@@ -17,7 +17,7 @@ public class UsermsgResponse {
     private String grade_name;
     private int parent_id;
     private int grade_count;
-    private int grade_id;
+    private int current_grade;
 
     public UsermsgResponse(String qrcode, String recommender, int id, int auth_status,
                            String mobile, String name, String photo, String auth_status_name,
@@ -33,7 +33,7 @@ public class UsermsgResponse {
         this.grade_name = grade_name;
         this.parent_id = parent_id;
         this.grade_count = grade_count;
-        this.grade_id = grade_id;
+        this.current_grade = grade_id;
     }
 
     public int getGrade_count() {
@@ -45,11 +45,11 @@ public class UsermsgResponse {
     }
 
     public int getGrade_id() {
-        return grade_id;
+        return current_grade;
     }
 
     public void setGrade_id(int grade_id) {
-        this.grade_id = grade_id;
+        this.current_grade = grade_id;
     }
 
     public String getQrcode() {

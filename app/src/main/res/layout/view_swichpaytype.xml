@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/relaYLPay"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+
+            <ImageView
+                android:id="@+id/imgYL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/textView31"
+                android:layout_alignTop="@+id/textView31"
+                android:src="@drawable/qb_ylzf" />
+
+            <TextView
+                android:id="@+id/textView31"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_toEndOf="@+id/imgYL"
+                android:layout_toRightOf="@+id/imgYL"
+                android:text="银联支付"
+                android:textColor="#FF000000"
+                android:textSize="14sp" />
+
+
+            <View
+                android:id="@+id/line1"
+                android:layout_width="87.5dp"
+                android:layout_height="2dp"
+                android:layout_below="@+id/textView31"
+                android:layout_marginTop="8dp"
+                android:background="#FFFFD600"
+                android:layout_alignRight="@+id/textView31"
+                android:layout_alignEnd="@+id/textView31"
+                android:layout_alignLeft="@+id/imgYL"
+                android:layout_alignStart="@+id/imgYL"
+                android:visibility="visible"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relaZFBPay"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/imgZFB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/textView32"
+                android:layout_alignTop="@+id/textView32"
+                android:src="@drawable/qb_zfb" />
+
+            <TextView
+                android:id="@+id/textView32"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_toEndOf="@+id/imgZFB"
+                android:layout_toRightOf="@+id/imgZFB"
+                android:text="支付宝"
+                android:textColor="#FF000000"
+                android:textSize="14sp" />
+
+
+            <View
+                android:id="@+id/line2"
+                android:layout_width="87.5dp"
+                android:layout_height="2dp"
+                android:layout_below="@+id/textView32"
+                android:layout_marginTop="8dp"
+                android:background="#FFFFD600"
+                android:layout_alignRight="@+id/textView32"
+                android:layout_alignEnd="@+id/textView32"
+                android:layout_alignLeft="@+id/imgZFB"
+                android:layout_alignStart="@+id/imgZFB"
+                android:visibility="invisible"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relaWXPay"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/imgWX"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/textView33"
+                android:layout_alignTop="@+id/textView33"
+                android:src="@drawable/qb_wxzf" />
+
+            <TextView
+                android:id="@+id/textView33"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_toEndOf="@+id/imgWX"
+                android:layout_toRightOf="@+id/imgWX"
+                android:text="微信支付"
+                android:textColor="#FF000000"
+                android:textSize="14sp" />
+
+
+            <View
+                android:id="@+id/line3"
+                android:layout_width="87.5dp"
+                android:layout_height="2dp"
+                android:layout_below="@+id/textView33"
+                android:layout_marginTop="8dp"
+                android:background="#FFFFD600"
+                android:layout_alignRight="@+id/textView33"
+                android:layout_alignEnd="@+id/textView33"
+                android:layout_alignLeft="@+id/imgWX"
+                android:layout_alignStart="@+id/imgWX"
+                android:visibility="invisible"/>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

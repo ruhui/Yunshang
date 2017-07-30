@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/windowbackcolor">
+
+    <com.shidai.yunshang.view.widget.NavBarWallet_
+        android:id="@+id/mNavbar"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        android:gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:background="@color/colorPrimary">
+
+    </com.shidai.yunshang.view.widget.NavBarWallet_>
+
+
+    <com.shidai.yunshang.view.widget.MyScrollview
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="260dp"
+                android:background="@color/colorPrimary">
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relaTopTop"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:layout_marginTop="@dimen/dp_10"
+                android:background="@color/windowbackcolor">
+
+                <RelativeLayout
+                    android:id="@+id/relaTop"
+                    android:layout_width="match_parent"
+                    android:layout_height="175dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="42dp"
+                        android:text="¥ 0"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="36sp"
+                        android:gravity="center"
+                        android:layout_marginTop="40dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:id="@+id/textView36" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="本日累计分润"
+                        android:textColor="@color/color_999999"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:textSize="18sp"
+                        android:gravity="center"
+                        android:layout_below="@+id/textView36"
+                        android:layout_centerHorizontal="true" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="185dp"
+                    android:background="@color/white"
+                    android:layout_below="@+id/relaTop"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:id="@+id/relativeLayout7">
+
+                    <RelativeLayout
+                        android:layout_width="100dp"
+                        android:layout_height="124dp"
+                        android:id="@+id/relativeLayout4">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="24sp"
+                            android:id="@+id/textView38"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="交易笔数"
+                            android:textColor="@color/color_999999"
+                            android:textSize="12sp"
+                            android:layout_marginTop="5dp"
+                            android:layout_below="@+id/textView38"
+                            android:layout_centerHorizontal="true" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="124dp"
+                        android:layout_alignParentTop="true"
+                        android:id="@+id/relativeLayout5"
+                        android:layout_toLeftOf="@+id/relativeLayout6"
+                        android:layout_toStartOf="@+id/relativeLayout6"
+                        android:layout_toRightOf="@+id/relativeLayout4"
+                        android:layout_toEndOf="@+id/relativeLayout4">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="¥"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="24sp"
+                            android:id="@+id/textView39"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="当日流水"
+                            android:layout_marginTop="5dp"
+                            android:textColor="@color/color_999999"
+                            android:textSize="12sp"
+                            android:layout_below="@+id/textView39"
+                            android:layout_centerHorizontal="true" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="100dp"
+                        android:layout_height="124dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:id="@+id/relativeLayout6">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="24sp"
+                            android:id="@+id/textView40"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="新增用户"
+                            android:layout_marginTop="5dp"
+                            android:textColor="@color/color_999999"
+                            android:textSize="12sp"
+                            android:layout_below="@+id/textView40"
+                            android:layout_centerHorizontal="true" />
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_below="@+id/relativeLayout5"
+                        android:layout_marginLeft="24dp"
+                        android:layout_marginRight="24dp"
+                        android:background="@color/windowbackcolor"
+                        android:id="@+id/view2" />
+
+
+                    <RelativeLayout
+                        android:id="@+id/relaPaihang"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/view2">
+
+                        <ImageView
+                            android:id="@+id/imageView16"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:srcCompat="@drawable/in"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginRight="26dp"
+                            android:layout_marginEnd="26dp" />
+
+                        <TextView
+                            android:id="@+id/textView41"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="当前排行第"
+                            android:textSize="@dimen/sp_14"
+                            android:textColor="@color/black"
+                            android:layout_centerVertical="true"
+                            android:layout_toLeftOf="@+id/imageView16"
+                            android:layout_toStartOf="@+id/imageView16"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginEnd="10dp" />
+
+                        <TextView
+                            android:id="@+id/textView37"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="查看好友排行"
+                            android:textSize="@dimen/sp_14"
+                            android:textColor="@color/black"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_marginLeft="25dp"
+                            android:layout_marginStart="25dp" />
+                    </RelativeLayout>
+                </RelativeLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="195dp"
+                    >
+
+                    <Button
+                        android:id="@+id/button2"
+                        android:layout_width="186dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/shape_blue_radio"
+                        android:text="立即结算"
+                        android:layout_gravity="center|bottom"
+                        android:textColor="@color/white"
+                        android:textSize="18sp" />
+
+                </FrameLayout>
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/mRecycleView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@+id/relativeLayout7">
+
+                </android.support.v7.widget.RecyclerView>
+
+            </RelativeLayout>
+        </RelativeLayout>
+    </com.shidai.yunshang.view.widget.MyScrollview>
+
+</LinearLayout>

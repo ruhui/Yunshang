@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="67dp">
+        
+        <ImageView
+            android:id="@+id/imgCardicon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="center"
+            android:layout_marginLeft="@dimen/dp_30"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_alignBottom="@+id/txtName"
+            android:layout_alignParentTop="true" />
+
+        <TextView
+            android:id="@+id/txtName"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:text=""
+            android:textColor="#FF000000"
+            android:textSize="14sp"
+            android:layout_marginRight="24dp"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_toEndOf="@+id/imgCardicon"
+            android:layout_toRightOf="@+id/imgCardicon" />
+
+        <TextView
+            android:id="@+id/txtContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/color_999999"
+            android:textSize="12sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="24dp"
+            android:layout_below="@+id/imgCardicon"
+            android:layout_alignLeft="@+id/imgCardicon"
+            android:layout_alignStart="@+id/imgCardicon" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#E9EBF3"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="25dp"
+        />
+
+</LinearLayout>

@@ -17,88 +17,88 @@
 
     </com.shidai.yunshang.view.widget.NavBarBack_>
 
-    
+
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <RelativeLayout
+            android:id="@+id/relativeLayout2"
             android:layout_width="match_parent"
             android:layout_height="320dp"
-            android:background="@color/colorPrimary"
-            android:id="@+id/relativeLayout2">
-            
+            android:background="@color/colorPrimary">
+
         </RelativeLayout>
-        
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/txtRegist"
             android:layout_marginLeft="6dp"
             android:layout_marginRight="6dp"
-            android:background="@color/white"
-            android:layout_marginTop="15dp">
-            
+            android:layout_marginTop="15dp"
+            android:background="@color/white">
+
             <RelativeLayout
                 android:id="@+id/relaPhone"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp">
-                
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="10dp">
+
                 <EditText
                     android:id="@+id/edtPhone"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@null"
                     android:hint="手机号"
-                    android:textColorHint="#A1A6BB"
                     android:paddingLeft="5dp"
-                    />
+                    android:textColorHint="#A1A6BB" />
+
                 <View
                     android:id="@+id/line1"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/windowbackcolor"
-                    android:layout_alignParentBottom="true"/>
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/windowbackcolor" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/relaCode"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
+                android:layout_below="@+id/relaPhone"
                 android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_below="@+id/relaPhone">
+                android:layout_marginRight="30dp">
 
                 <TextView
                     android:id="@+id/textView23"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="获取验证码"
-                    android:gravity="center"
-                    android:textSize="18sp"
-                    android:textColor="@color/colorPrimary"
                     android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@+id/editText"
                     android:layout_toRightOf="@+id/editText"
-                    android:layout_toEndOf="@+id/editText" />
+                    android:gravity="center"
+                    android:text="获取验证码"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp" />
 
                 <EditText
+                    android:id="@+id/editText"
                     android:layout_width="190dp"
                     android:layout_height="match_parent"
                     android:background="@null"
                     android:hint="验证码"
-                    android:textColorHint="#A1A6BB"
                     android:paddingLeft="5dp"
-                    android:id="@+id/editText" />
+                    android:textColorHint="#A1A6BB" />
+
                 <View
                     android:id="@+id/line2"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/windowbackcolor"
-                    android:layout_alignParentBottom="true"/>
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/windowbackcolor" />
             </RelativeLayout>
 
 
@@ -106,9 +106,9 @@
                 android:id="@+id/relaPassword"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
+                android:layout_below="@+id/relaCode"
                 android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_below="@+id/relaCode">
+                android:layout_marginRight="30dp">
 
                 <EditText
                     android:id="@+id/edtPassword"
@@ -116,16 +116,16 @@
                     android:layout_height="match_parent"
                     android:background="@null"
                     android:hint="密码"
-                    android:textColorHint="#A1A6BB"
-                    android:paddingLeft="5dp"
                     android:inputType="textPassword"
-                    />
+                    android:paddingLeft="5dp"
+                    android:textColorHint="#A1A6BB" />
+
                 <View
                     android:id="@+id/line3"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/windowbackcolor"
-                    android:layout_alignParentBottom="true"/>
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/windowbackcolor" />
             </RelativeLayout>
 
 
@@ -133,10 +133,9 @@
                 android:id="@+id/relaRePassword"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
                 android:layout_below="@+id/relaPassword"
-                >
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp">
 
                 <EditText
                     android:id="@+id/edtRePassword"
@@ -144,25 +143,25 @@
                     android:layout_height="match_parent"
                     android:background="@null"
                     android:hint="确认密码"
-                    android:textColorHint="#A1A6BB"
-                    android:paddingLeft="5dp"
                     android:inputType="textPassword"
-                    />
+                    android:paddingLeft="5dp"
+                    android:textColorHint="#A1A6BB" />
+
                 <View
                     android:id="@+id/line8"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/windowbackcolor"
-                    android:layout_alignParentBottom="true"/>
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/windowbackcolor" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/relaYaoqing"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
+                android:layout_below="@+id/relaRePassword"
                 android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_below="@+id/relaRePassword">
+                android:layout_marginRight="30dp">
 
                 <EditText
                     android:id="@+id/edtRecommender"
@@ -170,67 +169,66 @@
                     android:layout_height="match_parent"
                     android:background="@null"
                     android:hint="邀请人"
-                    android:textColorHint="#A1A6BB"
                     android:paddingLeft="5dp"
-                    />
+                    android:textColorHint="#A1A6BB" />
+
                 <View
                     android:id="@+id/line4"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/windowbackcolor"
-                    android:layout_alignParentBottom="true"/>
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/windowbackcolor" />
             </RelativeLayout>
 
             <ImageView
                 android:id="@+id/imgSelect"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
-                android:src="@drawable/dl_jzmm"
-                android:scaleType="center"
-                android:layout_below="@+id/relaYaoqing"
                 android:layout_alignLeft="@+id/relaYaoqing"
-                android:layout_alignStart="@+id/relaYaoqing" />
+                android:layout_alignStart="@+id/relaYaoqing"
+                android:layout_below="@+id/relaYaoqing"
+                android:scaleType="center"
+                android:src="@drawable/dl_jzmm" />
 
             <TextView
                 android:id="@+id/textView24"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="用户注册协议"
-                android:gravity="center"
-                android:textSize="@dimen/sp_14"
-                android:textColor="@color/colorPrimary"
+                android:layout_alignBottom="@+id/imgSelect"
                 android:layout_below="@+id/relaYaoqing"
-                android:layout_toRightOf="@+id/imgSelect"
                 android:layout_toEndOf="@+id/imgSelect"
-                android:layout_alignBottom="@+id/imgSelect" />
+                android:layout_toRightOf="@+id/imgSelect"
+                android:gravity="center"
+                android:text="用户注册协议"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/sp_14" />
 
             <Button
                 android:id="@+id/button2"
                 android:layout_width="186dp"
                 android:layout_height="40dp"
-                android:text="免费注册"
-                android:textSize="18sp"
-                android:textColor="@color/white"
-                android:background="@drawable/shape_blue_radio"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="30dp"/>
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/shape_blue_radio"
+                android:text="免费注册"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
         </RelativeLayout>
 
         <TextView
             android:id="@+id/txtRegist"
             android:layout_width="match_parent"
             android:layout_height="83dp"
-            android:textSize="18sp"
-            android:text="登录"
-            android:gravity="center"
-            android:textColor="@color/colorPrimary"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
+            android:layout_alignParentStart="true"
+            android:gravity="center"
+            android:text="登录"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp">
 
         </TextView>
-
 
 
     </RelativeLayout>

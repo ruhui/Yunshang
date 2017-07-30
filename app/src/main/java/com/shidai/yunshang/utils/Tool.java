@@ -493,10 +493,19 @@ public class Tool {
         }
         int weidth = Utils.dip2px(mContext, width);
         int height = Utils.dip2px(mContext, heigh);
+
         if (url.contains(".jpg")){
-            return Constant.PICLOOKURL + url + "_1_" + weidth + "_" + height + "_0.jpg";
+            if (url.contains("http")){
+                return url + "_1_" + weidth + "_" + height + "_0.jpg";
+            }else{
+                return Constant.PICLOOKURL + url + "_1_" + weidth + "_" + height + "_0.jpg";
+            }
         }else  if (url.contains(".png")){
-            return Constant.PICLOOKURL + url + "_1_" + weidth + "_" + height + "_0.png";
+            if (url.contains("http")){
+                return url + "_1_" + weidth + "_" + height + "_0.png";
+            }else{
+                return Constant.PICLOOKURL + url + "_1_" + weidth + "_" + height + "_0.png";
+            }
         }else{
             return "";
         }

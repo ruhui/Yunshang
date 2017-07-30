@@ -24,9 +24,9 @@ public class Constant {
     /*公钥*/
     public static final String PARTNER = "a73b4d63648bbc98670d2823eb863fba";
     /*测试时图片查看地址*/
-    public static final String PICLOOKURL = "http://47.89.48.28:5002";
+    public static final String PICLOOKURL = "http://47.89.48.28:3003";
     /*测试图片上传地址*/
-    public static final String UPLOADURL = "http://47.89.48.28:5002/upload/";
+    public static final String UPLOADURL = "http://47.89.48.28:3003/upload/";
     /*上传头像图片路径*/
     public static final String UPLOADHEADURL = UPLOADURL + "profile";
     /*上传商品图片路径*/

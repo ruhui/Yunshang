@@ -26,6 +26,18 @@ public class NavBarSwitch extends Toolbar {
     TextView view;
     @ViewById(R.id.view1)
     TextView view1;
+    @ViewById(R.id.txtRightView)
+    TextView txtRightView;
+    @ViewById(R.id.txtLeft)
+    TextView txtLeft;
+
+    public void setLeftTitle(String leftTitle){
+        txtLeft.setText(leftTitle);
+    }
+
+    public void setTxtRightView(String rightView){
+        txtRightView.setText(rightView);
+    }
 
     /*是否切换到银行卡*/
     private boolean switchBlank = false;

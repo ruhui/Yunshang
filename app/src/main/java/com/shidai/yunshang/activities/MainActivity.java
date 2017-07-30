@@ -13,6 +13,8 @@ import com.shidai.yunshang.R;
 import com.shidai.yunshang.activities.base.BaseActivity;
 import com.shidai.yunshang.fragments.HomeFragment_;
 import com.shidai.yunshang.fragments.MineFragment_;
+import com.shidai.yunshang.fragments.SharebenefitFragment_;
+import com.shidai.yunshang.fragments.WalletFragment_;
 import com.shidai.yunshang.intefaces.ResponseResultListener;
 import com.shidai.yunshang.managers.UserManager;
 import com.shidai.yunshang.networks.PosetSubscriber;
@@ -50,13 +52,13 @@ public class MainActivity extends BaseActivity {
         TabInfo homeTabInfo = new TabInfo(HomeFragment_.builder().build(), R.drawable.tab_home, R.string.tab_home);
         infos.add(homeTabInfo);
 
-        TabInfo preheatTabInfo = new TabInfo(HomeFragment_.builder().build(), R.drawable.tab_wallet, R.string.tab_wallet);
+        TabInfo preheatTabInfo = new TabInfo(WalletFragment_.builder().build(), R.drawable.tab_wallet, R.string.tab_wallet);
         infos.add(preheatTabInfo);
 
         TabInfo shopingTabInfo = new TabInfo(HomeFragment_.builder().build(), R.drawable.tab_share, R.string.tab_share);
         infos.add(shopingTabInfo);
 
-        TabInfo mineTabInfo = new TabInfo(HomeFragment_.builder().build(), R.drawable.tab_profit, R.string.tab_profit);
+        TabInfo mineTabInfo = new TabInfo(SharebenefitFragment_.builder().build(), R.drawable.tab_profit, R.string.tab_profit);
         infos.add(mineTabInfo);
 
         TabInfo mineTabInfos = new TabInfo(MineFragment_.builder().build(), R.drawable.tab_mine, R.string.tab_mine);
