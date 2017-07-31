@@ -269,6 +269,7 @@ public class BindCreditFragment extends BaseFragment {
         @Override
         public void fialed(String resCode, String message) {
             closeProgress();
+
         }
     };
 
