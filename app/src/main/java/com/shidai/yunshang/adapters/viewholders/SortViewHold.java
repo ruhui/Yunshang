@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import com.shidai.yunshang.R;
 import com.shidai.yunshang.networks.responses.SortResponse;
+import com.shidai.yunshang.utils.ImageLoader;
+import com.shidai.yunshang.utils.Tool;
 
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
@@ -44,7 +46,18 @@ public class SortViewHold extends LinearLayout {
         mContext = context;
     }
 
-    public void bind(SortResponse sortResponse){
-        txtCount.setText(sortResponse.);
+    public void bind(SortResponse sortResponse, int position, String cardType){
+        txtCount.setText(position+1 +"");
+        ImageLoader.loadImage(Tool.getPicUrl(mContext, sortResponse.getPhoto(), 44, 44), imgHead);
+        txtName.setText(sortResponse.getName());
+        txtMoney.setText("¥"+sortResponse.getProfit());
+        if (cardType.equals("1")){
+            //好友榜
+            txtDes.setVisibility(VISIBLE);
+        }else{
+            //江湖榜
+            txtDes.setVisibility(GONE);
+        }
+
     }
 }

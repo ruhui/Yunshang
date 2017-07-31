@@ -131,6 +131,16 @@ public class Tool {
         return format.format(date);
     }
 
+
+    /**
+     * @param date
+     * @return 格式化 yyyy-MM-dd 00:10:03
+     */
+    public static String formatSimpleDate2(Date date){
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        return format.format(date);
+    }
+
     /**
      * @param date
      * @return 格式化 yyyy-MM-dd
@@ -139,6 +149,17 @@ public class Tool {
         SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月");
         return format.format(date);
     }
+
+    /**
+     * 银行卡的有效期
+     * @param date
+     * @return
+     */
+    public static String formatCardTime(Date date){
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM");
+        return format.format(date);
+    }
+
 
     /**
      * @param date

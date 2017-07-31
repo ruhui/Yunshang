@@ -15,6 +15,7 @@ import com.shidai.yunshang.intefaces.ResponseResultListener;
 import com.shidai.yunshang.managers.UserManager;
 import com.shidai.yunshang.networks.PosetSubscriber;
 import com.shidai.yunshang.networks.responses.SortResponse;
+import com.shidai.yunshang.utils.LogUtil;
 import com.shidai.yunshang.view.widget.NavBarSwitch;
 
 import org.androidannotations.annotations.AfterViews;
@@ -54,6 +55,7 @@ public class PaihangbangFragment extends BaseFragment {
 
     @AfterViews
     void initView(){
+        getSorter();
         relaTop.setVisibility(View.GONE);
         mNavbar.setLeftTitle("好友榜");mNavbar.setTxtRightView("江湖榜");
         mNavbar.setOnMenuClickListener(new NavBarSwitch.OnMenuClickListener() {
@@ -82,7 +84,7 @@ public class PaihangbangFragment extends BaseFragment {
 
         txtMouthBenefit.setText("¥ " +mouthBenefit);
         mRecycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecycleView.setAdapter(adapter_sort = new SortAdapter());
+        mRecycleView.setAdapter(adapter_sort = new SortAdapter(cardType));
     }
 
     private void getSorter(){
@@ -94,12 +96,13 @@ public class PaihangbangFragment extends BaseFragment {
         @Override
         public void success(List<SortResponse> returnMsg) {
             adapter_sort.clear();
+            adapter_sort.setType(cardType);
             adapter_sort.addAll(returnMsg);
         }
 
         @Override
         public void fialed(String resCode, String message) {
-
+            LogUtil.E("fialed","fialed");
         }
     };
 

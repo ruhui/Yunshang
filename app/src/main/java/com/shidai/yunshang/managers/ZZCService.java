@@ -4,7 +4,9 @@ import com.shidai.yunshang.networks.ResponseParent;
 import com.shidai.yunshang.networks.requests.BandDeleteRequest;
 import com.shidai.yunshang.networks.requests.LoginRequest;
 import com.shidai.yunshang.networks.requests.RegistRequest;
+import com.shidai.yunshang.networks.requests.SaveCreditResquest;
 import com.shidai.yunshang.networks.requests.SendRegsmsRequest;
+import com.shidai.yunshang.networks.responses.BankCodeAndNameResponse;
 import com.shidai.yunshang.networks.responses.BankmsgResponse;
 import com.shidai.yunshang.networks.responses.BillbagResponse;
 import com.shidai.yunshang.networks.responses.BillprofitResponse;
@@ -80,5 +82,12 @@ public interface ZZCService {
     @GET("account/sort_er")
     Observable<ResponseParent<List<SortResponse>>> getSorter(@QueryMap  Map<String, String> hashMap, @HeaderMap Map<String, String> header);
 
+    /*根据银行卡号获取银行信息*/
+    @GET("account/get_bank")
+    Observable<ResponseParent<BankCodeAndNameResponse>> getBankMsg(@QueryMap  Map<String, String> hashMap, @HeaderMap Map<String, String> header);
+
+    /*新增、编辑信用卡*/
+    @POST(" account/credit_save")
+    Observable<ResponseParent<Boolean>> saveCredit(@Body SaveCreditResquest httpClient, @HeaderMap Map<String, String> header);
 
 }

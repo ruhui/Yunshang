@@ -31,13 +31,13 @@ public class SendRegsmsRequest {
                 //忘记密码
                 userType = "forget";
                 break;
-            case CHANGEMOBILE:
-                //修改密码
-                userType = "change_mobile";
+            case CARD:
+                //新增银行卡
+                userType = "card";
                 break;
-            case REMOVEMOBILE:
-                //解除手机绑定
-                userType = "remove_mobile";
+            case AUTH:
+                //认证
+                userType = "auth";
                 break;
             case VERIFIED:
                 //认证

@@ -28,7 +28,8 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_marginRight="30dp"
-            android:id="@+id/imageView7" />
+            android:id="@+id/imageView7"
+            android:visibility="invisible"/>
 
         <TextView
             android:id="@+id/txtCardNum"

@@ -6,5 +6,6 @@ package com.shidai.yunshang.intefaces;
  */
 
 public enum EnumSendUserType {
-    DEPOSIT,REGISTER, FORGET, CHANGEMOBILE, REMOVEMOBILE, VERIFIED
+    //REGISTER，FORGET，CARD，AUTH
+    DEPOSIT,REGISTER, FORGET, CARD, AUTH, VERIFIED
 }

@@ -15,6 +15,12 @@ import com.shidai.yunshang.networks.responses.SortResponse;
 
 public class SortAdapter extends BaseRecyclerAdapter<SortResponse, SortViewHold> {
 
+    private String cardType;
+
+    public SortAdapter(String cardType){
+        this.cardType = cardType;
+    }
+
     @Override
     protected SortViewHold onCreateItemView(ViewGroup parent, int viewType) {
         return SortViewHold_.build(parent.getContext());
@@ -22,6 +28,10 @@ public class SortAdapter extends BaseRecyclerAdapter<SortResponse, SortViewHold>
 
     @Override
     protected void onBindView(SortViewHold itemView, SortResponse sortResponse, int position) {
-        itemView.bind(sortResponse);
+        itemView.bind(sortResponse, position, cardType);
+    }
+
+    public void setType(String  cardType) {
+        this.cardType = cardType;
     }
 }

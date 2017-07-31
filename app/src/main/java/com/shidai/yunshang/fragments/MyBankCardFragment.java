@@ -1,6 +1,8 @@
 package com.shidai.yunshang.fragments;
 
 import android.graphics.Color;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -12,6 +14,7 @@ import com.shidai.yunshang.adapters.SelectBankCardAdapter;
 import com.shidai.yunshang.constants.Constant;
 import com.shidai.yunshang.fragments.base.BaseFragment;
 import com.shidai.yunshang.fragments.base.BasePullRecyclerFragment;
+import com.shidai.yunshang.intefaces.BankFragmentRefresh;
 import com.shidai.yunshang.intefaces.ResponseResultListener;
 import com.shidai.yunshang.intefaces.SelectBankListener;
 import com.shidai.yunshang.managers.UserManager;
@@ -36,6 +39,8 @@ import com.yanzhenjie.recyclerview.swipe.touch.OnItemMoveListener;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -66,6 +71,11 @@ public class MyBankCardFragment extends BaseFragment {
     private int CURTURNPAGE = Constant.DEFAULTPAGE;
     private int adapterPositions = -1;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
 
     @AfterViews
     protected void initView() {
@@ -234,4 +244,20 @@ public class MyBankCardFragment extends BaseFragment {
             closeProgress();
         }
     };
+
+
+    @Subscribe
+    public void refresh(BankFragmentRefresh refresh){
+        if (refresh.isfresh){
+            CURTURNPAGE = Constant.DEFAULTPAGE;
+            listmodel.clear();
+            getBankMsg();
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);
+    }
 }

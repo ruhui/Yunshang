@@ -69,12 +69,12 @@
 
                 </com.shidai.yunshang.view.widget.ItemView2_>
 
-                <com.shidai.yunshang.view.widget.ItemView2_
+                <com.shidai.yunshang.view.widget.ItemView3_
                     android:id="@+id/itemView4"
                     android:layout_width="match_parent"
                     android:layout_height="56dp">
 
-                </com.shidai.yunshang.view.widget.ItemView2_>
+                </com.shidai.yunshang.view.widget.ItemView3_>
 
                 <com.shidai.yunshang.view.widget.ItemView2_
                     android:id="@+id/itemView5"
@@ -83,12 +83,12 @@
 
                 </com.shidai.yunshang.view.widget.ItemView2_>
 
-                <com.shidai.yunshang.view.widget.ItemView2_
+                <com.shidai.yunshang.view.widget.ItemView3_
                     android:id="@+id/itemView6"
                     android:layout_width="match_parent"
                     android:layout_height="56dp">
 
-                </com.shidai.yunshang.view.widget.ItemView2_>
+                </com.shidai.yunshang.view.widget.ItemView3_>
 
                 <com.shidai.yunshang.view.widget.ItemView2_
                     android:id="@+id/itemView7"

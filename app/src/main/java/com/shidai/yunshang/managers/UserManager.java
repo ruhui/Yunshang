@@ -7,7 +7,9 @@ import com.shidai.yunshang.networks.ZZCHeaders;
 import com.shidai.yunshang.networks.requests.BandDeleteRequest;
 import com.shidai.yunshang.networks.requests.LoginRequest;
 import com.shidai.yunshang.networks.requests.RegistRequest;
+import com.shidai.yunshang.networks.requests.SaveCreditResquest;
 import com.shidai.yunshang.networks.requests.SendRegsmsRequest;
+import com.shidai.yunshang.networks.responses.BankCodeAndNameResponse;
 import com.shidai.yunshang.networks.responses.BankmsgResponse;
 import com.shidai.yunshang.networks.responses.BillprofitResponse;
 import com.shidai.yunshang.networks.responses.BulletinResponse;
@@ -229,6 +231,41 @@ public class UserManager {
 
         ZZCHeaders zzcHeaders = new ZZCHeaders(Authorization, hashmap);
         ApiClient.getApiService().getSorter(hashmap, zzcHeaders.getHashMap())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+
+    /**
+     * 根据银行卡好获取银行信息
+     * @param account_no 卡号
+     * @param subscriber
+     */
+    public static void getBankMsg(String account_no, Subscriber<ResponseParent<BankCodeAndNameResponse>> subscriber) {
+        String Authorization = SecurePreferences.getInstance().getString("Authorization", "");
+        Map<String, String> hashmap = new HashMap<>();
+        hashmap.put("account_no", account_no);
+
+        ZZCHeaders zzcHeaders = new ZZCHeaders(Authorization, hashmap);
+        ApiClient.getApiService().getBankMsg(hashmap, zzcHeaders.getHashMap())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 编辑添加信用卡
+     * @param resquest
+     * @param subscriber
+     */
+    public static void saveCredit(SaveCreditResquest resquest, Subscriber<ResponseParent<LoginResponse>> subscriber){
+        String Authorization = SecurePreferences.getInstance().getString("Authorization", "");
+
+        ZZCHeaders zzcHeaders = new ZZCHeaders(Authorization, resquest);
+        ApiClient.getApiService().saveCredit(resquest, zzcHeaders.getHashMap())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
