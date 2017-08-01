@@ -67,4 +67,3 @@ public class BankmsgResponse {
 //"page": 1,
 //        "size": 2,
 //        "total_pages": 2,
-//        "total_result": 3,

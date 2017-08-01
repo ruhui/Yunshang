@@ -186,6 +186,7 @@ public class MyBankCardFragment extends BaseFragment {
                 showFragment(getActivity(), BindCreditFragment_.builder().build());
             }else{
                 //银行卡
+                showFragment(getActivity(), BindDebitFragment_.builder().build());
             }
         }
     };
@@ -214,7 +215,7 @@ public class MyBankCardFragment extends BaseFragment {
             }else{
                 bottomDes = "+ 添加另一张信用卡";
             }
-
+            listmodel.clear();
             listmodel.addAll(returnMsg.getRows());
             adapter_brankcard.setData(listmodel, bottomDes);
         }

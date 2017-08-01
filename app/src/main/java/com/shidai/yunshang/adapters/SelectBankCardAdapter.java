@@ -13,6 +13,7 @@ import com.shidai.yunshang.adapters.base.BaseRecyclerAdapter;
 import com.shidai.yunshang.adapters.viewholders.SelectBankViewHold;
 import com.shidai.yunshang.adapters.viewholders.SelectBankViewHold_;
 import com.shidai.yunshang.intefaces.SelectBankListener;
+import com.shidai.yunshang.managers.BankManager;
 import com.shidai.yunshang.models.BankmsgModel;
 import com.shidai.yunshang.networks.responses.BankmsgResponse;
 import com.shidai.yunshang.utils.ImageLoader;
@@ -93,8 +94,9 @@ public class SelectBankCardAdapter extends SwipeMenuAdapter<RecyclerView.ViewHol
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ItemOneViewHold){
             BankmsgModel model = (BankmsgModel) mList.get(position);
-            ((ItemOneViewHold) holder).txtCardNum.setText(model.getBank_name());
-            ImageLoader.loadImage(Tool.getPicUrl(mContext, model.getImage_path()),  ((ItemOneViewHold) holder).imgCardIcon);
+            ((ItemOneViewHold) holder).txtCardNum.setText(model.getAccount_no());
+            ((ItemOneViewHold) holder).imgCardIcon.setImageResource(BankManager.getDrawable(model.getBank_code()));
+//            ImageLoader.loadImage(Tool.getPicUrl(mContext, model.get()),  ((ItemOneViewHold) holder).imgCardIcon);
 
             ((ItemOneViewHold) holder).itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -13,6 +13,7 @@ import com.shidai.yunshang.networks.responses.BankCodeAndNameResponse;
 import com.shidai.yunshang.networks.responses.BankmsgResponse;
 import com.shidai.yunshang.networks.responses.BillprofitResponse;
 import com.shidai.yunshang.networks.responses.BulletinResponse;
+import com.shidai.yunshang.networks.responses.CityResponse;
 import com.shidai.yunshang.networks.responses.LoginResponse;
 import com.shidai.yunshang.networks.responses.RegistResponse;
 import com.shidai.yunshang.networks.responses.ShowupResponse;
@@ -134,14 +135,20 @@ public class UserManager {
 
     /**
      * 获取银行卡信息
-     * @param CardType 1信用卡  2借记卡
+     * @param cardType 1信用卡  2借记卡  卡类型 借记（储蓄卡）：DC；贷记（信用卡）：CC
      * @param curturnpage 当前页面
      * @param subscriber
      */
-    public static void getbankmsg(int CardType, int curturnpage, Subscriber<ResponseParent<BankmsgResponse>> subscriber) {
+    public static void getbankmsg(int cardType, int curturnpage, Subscriber<ResponseParent<BankmsgResponse>> subscriber) {
+        String card_type = "CC";
         String Authorization = SecurePreferences.getInstance().getString("Authorization", "");
+        if (cardType == 1){
+            card_type = "CC";
+        }else{
+            card_type = "DC";
+        }
         Map<String, String> hashmap = new HashMap<>();
-        hashmap.put("CardType", String.valueOf(CardType));
+        hashmap.put("card_type", card_type);
         hashmap.put("page", String.valueOf(curturnpage));
         hashmap.put("size", "10");
 
@@ -271,4 +278,21 @@ public class UserManager {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
+
+    /**
+     * 获取省市县
+     * @param subscriber
+     */
+    public static void getRegions(Subscriber<ResponseParent<List<CityResponse>>> subscriber) {
+        String Authorization = SecurePreferences.getInstance().getString("Authorization", "");
+        Map<String, String> hashmap = new HashMap<>();
+
+        ZZCHeaders zzcHeaders = new ZZCHeaders(Authorization, hashmap);
+        ApiClient.getApiService().getRegions(hashmap, zzcHeaders.getHashMap())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
 }

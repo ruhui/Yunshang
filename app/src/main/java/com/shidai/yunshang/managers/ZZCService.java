@@ -11,6 +11,7 @@ import com.shidai.yunshang.networks.responses.BankmsgResponse;
 import com.shidai.yunshang.networks.responses.BillbagResponse;
 import com.shidai.yunshang.networks.responses.BillprofitResponse;
 import com.shidai.yunshang.networks.responses.BulletinResponse;
+import com.shidai.yunshang.networks.responses.CityResponse;
 import com.shidai.yunshang.networks.responses.LoginResponse;
 import com.shidai.yunshang.networks.responses.RegistResponse;
 import com.shidai.yunshang.networks.responses.ShowupResponse;
@@ -89,5 +90,9 @@ public interface ZZCService {
     /*新增、编辑信用卡*/
     @POST(" account/credit_save")
     Observable<ResponseParent<Boolean>> saveCredit(@Body SaveCreditResquest httpClient, @HeaderMap Map<String, String> header);
+
+    /*获取省市县*/
+    @GET("common/regions")
+    Observable<ResponseParent<List<CityResponse>>> getRegions(@QueryMap  Map<String, String> hashMap, @HeaderMap Map<String, String> header);
 
 }

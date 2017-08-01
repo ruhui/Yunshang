@@ -16,6 +16,7 @@
 
     </com.shidai.yunshang.view.widget.NavBarBack_>
 
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -50,48 +51,33 @@
                 <com.shidai.yunshang.view.widget.ItemView2_
                     android:id="@+id/itemView1"
                     android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:layout_marginTop="5dp">
+                    android:layout_height="56dp">
 
                 </com.shidai.yunshang.view.widget.ItemView2_>
 
-                <com.shidai.yunshang.view.widget.ItemView2_
+                <com.shidai.yunshang.view.widget.ItemView3_
                     android:id="@+id/itemView2"
                     android:layout_width="match_parent"
                     android:layout_height="56dp">
 
-                </com.shidai.yunshang.view.widget.ItemView2_>
+                </com.shidai.yunshang.view.widget.ItemView3_>
 
-                <com.shidai.yunshang.view.widget.ItemView2_
+                <com.shidai.yunshang.view.widget.ItemView4_
                     android:id="@+id/itemView3"
                     android:layout_width="match_parent"
                     android:layout_height="56dp">
 
-                </com.shidai.yunshang.view.widget.ItemView2_>
+                </com.shidai.yunshang.view.widget.ItemView4_>
 
-                <com.shidai.yunshang.view.widget.ItemView3_
+                <com.shidai.yunshang.view.widget.ItemView4_
                     android:id="@+id/itemView4"
                     android:layout_width="match_parent"
                     android:layout_height="56dp">
 
-                </com.shidai.yunshang.view.widget.ItemView3_>
+                </com.shidai.yunshang.view.widget.ItemView4_>
 
                 <com.shidai.yunshang.view.widget.ItemView2_
                     android:id="@+id/itemView5"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp">
-
-                </com.shidai.yunshang.view.widget.ItemView2_>
-
-                <com.shidai.yunshang.view.widget.ItemView3_
-                    android:id="@+id/itemView6"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp">
-
-                </com.shidai.yunshang.view.widget.ItemView3_>
-
-                <com.shidai.yunshang.view.widget.ItemView2_
-                    android:id="@+id/itemView7"
                     android:layout_width="match_parent"
                     android:layout_height="56dp">
 
@@ -132,20 +118,8 @@
                         android:background="@color/windowbackcolor"
                         android:layout_alignParentBottom="true"/>
                 </RelativeLayout>
-
-                <Button
-                    android:id="@+id/button2"
-                    android:layout_width="186dp"
-                    android:layout_height="40dp"
-                    android:text="提交"
-                    android:textSize="18sp"
-                    android:layout_marginTop="25dp"
-                    android:textColor="@color/white"
-                    android:background="@drawable/shape_blue_radio"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="30dp"/>
             </LinearLayout>
+
         </RelativeLayout>
     </ScrollView>
 </LinearLayout>
