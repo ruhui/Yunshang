@@ -128,13 +128,13 @@ public class WheelOptions<T> {
                     opt1Select = opt1Select >= mOptions3Items.size() - 1 ? mOptions3Items.size() - 1 : opt1Select;
                     index = index >= mOptions2Items.get(opt1Select).size() - 1 ?  mOptions2Items.get(opt1Select).size() - 1 : index;
 
-					if (mOptions3Items.get(opt1Select).size() == 0){
+					if (mOptions3Items.get(opt1Select).size() == 0 || mOptions3Items.get(opt1Select).size() <= index){
+						option2Listener.onItemSelected( 0, index);
 						index = -1;
 					}
 					if (index ==-1 ){
 						ArrayList list = new ArrayList();
 						wv_option3.setAdapter(new ArrayWheelAdapter(list));
-						option2Listener.onItemSelected( 0, 0);
 					}else{
 						if (mOptions3Items.size() < opt1Select){
 							option2Listener.onItemSelected( 0, 0);

@@ -10,6 +10,7 @@ import com.shidai.yunshang.networks.responses.BankCodeAndNameResponse;
 import com.shidai.yunshang.networks.responses.BankmsgResponse;
 import com.shidai.yunshang.networks.responses.BillbagResponse;
 import com.shidai.yunshang.networks.responses.BillprofitResponse;
+import com.shidai.yunshang.networks.responses.BranchBankResponse;
 import com.shidai.yunshang.networks.responses.BulletinResponse;
 import com.shidai.yunshang.networks.responses.CityResponse;
 import com.shidai.yunshang.networks.responses.LoginResponse;
@@ -94,5 +95,9 @@ public interface ZZCService {
     /*获取省市县*/
     @GET("common/regions")
     Observable<ResponseParent<List<CityResponse>>> getRegions(@QueryMap  Map<String, String> hashMap, @HeaderMap Map<String, String> header);
+
+    /*获取支行*/
+    @GET("account/branch_bank")
+    Observable<ResponseParent<BranchBankResponse>> getBranchbank(@QueryMap  Map<String, String> hashMap, @HeaderMap Map<String, String> header);
 
 }

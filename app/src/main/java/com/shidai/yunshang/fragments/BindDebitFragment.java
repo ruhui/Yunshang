@@ -1,5 +1,6 @@
 package com.shidai.yunshang.fragments;
 
+import android.os.AsyncTask;
 import android.os.CountDownTimer;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -7,6 +8,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.shidai.greendao.DaoMaster;
+import com.shidai.greendao.RegionInfoDao;
 import com.shidai.yunshang.R;
 import com.shidai.yunshang.constants.Constant;
 import com.shidai.yunshang.fragments.base.BaseFragment;
@@ -15,10 +18,13 @@ import com.shidai.yunshang.intefaces.ResponseResultListener;
 import com.shidai.yunshang.intefaces.WheelOption1Listener;
 import com.shidai.yunshang.intefaces.WheelOption2Listener;
 import com.shidai.yunshang.managers.UserManager;
+import com.shidai.yunshang.models.CityChild;
+import com.shidai.yunshang.models.CountyMode;
 import com.shidai.yunshang.models.RegionInfo;
 import com.shidai.yunshang.networks.PosetSubscriber;
 import com.shidai.yunshang.networks.responses.BankCodeAndNameResponse;
 import com.shidai.yunshang.networks.responses.CityResponse;
+import com.shidai.yunshang.utils.GreenDaoUtils;
 import com.shidai.yunshang.utils.ToastUtil;
 import com.shidai.yunshang.utils.Tool;
 import com.shidai.yunshang.view.widget.ItemView2;
@@ -72,6 +78,7 @@ public class BindDebitFragment extends BaseFragment{
     private int provincePosition = 0;
     private int cityPosition = 0;
     private int province,city, county;
+    private List<CityResponse> cityCach = new ArrayList<>();
 
     private ArrayList<RegionInfo> item1 = new ArrayList<>();
     private ArrayList<ArrayList<RegionInfo>> item2 = new ArrayList<ArrayList<RegionInfo>>();
@@ -113,7 +120,14 @@ public class BindDebitFragment extends BaseFragment{
         itemLegon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getRegions();
+                if (pvOptions != null){
+                    pvOptions.setPicker(item1, item2, item3, false, provincePosition, cityPosition);
+                    pvOptions.setSelectOptions(provincePosition, cityPosition);
+                    pvOptions.show();
+                    closeProgress();
+                }else{
+                    getRegions();
+                }
             }
         });
 
@@ -157,6 +171,7 @@ public class BindDebitFragment extends BaseFragment{
                 tx = itemfirst + itemsecond + itemthird;
             }
         });
+        pvOptions.show();
         closeProgress();
     }
 
@@ -165,12 +180,10 @@ public class BindDebitFragment extends BaseFragment{
     WheelOption1Listener option1Listener1 = new WheelOption1Listener() {
         @Override
         public void onItemSelected(int size, int position) {
-            if (size == 0){
-                int parentid = item1.get(position).getAreaId();
-                provincePosition = position;
-//                getCity(parentid);
-            }
+            provincePosition = position;
             cityPosition = 0;
+            /*获取县*/
+            getCountry();
         }
     };
 
@@ -183,8 +196,34 @@ public class BindDebitFragment extends BaseFragment{
                 int parentid = item2.get(provincePosition).get(index).getAreaId();
 //                getCounty(parentid);
             }
+            cityPosition = index;
+            getCountry();
         }
     };
+
+    private void getCountry() {
+        List<CountyMode> list_cityChild =  cityCach.get(provincePosition).getChildren().get(cityPosition).getChildren();
+        ArrayList<RegionInfo> regionInfos = new ArrayList<RegionInfo>();
+        for (CountyMode coutryMode : list_cityChild){
+            RegionInfo regionInfo_country = new RegionInfo(coutryMode.getId(), cityCach.get(provincePosition).getId(), coutryMode.getFull_name(),
+                    coutryMode.getName(), coutryMode.getRegion_name(), coutryMode.getFirst_letter());
+            regionInfos.add(regionInfo_country);
+        }
+
+        if (item3.get(provincePosition).size() == 0){
+            item3.get(provincePosition).add(cityPosition, regionInfos);
+        }else{
+            if ( item3.get(provincePosition).get(cityPosition).size() == 0){
+                item3.get(provincePosition).add(cityPosition, regionInfos);
+            }else{
+                item3.get(provincePosition).remove(cityPosition);
+                item3.get(provincePosition).add(cityPosition, regionInfos);
+            }
+        }
+
+        pvOptions.setPicker(item1, item2, item3, false, provincePosition, cityPosition);
+        pvOptions.setSelectOptions(provincePosition, cityPosition);
+    }
 
 
     private void getRegions() {
@@ -280,7 +319,8 @@ public class BindDebitFragment extends BaseFragment{
     ResponseResultListener callback_getregions = new ResponseResultListener<List<CityResponse>>() {
         @Override
         public void success(List<CityResponse> returnMsg) {
-            closeProgress();
+            cityCach.addAll(returnMsg);
+            new GetAddressTask(returnMsg).execute("");
         }
 
         @Override
@@ -298,6 +338,108 @@ public class BindDebitFragment extends BaseFragment{
         if (myCount !=null){
             myCount.onFinish();
             myCount.cancel();
+        }
+    }
+
+
+    class GetAddressTask extends AsyncTask<String, Void, String>{
+
+        private List<CityResponse> returnMsg = new ArrayList<>();
+
+        public GetAddressTask(List<CityResponse> returnMsg) {
+            this.returnMsg = returnMsg;
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            List<RegionInfo> reginList = null;
+            RegionInfoDao regionInfoDao = GreenDaoUtils.getSingleTon().getmDaoSession().getRegionInfoDao();
+            if (regionInfoDao.count() > 0) {
+                reginList = regionInfoDao.queryBuilder()
+                        .where(RegionInfoDao.Properties.ParentId.eq(0))
+                        .build().list();
+            }
+
+            if (reginList == null || reginList.size() == 0 ){
+                for (CityResponse cityResponse : returnMsg){
+                    /*省*/
+                    RegionInfo regionInfo_pro = new RegionInfo(cityResponse.getId(), 0, cityResponse.getFull_name(),
+                            cityResponse.getName(), cityResponse.getRegion_name(), cityResponse.getFirst_letter());
+                    regionInfoDao.insert(regionInfo_pro);
+                    for (CityChild cityChild : cityResponse.getChildren()){
+                        //市
+                        RegionInfo regionInfo_city = new RegionInfo(cityChild.getId(), cityResponse.getId(), cityChild.getFull_name(),
+                                cityChild.getName(), cityChild.getRegion_name(), cityChild.getFirst_letter());
+                        regionInfoDao.insert(regionInfo_city);
+
+//                        for (CountyMode countyMode : cityChild.getChildren()){
+//                            //县
+//                            RegionInfo regionInfo_countyr = new RegionInfo(countyMode.getId(), cityChild.getId(), countyMode.getFull_name(),
+//                                    countyMode.getName(), countyMode.getRegion_name(), countyMode.getFirst_letter());
+//                            regionInfoDao.insert(regionInfo_countyr);
+//                        }
+                    }
+                }
+
+            }
+
+            //查找省市县
+            reginList = regionInfoDao.queryBuilder()
+                    .where(RegionInfoDao.Properties.ParentId.eq(0))
+                    .build().list();
+            //省
+            item1.addAll(reginList);
+            for (RegionInfo reginInfo : item1){
+                ArrayList<RegionInfo> reginstList_city = new ArrayList<>();
+                List<RegionInfo> reginList_city = regionInfoDao.queryBuilder()
+                        .where(RegionInfoDao.Properties.ParentId.eq(reginInfo.getAreaId()))
+                        .build().list();
+                //市
+                reginstList_city.addAll(reginList_city);
+                item2.add(reginstList_city);
+            }
+
+
+            for (CityResponse res : returnMsg){
+                ArrayList<ArrayList<RegionInfo>> lis = new ArrayList<ArrayList<RegionInfo>>();
+                for (CityChild city : res.getChildren()){
+                    ArrayList<RegionInfo> list_reg = new ArrayList<>();
+                    lis.add(list_reg);
+                    item3.add(lis);
+                }
+            }
+
+
+            CityChild cityChild =  returnMsg.get(0).getChildren().get(0);
+            ArrayList<ArrayList<RegionInfo>> lis = new ArrayList<>();
+            RegionInfo regionInfo_country = new RegionInfo(cityChild.getId(), returnMsg.get(0).getId(), cityChild.getFull_name(),
+                    cityChild.getName(), cityChild.getRegion_name(), cityChild.getFirst_letter());
+            ArrayList<RegionInfo> regionInfos = new ArrayList<RegionInfo>();
+            regionInfos.add(regionInfo_country);
+            lis.add(regionInfos);
+            item3.get(0).add(0, regionInfos);
+
+//            for (ArrayList<RegionInfo> listRegion : item2){
+//                for (RegionInfo regionInfo : listRegion) {
+//                    ArrayList<ArrayList<RegionInfo>> list_list_country = new ArrayList<>();
+//                    ArrayList<RegionInfo> list_country = new ArrayList<RegionInfo>();
+//                    List<RegionInfo> reginList_country = regionInfoDao.queryBuilder()
+//                            .where(RegionInfoDao.Properties.ParentId.eq(regionInfo.getAreaId()))
+//                            .build().list();
+//                    list_country.addAll(reginList_country);
+//                    list_list_country.add(list_country);
+//                    //县
+//                    item3.add(list_list_country);
+//                }
+//            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            closeProgress();
+            initOptions();
         }
     }
 }
