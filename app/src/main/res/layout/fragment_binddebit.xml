@@ -46,7 +46,8 @@
                 android:layout_marginTop="15dp"
                 android:orientation="vertical"
                 android:background="@color/white"
-                android:gravity="center">
+                android:gravity="center"
+                android:id="@+id/linearLayout2">
 
                 <com.shidai.yunshang.view.widget.ItemView2_
                     android:id="@+id/itemView1"
@@ -118,7 +119,22 @@
                         android:background="@color/windowbackcolor"
                         android:layout_alignParentBottom="true"/>
                 </RelativeLayout>
+
+                <Button
+                    android:id="@+id/button2"
+                    android:layout_width="186dp"
+                    android:layout_height="40dp"
+                    android:text="提交"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginBottom="40dp"
+                    android:textSize="18sp"
+                    android:textColor="@color/white"
+                    android:background="@drawable/shape_blue_radio"
+                    android:layout_below="@+id/linearLayout2"
+                    android:layout_centerHorizontal="true" />
             </LinearLayout>
+
+
 
         </RelativeLayout>
     </ScrollView>

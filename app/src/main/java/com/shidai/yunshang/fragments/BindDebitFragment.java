@@ -1,7 +1,9 @@
 package com.shidai.yunshang.fragments;
 
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.annotation.Nullable;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
@@ -18,10 +20,12 @@ import com.shidai.yunshang.intefaces.ResponseResultListener;
 import com.shidai.yunshang.intefaces.WheelOption1Listener;
 import com.shidai.yunshang.intefaces.WheelOption2Listener;
 import com.shidai.yunshang.managers.UserManager;
+import com.shidai.yunshang.models.BranchbrankModel;
 import com.shidai.yunshang.models.CityChild;
 import com.shidai.yunshang.models.CountyMode;
 import com.shidai.yunshang.models.RegionInfo;
 import com.shidai.yunshang.networks.PosetSubscriber;
+import com.shidai.yunshang.networks.requests.SaveDebitRequest;
 import com.shidai.yunshang.networks.responses.BankCodeAndNameResponse;
 import com.shidai.yunshang.networks.responses.CityResponse;
 import com.shidai.yunshang.utils.GreenDaoUtils;
@@ -38,6 +42,8 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +80,9 @@ public class BindDebitFragment extends BaseFragment{
     private CountDownTimer myCount;
     private KeyboardPatch keyboard;
     private BankCodeAndNameResponse bankcodeAndName;
+    /*开户支行*/
+    private BranchbrankModel branchbrankModel;
+    private String bankid = "0";
 
     private int provincePosition = 0;
     private int cityPosition = 0;
@@ -83,6 +92,12 @@ public class BindDebitFragment extends BaseFragment{
     private ArrayList<RegionInfo> item1 = new ArrayList<>();
     private ArrayList<ArrayList<RegionInfo>> item2 = new ArrayList<ArrayList<RegionInfo>>();
     private ArrayList<ArrayList<ArrayList<RegionInfo>>> item3 = new ArrayList<ArrayList<ArrayList<RegionInfo>>>();
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
 
     @AfterViews
     void initView(){
@@ -120,6 +135,7 @@ public class BindDebitFragment extends BaseFragment{
         itemLegon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Tool.hideInputMethod(getActivity(), itemPhone);
                 if (pvOptions != null){
                     pvOptions.setPicker(item1, item2, item3, false, provincePosition, cityPosition);
                     pvOptions.setSelectOptions(provincePosition, cityPosition);
@@ -128,6 +144,30 @@ public class BindDebitFragment extends BaseFragment{
                 }else{
                     getRegions();
                 }
+            }
+        });
+
+
+        itemZhihang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Tool.hideInputMethod(getActivity(), itemPhone);
+                String address = itemLegon.getRightTxt();
+                if (TextUtils.isEmpty(address)){
+                    ToastUtil.showToast("请选择开户地区");
+                    return;
+                }
+                if (bankcodeAndName == null){
+                    ToastUtil.showToast("请输入银行卡号");
+                    return;
+                }
+                KHZHFragment fragment = KHZHFragment_.builder().build();
+                Bundle bundle = new Bundle();
+                bundle.putString("bankcode", bankcodeAndName.getBank_code());
+                bundle.putString("provinceid", province+"");
+                bundle.putString("cityid", city+"");
+                fragment.setArguments(bundle);
+                showFragment(getActivity(), fragment);
             }
         });
 
@@ -271,6 +311,47 @@ public class BindDebitFragment extends BaseFragment{
         }
     }
 
+
+    /*提交*/
+    @Click(R.id.button2)
+    void commitData(){
+        String cardNum = itemCardNum.getRightTxt();
+        String address = itemLegon.getRightTxt();
+        String zhihang = itemZhihang.getRightTxt();
+        String txtPhone = itemPhone.getRightTxt();
+        String code = edtCode.getText().toString();
+        if (TextUtils.isEmpty(cardNum)){
+            ToastUtil.showToast("请输入银行卡号");
+            return;
+        }
+        if (bankcodeAndName == null){
+            ToastUtil.showToast("请重新输入银行卡号");
+            return;
+        }
+        if (TextUtils.isEmpty(address)){
+            ToastUtil.showToast("请选择开户地区");
+            return;
+        }
+        if (TextUtils.isEmpty(zhihang)){
+            ToastUtil.showToast("请选择开户支行");
+            return;
+        }
+        if (TextUtils.isEmpty(txtPhone) || !Tool.checkPhoneNum(txtPhone)){
+            ToastUtil.showToast("请输入正确的手机号码");
+            return;
+        }
+        if (TextUtils.isEmpty(code)){
+            ToastUtil.showToast("请输入验证码");
+            return;
+        }
+        showProgress();
+
+        SaveDebitRequest request = new SaveDebitRequest(code, bankid, cardNum, bankcodeAndName.getBank_code(),
+                province+"", city+"", county+"", address, txtPhone, bankcodeAndName.getBank_name(), branchbrankModel.getBranch_name());
+
+        Subscriber subscriber = new PosetSubscriber<BankCodeAndNameResponse>().getSubscriber(callback_savedebit);
+        UserManager.saveDebit(request, subscriber);
+    }
 
     private void getCardBank() {
         showProgress();
@@ -442,5 +523,38 @@ public class BindDebitFragment extends BaseFragment{
             closeProgress();
             initOptions();
         }
+    }
+
+
+    ResponseResultListener callback_savedebit = new ResponseResultListener<Boolean>() {
+        @Override
+        public void success(Boolean returnMsg) {
+            closeProgress();
+            if (returnMsg){
+                ToastUtil.showToast("添加成功");
+                finishFragment();
+            }else{
+                ToastUtil.showToast("添加失败");
+            }
+        }
+
+        @Override
+        public void fialed(String resCode, String message) {
+            closeProgress();
+        }
+    };
+
+    @Subscribe
+    public void setKHZH(BranchbrankModel model){
+        if (model != null){
+            branchbrankModel = model;
+            itemZhihang.setEdtRight(model.getBranch_name());
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);
     }
 }

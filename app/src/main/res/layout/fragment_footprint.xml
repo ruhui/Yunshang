@@ -6,16 +6,16 @@
     android:backgroundTint="@color/windowbackcolor"
     android:background="@color/white">
 
-    <com.shidai.yunshang.view.widget.NavBar2_
+    <com.shidai.yunshang.view.widget.NavBarBack_
         android:id="@+id/mNavbar"
-        android:layout_width="match_parent"
-        android:layout_height="65dp"
         app:contentInsetLeft="0dp"
         app:contentInsetStart="0dp"
         android:gravity="bottom"
-        android:background="@color/white"
-        app:title_res="@string/tab_mine">
-    </com.shidai.yunshang.view.widget.NavBar2_>
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:background="@color/colorPrimary">
+
+    </com.shidai.yunshang.view.widget.NavBarBack_>
 
     <View
         android:id="@+id/line"

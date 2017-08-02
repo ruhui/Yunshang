@@ -5,6 +5,7 @@ import com.shidai.yunshang.networks.requests.BandDeleteRequest;
 import com.shidai.yunshang.networks.requests.LoginRequest;
 import com.shidai.yunshang.networks.requests.RegistRequest;
 import com.shidai.yunshang.networks.requests.SaveCreditResquest;
+import com.shidai.yunshang.networks.requests.SaveDebitRequest;
 import com.shidai.yunshang.networks.requests.SendRegsmsRequest;
 import com.shidai.yunshang.networks.responses.BankCodeAndNameResponse;
 import com.shidai.yunshang.networks.responses.BankmsgResponse;
@@ -91,6 +92,11 @@ public interface ZZCService {
     /*新增、编辑信用卡*/
     @POST(" account/credit_save")
     Observable<ResponseParent<Boolean>> saveCredit(@Body SaveCreditResquest httpClient, @HeaderMap Map<String, String> header);
+
+    /*新增、编辑银行卡*/
+    @POST(" account/debit_save")
+    Observable<ResponseParent<Boolean>> saveDebit(@Body SaveDebitRequest httpClient, @HeaderMap Map<String, String> header);
+
 
     /*获取省市县*/
     @GET("common/regions")

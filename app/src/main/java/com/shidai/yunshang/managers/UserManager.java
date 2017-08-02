@@ -8,6 +8,7 @@ import com.shidai.yunshang.networks.requests.BandDeleteRequest;
 import com.shidai.yunshang.networks.requests.LoginRequest;
 import com.shidai.yunshang.networks.requests.RegistRequest;
 import com.shidai.yunshang.networks.requests.SaveCreditResquest;
+import com.shidai.yunshang.networks.requests.SaveDebitRequest;
 import com.shidai.yunshang.networks.requests.SendRegsmsRequest;
 import com.shidai.yunshang.networks.responses.BankCodeAndNameResponse;
 import com.shidai.yunshang.networks.responses.BankmsgResponse;
@@ -274,6 +275,22 @@ public class UserManager {
 
         ZZCHeaders zzcHeaders = new ZZCHeaders(Authorization, resquest);
         ApiClient.getApiService().saveCredit(resquest, zzcHeaders.getHashMap())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 编辑添加银行卡
+     * @param resquest
+     * @param subscriber
+     */
+    public static void saveDebit(SaveDebitRequest resquest, Subscriber<ResponseParent<Boolean>> subscriber){
+        String Authorization = SecurePreferences.getInstance().getString("Authorization", "");
+
+        ZZCHeaders zzcHeaders = new ZZCHeaders(Authorization, resquest);
+        ApiClient.getApiService().saveDebit(resquest, zzcHeaders.getHashMap())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <com.shidai.yunshang.view.widget.NavBarBack_
+        android:id="@+id/mNavbar"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        android:gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:background="@color/colorPrimary">
+
+    </com.shidai.yunshang.view.widget.NavBarBack_>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="20dp"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="260dp"
+            android:background="@color/colorPrimary"
+            >
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="277dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="6dp"
+            android:layout_marginLeft="6dp"
+            android:background="@color/white">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="50dp"
+                android:id="@+id/relativeLayout9">
+
+                <EditText
+                    android:id="@+id/edtPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:gravity="center"
+                    android:textColorHint="#E9EBF3"
+                    android:hint="请输入推荐人手机号"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="23dp"
+                    android:layout_marginRight="23dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/windowbackcolor"/>
+
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="186dp"
+                android:layout_height="40dp"
+                android:text="确定"
+                android:layout_marginTop="50dp"
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                android:background="@drawable/shape_blue_radio"
+                android:layout_below="@+id/relativeLayout9"
+                android:layout_centerHorizontal="true" />
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+</LinearLayout>

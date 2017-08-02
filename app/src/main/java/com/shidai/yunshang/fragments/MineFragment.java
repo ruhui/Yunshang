@@ -85,6 +85,15 @@ public class MineFragment extends BaseFragment implements MyscrollerView.Scrolle
         itemView7.setLeftIcon(R.drawable.wd_kf);itemView7.setMiddelTxt("QQ客服");
         itemView8.setLeftIcon(R.drawable.wd_gd);itemView8.setMiddelTxt("更多");itemView8.setLineVisiable(false);
 
+
+        /*推荐人*/
+        itemView1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFragment(getActivity(), RecommendFragment_.builder().build());
+            }
+        });
+
         /*消息通知*/
         itemView4.setOnClickListener(new View.OnClickListener() {
             @Override
