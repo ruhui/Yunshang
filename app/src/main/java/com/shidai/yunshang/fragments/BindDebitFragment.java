@@ -169,6 +169,7 @@ public class BindDebitFragment extends BaseFragment{
                     county = item3.get(options1).get(option2).get(options3).getAreaId();
                 }
                 tx = itemfirst + itemsecond + itemthird;
+                itemLegon.setEdtRight(tx);
             }
         });
         pvOptions.show();
