@@ -9,6 +9,7 @@ import com.shidai.yunshang.fragments.base.BaseFragment;
 import com.shidai.yunshang.utils.ToastUtil;
 import com.shidai.yunshang.utils.Tool;
 import com.shidai.yunshang.view.widget.NavBar;
+import com.shidai.yunshang.view.widget.NavBarBack;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -24,14 +25,14 @@ import org.androidannotations.annotations.ViewById;
 public class RecommendFragment extends BaseFragment {
 
     @ViewById(R.id.mNavbar)
-    NavBar mNavbar;
+    NavBarBack mNavbar;
     @ViewById(R.id.edtPhone)
     EditText edtPhone;
 
     @AfterViews
     void initView(){
         mNavbar.setMiddleTitle("推荐人");
-        mNavbar.setOnMenuClickListener(new NavBar.OnMenuClickListener() {
+        mNavbar.setOnMenuClickListener(new NavBarBack.OnMenuClickListener() {
             @Override
             public void onLeftMenuClick(View view) {
                 super.onLeftMenuClick(view);

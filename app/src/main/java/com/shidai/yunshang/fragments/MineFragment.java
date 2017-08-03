@@ -1,11 +1,13 @@
 package com.shidai.yunshang.fragments;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.shidai.yunshang.R;
+import com.shidai.yunshang.activities.PersonMessageActivity_;
 import com.shidai.yunshang.fragments.base.BaseFragment;
 import com.shidai.yunshang.intefaces.ResponseResultListener;
 import com.shidai.yunshang.managers.UserManager;
@@ -85,6 +87,14 @@ public class MineFragment extends BaseFragment implements MyscrollerView.Scrolle
         itemView7.setLeftIcon(R.drawable.wd_kf);itemView7.setMiddelTxt("QQ客服");
         itemView8.setLeftIcon(R.drawable.wd_gd);itemView8.setMiddelTxt("更多");itemView8.setLineVisiable(false);
 
+        /*个人资料*/
+        imgHeadView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), PersonMessageActivity_.class);
+                startActivity(intent);
+            }
+        });
 
         /*推荐人*/
         itemView1.setOnClickListener(new View.OnClickListener() {
@@ -109,6 +119,8 @@ public class MineFragment extends BaseFragment implements MyscrollerView.Scrolle
                 showFragment(getActivity(), MyBankCardFragment_.builder().build());
             }
         });
+
+
     }
 
 
@@ -144,7 +156,7 @@ public class MineFragment extends BaseFragment implements MyscrollerView.Scrolle
     ResponseResultListener callback_usremsg = new ResponseResultListener<UsermsgResponse>() {
         @Override
         public void success(UsermsgResponse returnMsg) {
-            ImageLoader.loadImage(Tool.getPicUrl(getActivity(), returnMsg.getPhoto(), 67, 67), imgHeadView, R.drawable.dj_yh);
+            ImageLoader.loadCircleImage(Tool.getPicUrl(getActivity(), returnMsg.getPhoto(), 67, 67), imgHeadView, R.drawable.dj_yh);
             txtName.setText(returnMsg.getName());
             txtPhone.setText("账号："+returnMsg.getMobile());
             txtGride.setText(getResources().getString(R.string.shouquanzizhi)  +"  " + returnMsg.getGrade_name());
@@ -153,18 +165,18 @@ public class MineFragment extends BaseFragment implements MyscrollerView.Scrolle
             progressBar.setMax(returnMsg.getGrade_count());
             progressBar.setProgress(returnMsg.getGrade_id());
 
-            SecurePreferences.getInstance().edit().putString("USERQRCODE", returnMsg.getQrcode()).commit();
-            SecurePreferences.getInstance().edit().putString("USERRRECOMMENDER", returnMsg.getRecommender()).commit();
-            SecurePreferences.getInstance().edit().putInt("USERID", returnMsg.getId()).commit();
-            SecurePreferences.getInstance().edit().putInt("USERAUTHSTATUS", returnMsg.getAuth_status()).commit();
-            SecurePreferences.getInstance().edit().putString("USERMOBILE", returnMsg.getMobile()).commit();
-            SecurePreferences.getInstance().edit().putInt("USERGRADEID", returnMsg.getGrade_id()).commit();
-            SecurePreferences.getInstance().edit().putString("USERNAME", returnMsg.getName()).commit();
-            SecurePreferences.getInstance().edit().putString("USERPHOTO", returnMsg.getPhoto()).commit();
-            SecurePreferences.getInstance().edit().putString("USERAUTHSTATUSNAME", returnMsg.getAuth_status_name()).commit();
-            SecurePreferences.getInstance().edit().putString("USERGRADENAME", returnMsg.getGrade_name()).commit();
-            SecurePreferences.getInstance().edit().putInt("USERPARENT", returnMsg.getParent_id()).commit();
-            SecurePreferences.getInstance().edit().putInt("USERGRADECOUNT", returnMsg.getGrade_count()).commit();
+            SecurePreferences.getInstance().edit().putString("USERQRCODE", returnMsg.getQrcode()).commit(); //二维码
+            SecurePreferences.getInstance().edit().putString("USERRRECOMMENDER", returnMsg.getRecommender()).commit();//推荐人
+            SecurePreferences.getInstance().edit().putInt("USERID", returnMsg.getId()).commit();//商户id
+            SecurePreferences.getInstance().edit().putInt("USERAUTHSTATUS", returnMsg.getAuth_status()).commit();//认证状态：0未认证，1待认证，2未通过，3已认证
+            SecurePreferences.getInstance().edit().putString("USERMOBILE", returnMsg.getMobile()).commit();//电话
+            SecurePreferences.getInstance().edit().putInt("USERGRADEID", returnMsg.getGrade_id()).commit();//当前等级数
+            SecurePreferences.getInstance().edit().putString("USERNAME", returnMsg.getName()).commit();//姓名
+            SecurePreferences.getInstance().edit().putString("USERPHOTO", returnMsg.getPhoto()).commit();//头像
+            SecurePreferences.getInstance().edit().putString("USERAUTHSTATUSNAME", returnMsg.getAuth_status_name()).commit();//认证状态
+            SecurePreferences.getInstance().edit().putString("USERGRADENAME", returnMsg.getGrade_name()).commit();//等级
+            SecurePreferences.getInstance().edit().putInt("USERPARENT", returnMsg.getParent_id()).commit();//推荐人ID
+            SecurePreferences.getInstance().edit().putInt("USERGRADECOUNT", returnMsg.getGrade_count()).commit();//等级总数
         }
 
         @Override

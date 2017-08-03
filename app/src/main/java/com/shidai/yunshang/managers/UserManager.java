@@ -6,6 +6,7 @@ import com.shidai.yunshang.networks.ResponseParent;
 import com.shidai.yunshang.networks.ZZCHeaders;
 import com.shidai.yunshang.networks.requests.BandDeleteRequest;
 import com.shidai.yunshang.networks.requests.LoginRequest;
+import com.shidai.yunshang.networks.requests.PhotoRequest;
 import com.shidai.yunshang.networks.requests.RegistRequest;
 import com.shidai.yunshang.networks.requests.SaveCreditResquest;
 import com.shidai.yunshang.networks.requests.SaveDebitRequest;
@@ -340,4 +341,20 @@ public class UserManager {
                 .subscribe(subscriber);
     }
 
+    /**
+     * 保存图片
+     * @param photo
+     * @param subscriber
+     */
+    public static void saveHeadPhoto(String photo, Subscriber<ResponseParent<LoginResponse>> subscriber){
+        String Authorization = SecurePreferences.getInstance().getString("Authorization", "");
+        PhotoRequest resquest = new PhotoRequest(photo);
+
+        ZZCHeaders zzcHeaders = new ZZCHeaders(Authorization, resquest);
+        ApiClient.getApiService().saveHeadPhoto(resquest, zzcHeaders.getHashMap())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
 }

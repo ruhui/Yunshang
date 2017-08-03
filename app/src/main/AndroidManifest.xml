@@ -38,6 +38,12 @@
 
         <activity android:name=".activities.ForgetPwdActivity_"/>
 
+        <activity
+            android:name="me.iwf.photopicker.PhotoPickerActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".activities.PersonMessageActivity_"/>
 
     </application>
 

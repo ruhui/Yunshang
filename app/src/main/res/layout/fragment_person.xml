@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/windowbackcolor">
+
+    <com.shidai.yunshang.view.widget.NavBarBack_
+        android:id="@+id/mNavbar"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        android:gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:background="@color/colorPrimary">
+
+    </com.shidai.yunshang.view.widget.NavBarBack_>
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/mNavbar">
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="172dp"
+            android:background="@color/colorPrimary">
+
+        </RelativeLayout>
+        
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="260dp"
+            android:layout_marginRight="6dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="102dp"
+                android:id="@+id/relativeLayout10">
+
+
+                <ImageView
+                    android:id="@+id/imgHead"
+                    android:layout_width="68dp"
+                    android:layout_height="68dp"
+                    android:src="@drawable/dl_tx"
+                    android:layout_marginLeft="28dp"
+                    android:layout_marginTop="16dp"
+                    />
+
+                <TextView
+                    android:id="@+id/txtRight"
+                    android:layout_width="64dp"
+                    android:layout_height="22dp"
+                    android:text="更换头像"
+                    android:textColor="#FF000000"
+                    android:textSize="16sp"
+                    android:layout_marginRight="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/imageView18"
+                    android:layout_toStartOf="@+id/imageView18" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/in"
+                    android:layout_centerVertical="true"
+                    android:layout_alignRight="@+id/view3"
+                    android:layout_alignEnd="@+id/view3"
+                    android:id="@+id/imageView18" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/windowbackcolor"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_alignParentBottom="true"
+                    android:id="@+id/view3" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_below="@+id/relativeLayout10"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:id="@+id/relativeLayout11">
+
+                <TextView
+                    android:id="@+id/txtName"
+                    android:layout_width="32dp"
+                    android:layout_height="22dp"
+                    android:text="姓名"
+                    android:textColor="#FF000000"
+                    android:textSize="16sp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignLeft="@+id/view4"
+                    android:layout_alignStart="@+id/view4" />
+
+                <TextView
+                    android:id="@+id/txtNameRight"
+                    android:layout_width="32dp"
+                    android:layout_height="22dp"
+                    android:text=""
+                    android:textColor="#FF000000"
+                    android:textSize="16sp"
+                    android:layout_alignBaseline="@+id/txtName"
+                    android:layout_alignBottom="@+id/txtName"
+                    android:layout_alignRight="@+id/view4"
+                    android:layout_alignEnd="@+id/view4" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/windowbackcolor"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_alignParentBottom="true"
+                    android:id="@+id/view4" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relaErweima"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_below="@+id/relativeLayout11"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="22dp"
+                    android:text="我的二维码"
+                    android:textColor="#FF000000"
+                    android:textSize="16sp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignLeft="@+id/view5"
+                    android:layout_alignStart="@+id/view5" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/in"
+                    android:layout_centerVertical="true"
+                    android:layout_alignRight="@+id/view5"
+                    android:layout_alignEnd="@+id/view5" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/windowbackcolor"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_alignParentBottom="true"
+                    android:id="@+id/view5" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    </FrameLayout>
+
+
+</RelativeLayout>

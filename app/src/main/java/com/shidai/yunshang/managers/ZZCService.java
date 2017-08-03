@@ -3,6 +3,7 @@ package com.shidai.yunshang.managers;
 import com.shidai.yunshang.networks.ResponseParent;
 import com.shidai.yunshang.networks.requests.BandDeleteRequest;
 import com.shidai.yunshang.networks.requests.LoginRequest;
+import com.shidai.yunshang.networks.requests.PhotoRequest;
 import com.shidai.yunshang.networks.requests.RegistRequest;
 import com.shidai.yunshang.networks.requests.SaveCreditResquest;
 import com.shidai.yunshang.networks.requests.SaveDebitRequest;
@@ -97,7 +98,6 @@ public interface ZZCService {
     @POST(" account/debit_save")
     Observable<ResponseParent<Boolean>> saveDebit(@Body SaveDebitRequest httpClient, @HeaderMap Map<String, String> header);
 
-
     /*获取省市县*/
     @GET("common/regions")
     Observable<ResponseParent<List<CityResponse>>> getRegions(@QueryMap  Map<String, String> hashMap, @HeaderMap Map<String, String> header);
@@ -105,5 +105,10 @@ public interface ZZCService {
     /*获取支行*/
     @GET("account/branch_bank")
     Observable<ResponseParent<BranchBankResponse>> getBranchbank(@QueryMap  Map<String, String> hashMap, @HeaderMap Map<String, String> header);
+
+    /*保存头像*/
+    @POST("account/photo")
+    Observable<ResponseParent<Boolean>> saveHeadPhoto(@Body PhotoRequest photo, @HeaderMap Map<String, String> header);
+
 
 }
