@@ -8,9 +8,12 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.shidai.yunshang.R;
+import com.shidai.yunshang.models.BillbagModel;
 
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
+
+import retrofit2.http.POST;
 
 /**
  * 创建时间： 2017/7/28.
@@ -75,4 +78,6 @@ public class SwitchPayTypeView extends LinearLayout {
         line2.setVisibility(INVISIBLE);
         line3.setVisibility(VISIBLE);
     }
+
+
 }

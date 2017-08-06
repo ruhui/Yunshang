@@ -23,6 +23,7 @@ import com.shidai.yunshang.intefaces.ResponseResultListener;
 import com.shidai.yunshang.managers.UserManager;
 import com.shidai.yunshang.networks.PosetSubscriber;
 import com.shidai.yunshang.networks.responses.LoginResponse;
+import com.shidai.yunshang.networks.responses.VersionResponst;
 import com.shidai.yunshang.utils.SecurePreferences;
 import com.shidai.yunshang.view.widget.NoScrollViewPager;
 import com.viewpagerindicator.IconPagerAdapter;
@@ -51,7 +52,10 @@ public class MainActivity extends BaseActivity {
         setup();
         /*开启倒计时*/
         restart();
+        /*获取版本号*/
+        getVersion();
     }
+
 
     private void setup() {
         ArrayList<TabInfo> infos = new ArrayList<>();
@@ -186,6 +190,12 @@ public class MainActivity extends BaseActivity {
         UserManager.refreshLogin(subscriber);
     }
 
+    /*获取版本号*/
+    private void getVersion() {
+        Subscriber subscriber = new PosetSubscriber<VersionResponst>().getSubscriber(callback_getversion);
+        UserManager.getVersion(subscriber);
+    }
+
     //刷新数据回调
     ResponseResultListener callback_refhresh = new ResponseResultListener<LoginResponse>() {
         @Override
@@ -208,6 +218,20 @@ public class MainActivity extends BaseActivity {
             Intent intent = new Intent(MainActivity.this, LoginActivity_.class);
             startActivity(intent);
             finish();
+        }
+    };
+
+    ResponseResultListener callback_getversion = new ResponseResultListener<VersionResponst>() {
+        @Override
+        public void success(VersionResponst returnMsg) {
+            SecurePreferences.getInstance().edit().putInt("REGIONVERSION", returnMsg.getRegion_version()).commit();
+            SecurePreferences.getInstance().edit().putString("SERVERPHONE", returnMsg.getService_phone()).commit();
+            SecurePreferences.getInstance().edit().putString("MINTRANSFER", returnMsg.getMin_transfer()).commit();
+        }
+
+        @Override
+        public void fialed(String resCode, String message) {
+
         }
     };
 }

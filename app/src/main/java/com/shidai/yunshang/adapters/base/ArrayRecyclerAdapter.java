@@ -250,10 +250,10 @@ public abstract class ArrayRecyclerAdapter<E, VH extends RecyclerView.ViewHolder
             clear();
             return;
         }
-
-        if (list.equals(data)) {
-            return;
-        }
+//
+//        if (list.equals(data)) {
+//            return;
+//        }
 
         // 首先将旧列表有、新列表没有的从旧列表去除
         retainAll(data);

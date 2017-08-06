@@ -141,12 +141,20 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1">
-                        <com.shidai.yunshang.view.widget.SwitchPayTypeView_
-                            android:id="@+id/mSwitchPayTypeView"
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/titleRecycle"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
 
-                        </com.shidai.yunshang.view.widget.SwitchPayTypeView_>
+                        </android.support.v7.widget.RecyclerView>
+
+                        <!--<com.shidai.yunshang.view.widget.SwitchPayTypeView_-->
+                            <!--android:id="@+id/mSwitchPayTypeView"-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="match_parent">-->
+
+                        <!--</com.shidai.yunshang.view.widget.SwitchPayTypeView_>-->
                     </RelativeLayout>
 
                 </LinearLayout>

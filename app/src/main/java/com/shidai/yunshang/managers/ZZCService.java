@@ -10,6 +10,8 @@ import com.shidai.yunshang.networks.requests.RegistRequest;
 import com.shidai.yunshang.networks.requests.SaveCreditResquest;
 import com.shidai.yunshang.networks.requests.SaveDebitRequest;
 import com.shidai.yunshang.networks.requests.SendRegsmsRequest;
+import com.shidai.yunshang.networks.responses.SettletypeResponse;
+import com.shidai.yunshang.networks.responses.VersionResponst;
 import com.shidai.yunshang.networks.responses.BankCodeAndNameResponse;
 import com.shidai.yunshang.networks.responses.BankmsgResponse;
 import com.shidai.yunshang.networks.responses.BillbagResponse;
@@ -130,5 +132,12 @@ public interface ZZCService {
     @POST("msg/del")
     Observable<ResponseParent<Boolean>> deleteMessage(@Body IdRequest request, @HeaderMap Map<String, String> header);
 
+    /*相关版本*/
+    @GET("common/version")
+    Observable<ResponseParent<VersionResponst>> getVersion(@QueryMap  Map<String, String> hashMap, @HeaderMap Map<String, String> header);
+
+    /*提现结算方式*/
+    @GET("account/settle_type")
+    Observable<ResponseParent<List<SettletypeResponse>>> getSettletype(@QueryMap  Map<String, String> hashMap, @HeaderMap Map<String, String> header);
 
 }

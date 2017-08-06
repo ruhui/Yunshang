@@ -2,6 +2,7 @@ package com.shidai.yunshang.adapters.viewholders;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -47,16 +48,21 @@ public class SortViewHold extends LinearLayout {
     }
 
     public void bind(SortResponse sortResponse, int position, String cardType){
+        String userName = sortResponse.getName();
         txtCount.setText(position+1 +"");
         ImageLoader.loadImage(Tool.getPicUrl(mContext, sortResponse.getPhoto(), 44, 44), imgHead);
-        txtName.setText(sortResponse.getName());
         txtMoney.setText("¥"+sortResponse.getProfit());
         if (cardType.equals("1")){
             //好友榜
             txtDes.setVisibility(VISIBLE);
+            txtName.setText(userName);
         }else{
             //江湖榜
             txtDes.setVisibility(GONE);
+            if (!TextUtils.isEmpty(userName)){
+                userName = userName.substring(0, 1);
+            }
+            txtName.setText(userName + "**");
         }
 
     }

@@ -67,9 +67,10 @@
 
                     <ImageView
                         android:id="@+id/imgErweima"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         android:src="@drawable/wd_ewm"
+                        android:scaleType="center"
                         android:layout_marginRight="30dp"
                         android:layout_alignTop="@+id/textView12"
                         android:layout_alignParentRight="true"

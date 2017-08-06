@@ -22,10 +22,12 @@ import com.shidai.yunshang.networks.responses.BulletinResponse;
 import com.shidai.yunshang.networks.responses.CityResponse;
 import com.shidai.yunshang.networks.responses.LoginResponse;
 import com.shidai.yunshang.networks.responses.RegistResponse;
+import com.shidai.yunshang.networks.responses.SettletypeResponse;
 import com.shidai.yunshang.networks.responses.ShowupResponse;
 import com.shidai.yunshang.networks.responses.SortResponse;
 import com.shidai.yunshang.networks.responses.SystemResponse;
 import com.shidai.yunshang.networks.responses.UsermsgResponse;
+import com.shidai.yunshang.networks.responses.VersionResponst;
 import com.shidai.yunshang.utils.SecurePreferences;
 
 import java.util.HashMap;
@@ -424,6 +426,37 @@ public class UserManager {
 
         ZZCHeaders zzcHeaders = new ZZCHeaders(Authorization, addCarFrom);
         ApiClient.getApiService().deleteMessage(addCarFrom, zzcHeaders.getHashMap())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 相关版本
+     * @param subscriber
+     */
+    public static void getVersion(Subscriber<ResponseParent<VersionResponst>> subscriber) {
+        Map<String, String> hashmap = new HashMap<>();
+
+        ZZCHeaders zzcHeaders = new ZZCHeaders(hashmap);
+        ApiClient.getApiService().getVersion(hashmap, zzcHeaders.getHashMap())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 钱包提现的结算方式
+     * @param subscriber
+     */
+    public static void getSettletype(Subscriber<ResponseParent<List<SettletypeResponse>>> subscriber) {
+        String Authorization = SecurePreferences.getInstance().getString("Authorization", "");
+        Map<String, String> hashmap = new HashMap<>();
+
+        ZZCHeaders zzcHeaders = new ZZCHeaders(Authorization, hashmap);
+        ApiClient.getApiService().getSettletype(hashmap, zzcHeaders.getHashMap())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

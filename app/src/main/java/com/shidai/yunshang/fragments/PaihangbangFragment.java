@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -15,7 +16,10 @@ import com.shidai.yunshang.intefaces.ResponseResultListener;
 import com.shidai.yunshang.managers.UserManager;
 import com.shidai.yunshang.networks.PosetSubscriber;
 import com.shidai.yunshang.networks.responses.SortResponse;
+import com.shidai.yunshang.utils.ImageLoader;
 import com.shidai.yunshang.utils.LogUtil;
+import com.shidai.yunshang.utils.SecurePreferences;
+import com.shidai.yunshang.utils.Tool;
 import com.shidai.yunshang.view.widget.NavBarSwitch;
 
 import org.androidannotations.annotations.AfterViews;
@@ -42,6 +46,11 @@ public class PaihangbangFragment extends BaseFragment {
     RelativeLayout relaTop;
     @ViewById(R.id.mRecycleView)
     RecyclerView mRecycleView;
+    @ViewById(R.id.txtUsername)
+    TextView txtUsername;
+    @ViewById(R.id.imageView19)
+    ImageView imgHead;
+
 
     private String cardType = "1";//1 好友榜  2江湖榜
     private double mouthBenefit = 0;
@@ -85,6 +94,11 @@ public class PaihangbangFragment extends BaseFragment {
         txtMouthBenefit.setText("¥ " +mouthBenefit);
         mRecycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecycleView.setAdapter(adapter_sort = new SortAdapter(cardType));
+
+        String photo = SecurePreferences.getInstance().getString("USERPHOTO", "");
+        String username = SecurePreferences.getInstance().getString("USERNAME", "");
+        ImageLoader.loadCircleImage(Tool.getPicUrl(getActivity(), photo, 44, 44), imgHead, R.drawable.dl_tx);
+        txtUsername.setText(username);
     }
 
     private void getSorter(){

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/relaZFBPay"
+        android:layout_width="120dp"
+        android:layout_height="45dp"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/imgZFB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textView32"
+            android:layout_alignTop="@+id/textView32"
+            android:src="@drawable/qb_zfb" />
+
+        <TextView
+            android:id="@+id/textView32"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:layout_toEndOf="@+id/imgZFB"
+            android:layout_toRightOf="@+id/imgZFB"
+            android:text="支付宝"
+            android:textColor="#FF000000"
+            android:textSize="14sp" />
+
+
+        <View
+            android:id="@+id/line2"
+            android:layout_width="87.5dp"
+            android:layout_height="2dp"
+            android:layout_below="@+id/textView32"
+            android:layout_marginTop="8dp"
+            android:background="#FFFFD600"
+            android:layout_alignRight="@+id/textView32"
+            android:layout_alignEnd="@+id/textView32"
+            android:layout_alignLeft="@+id/imgZFB"
+            android:layout_alignStart="@+id/imgZFB"
+            android:visibility="invisible"/>
+    </RelativeLayout>
+
+</LinearLayout>

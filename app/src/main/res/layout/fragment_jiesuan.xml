@@ -84,7 +84,7 @@
                 android:id="@+id/txtRemark"
                 android:layout_width="168dp"
                 android:layout_height="17dp"
-                android:text="备注：单次提现不少于¥50.00"
+                android:text="备注：单次提现不少于¥"
                 android:textColor="#FFA1A6BB"
                 android:textSize="12sp"
                 android:layout_marginTop="@dimen/dp_10"

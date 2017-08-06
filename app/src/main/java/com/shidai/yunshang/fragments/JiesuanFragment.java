@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.shidai.yunshang.R;
 import com.shidai.yunshang.fragments.base.BaseFragment;
+import com.shidai.yunshang.utils.SecurePreferences;
 import com.shidai.yunshang.view.widget.NavBarBack;
 
 import org.androidannotations.annotations.AfterViews;
@@ -51,6 +52,8 @@ public class JiesuanFragment extends BaseFragment{
             }
         });
 
+        String tranfermin = SecurePreferences.getInstance().getString("MINTRANSFER", "");
+
         /*全部*/
         txtAll.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +61,7 @@ public class JiesuanFragment extends BaseFragment{
                 editText.setText(totalMoney+"");
             }
         });
+        txtRemark.setText(tranfermin);
     }
 
     /*提现*/

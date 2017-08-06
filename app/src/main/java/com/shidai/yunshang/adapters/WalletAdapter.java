@@ -16,12 +16,6 @@ import com.shidai.yunshang.models.ChannelModel;
 
 public class WalletAdapter extends BaseRecyclerAdapter<ChannelModel, WalletViewHold> {
 
-    private String payType;
-
-    public void setType(String payType){
-        this.payType = payType;
-    }
-
     @Override
     protected WalletViewHold onCreateItemView(ViewGroup parent, int viewType) {
         return WalletViewHold_.build(parent.getContext());
@@ -29,6 +23,6 @@ public class WalletAdapter extends BaseRecyclerAdapter<ChannelModel, WalletViewH
 
     @Override
     protected void onBindView(WalletViewHold itemView, ChannelModel model, int position) {
-        itemView.bind(payType, model);
+        itemView.bind(model);
     }
 }

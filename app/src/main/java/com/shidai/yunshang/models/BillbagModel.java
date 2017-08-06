@@ -11,12 +11,21 @@ import java.util.List;
 public class BillbagModel {
     private String name;
     private String code;
+    private boolean isClick;
     private List<ChannelModel> channel;
 
     public BillbagModel(String name, String code, List<ChannelModel> channel) {
         this.name = name;
         this.code = code;
         this.channel = channel;
+    }
+
+    public boolean isClick() {
+        return isClick;
+    }
+
+    public void setClick(boolean click) {
+        isClick = click;
     }
 
     public String getName() {

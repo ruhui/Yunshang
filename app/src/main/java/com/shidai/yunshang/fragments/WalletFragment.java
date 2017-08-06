@@ -1,5 +1,6 @@
 package com.shidai.yunshang.fragments;
 
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -8,10 +9,13 @@ import android.widget.TextView;
 
 import com.shidai.yunshang.R;
 import com.shidai.yunshang.adapters.WalletAdapter;
+import com.shidai.yunshang.adapters.WalletTitleAdapter;
 import com.shidai.yunshang.fragments.base.BaseFragment;
+import com.shidai.yunshang.intefaces.AdapterListener;
 import com.shidai.yunshang.intefaces.ResponseResultListener;
 import com.shidai.yunshang.managers.UserManager;
 import com.shidai.yunshang.models.BillbagModel;
+import com.shidai.yunshang.models.ChannelModel;
 import com.shidai.yunshang.networks.PosetSubscriber;
 import com.shidai.yunshang.networks.responses.BankmsgResponse;
 import com.shidai.yunshang.networks.responses.BillbagResponse;
@@ -23,6 +27,8 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
+
+import java.util.List;
 
 import rx.Subscriber;
 
@@ -42,17 +48,17 @@ public class WalletFragment extends BaseFragment{
     /*提现*/
     @ViewById(R.id.button2)
     Button btnTixian;
-    /*选择支付方式*/
-    @ViewById(R.id.mSwitchPayTypeView)
-    SwitchPayTypeView mSwitchPayTypeView;
     @ViewById(R.id.mRecycleView)
     RecyclerView mRecycleView;
+    @ViewById(R.id.titleRecycle)
+    RecyclerView titleRecycle;
 
     @ViewById(R.id.mNavbar)
     NavBarWallet navBarWallet;
 
     private WalletAdapter adapter_wallet;
     private BillbagResponse billBagReturnMsg;
+    private WalletTitleAdapter walletTitleAdapter;
 
     @AfterViews
     void initView(){
@@ -62,65 +68,70 @@ public class WalletFragment extends BaseFragment{
         navBarWallet.setIvMenuRight(R.drawable.qb_squan);
         navBarWallet.setTxtRightView("授权");
 
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        titleRecycle.setLayoutManager(linearLayoutManager);
+        titleRecycle.setAdapter(walletTitleAdapter = new WalletTitleAdapter(adapterListener));
+
          /*获取钱包*/
         getBillbag();
 
-        /*银联支付*/
-        mSwitchPayTypeView.setYLPayLisener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mSwitchPayTypeView.showYLline();
-                if (billBagReturnMsg == null){
-                    return;
-                }
-                for (BillbagModel billbagModel : billBagReturnMsg.getPayments()){
-                    if (billbagModel.getCode().equals("UNIONPAY")){
-                        //默认银联
-                        adapter_wallet.setType(billbagModel.getCode());
-                        adapter_wallet.clear();
-                        adapter_wallet.addAll(billbagModel.getChannel());
-                    }
-                }
-            }
-        });
-
-        /*支付宝*/
-        mSwitchPayTypeView.setZFBPayLisener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mSwitchPayTypeView.showZFBline();
-                if (billBagReturnMsg == null){
-                    return;
-                }
-                for (BillbagModel billbagModel : billBagReturnMsg.getPayments()){
-                    if (billbagModel.getCode().equals("ALIPAY")){
-                        //默认银联
-                        adapter_wallet.setType(billbagModel.getCode());
-                        adapter_wallet.clear();
-                        adapter_wallet.addAll(billbagModel.getChannel());
-                    }
-                }
-            }
-        });
-
-        /*微信支付*/
-        mSwitchPayTypeView.setWXPayLisener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mSwitchPayTypeView.showWXline();
-                if (billBagReturnMsg == null){
-                    return;
-                }
-                for (BillbagModel billbagModel : billBagReturnMsg.getPayments()){
-                    if (billbagModel.getCode().equals("WXPAY")){
-                        //默认银联
-                        adapter_wallet.setType(billbagModel.getCode());
-                        adapter_wallet.clear();
-                        adapter_wallet.addAll(billbagModel.getChannel());
-                    }
-                }
-            }
-        });
+//        /*银联支付*/
+//        mSwitchPayTypeView.setYLPayLisener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                mSwitchPayTypeView.showYLline();
+//                if (billBagReturnMsg == null){
+//                    return;
+//                }
+//                for (BillbagModel billbagModel : billBagReturnMsg.getPayments()){
+//                    if (billbagModel.getCode().equals("UNIONPAY")){
+//                        //默认银联
+//                        adapter_wallet.setType(billbagModel.getCode());
+//                        adapter_wallet.clear();
+//                        adapter_wallet.addAll(billbagModel.getChannel());
+//                    }
+//                }
+//            }
+//        });
+//
+//        /*支付宝*/
+//        mSwitchPayTypeView.setZFBPayLisener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                mSwitchPayTypeView.showZFBline();
+//                if (billBagReturnMsg == null){
+//                    return;
+//                }
+//                for (BillbagModel billbagModel : billBagReturnMsg.getPayments()){
+//                    if (billbagModel.getCode().equals("ALIPAY")){
+//                        //默认银联
+//                        adapter_wallet.setType(billbagModel.getCode());
+//                        adapter_wallet.clear();
+//                        adapter_wallet.addAll(billbagModel.getChannel());
+//                    }
+//                }
+//            }
+//        });
+//
+//        /*微信支付*/
+//        mSwitchPayTypeView.setWXPayLisener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                mSwitchPayTypeView.showWXline();
+//                if (billBagReturnMsg == null){
+//                    return;
+//                }
+//                for (BillbagModel billbagModel : billBagReturnMsg.getPayments()){
+//                    if (billbagModel.getCode().equals("WXPAY")){
+//                        //默认银联
+//                        adapter_wallet.setType(billbagModel.getCode());
+//                        adapter_wallet.clear();
+//                        adapter_wallet.addAll(billbagModel.getChannel());
+//                    }
+//                }
+//            }
+//        });
 
 
         navBarWallet.setOnMenuClickListener(new NavBarWallet.OnMenuClickListener() {
@@ -140,11 +151,38 @@ public class WalletFragment extends BaseFragment{
 
     }
 
+
+    AdapterListener adapterListener = new AdapterListener<BillbagModel>() {
+        @Override
+        public void setItemClickListener(BillbagModel o, int position) {
+            if (billBagReturnMsg != null){
+                for (BillbagModel billbagModel : billBagReturnMsg.getPayments()){
+                    billbagModel.setClick(false);
+                }
+                for (int i=0; i<billBagReturnMsg.getPayments().size(); i++){
+                    BillbagModel billbagModel = billBagReturnMsg.getPayments().get(i);
+                    if (position == i){
+                        billbagModel.setClick(true);
+                        break;
+                    }
+                }
+                walletTitleAdapter.replaceWith(billBagReturnMsg.getPayments());
+                BillbagModel billbagModel = billBagReturnMsg.getPayments().get(position);
+                List<ChannelModel>  listChannel = billbagModel.getChannel();
+                adapter_wallet.clear();
+                adapter_wallet.addAll(listChannel);
+            }
+        }
+    };
+
     private void setView() {
-        mSwitchPayTypeView.showYLline();
+//        mSwitchPayTypeView.showYLline();
         if (billBagReturnMsg == null){
             return;
         }
+
+        walletTitleAdapter.addAll(billBagReturnMsg.getPayments());
+
         txtMoney.setText("¥"+ Tool.formatPrice(billBagReturnMsg.getDeposit()));
         txtShouKuan.setText("共累计收款："+Tool.formatPrice(billBagReturnMsg.getTotal_receipt()));
 
@@ -155,7 +193,6 @@ public class WalletFragment extends BaseFragment{
         for (BillbagModel billbagModel : billBagReturnMsg.getPayments()){
             if (billbagModel.getCode().equals("UNIONPAY")){
                 //默认银联
-                adapter_wallet.setType(billbagModel.getCode());
                 adapter_wallet.clear();
                 adapter_wallet.addAll(billbagModel.getChannel());
             }
@@ -165,7 +202,12 @@ public class WalletFragment extends BaseFragment{
     /*提现*/
     @Click(R.id.button2)
     void tiXian(){
-
+        String tixianMoney = txtMoney.getText().toString();
+        TixianWalletFragment fragment = TixianWalletFragment_.builder().build();
+        Bundle bundle = new Bundle();
+        bundle.putString("tixianMoney", Tool.formatPrice(billBagReturnMsg.getDeposit()));
+        fragment.setArguments(bundle);
+        showFragment(getActivity(),fragment);
     }
 
     @Override
@@ -186,6 +228,11 @@ public class WalletFragment extends BaseFragment{
     ResponseResultListener callback_getbillbag = new ResponseResultListener<BillbagResponse>() {
         @Override
         public void success(BillbagResponse returnMsg) {
+            if (returnMsg.getPayments().size() > 0){
+                BillbagModel billbagModel = returnMsg.getPayments().get(0);
+                billbagModel.setClick(true);
+            }
+            walletTitleAdapter.clear();
             billBagReturnMsg = returnMsg;
             if (getView() != null){
                 setView();

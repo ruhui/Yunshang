@@ -38,17 +38,17 @@ public class WalletViewHold extends LinearLayout {
         super(context, attrs);
     }
 
-    public void bind(String payType, ChannelModel model){
-        if (payType.equals("ALIPAY")){
-            //支付宝
-            imgCardIcon.setImageResource(R.drawable.qb_zfb);
-        }else if (payType.equals("WXPAY")){
-            //微信
-            imgCardIcon.setImageResource(R.drawable.qb_wxzf);
-        }else if (payType.equals("UNIONPAY")){
-            //银联支付
-            imgCardIcon.setImageResource(R.drawable.qb_ylzf);
-        }
+    public void bind(ChannelModel model){
+//        if (payType.equals("ALIPAY")){
+//            //支付宝
+//            imgCardIcon.setImageResource(R.drawable.qb_zfb);
+//        }else if (payType.equals("WXPAY")){
+//            //微信
+//            imgCardIcon.setImageResource(R.drawable.qb_wxzf);
+//        }else if (payType.equals("UNIONPAY")){
+//            //银联支付
+        imgCardIcon.setImageResource(R.drawable.qb_ylzf);
+//        }
 
         String single_quota;//单笔额度
         if (model.getSingle_quota() == 0){

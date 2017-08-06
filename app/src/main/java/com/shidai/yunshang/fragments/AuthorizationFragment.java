@@ -71,7 +71,7 @@ public class AuthorizationFragment extends BaseFragment {
         int gradeCount = SecurePreferences.getInstance().getInt("USERGRADECOUNT", 0);
         int curturnGrade = SecurePreferences.getInstance().getInt("USERGRADEID", 0);
 
-        ImageLoader.loadImage(Tool.getPicUrl(getActivity(), userPhoto, 48, 48), imgHeadView, R.drawable.dl_tx);
+        ImageLoader.loadCircleImage(Tool.getPicUrl(getActivity(), userPhoto, 48, 48), imgHeadView, R.drawable.dl_tx);
         txtLevel.setText(getResources().getString(R.string.shouquanzizhi) +"  "+ gradeName);
         progressBar.setMax(gradeCount);
         progressBar.setProgress(curturnGrade);
