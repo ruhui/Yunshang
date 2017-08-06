@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:ptr="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -19,6 +20,7 @@
 
 
     <RelativeLayout
+        android:id="@+id/relaBulletin"
         android:layout_width="match_parent"
         android:layout_height="90dp"
         android:layout_marginLeft="6dp"
@@ -82,19 +84,34 @@
             android:layout_toStartOf="@+id/imageView13"
             android:background="@drawable/shape_cicle"
             android:padding="5dp"
-            android:text=""
-            android:visibility="gone"
+            android:minWidth="25dp"
+            android:text="1"
+            android:gravity="center"
+            android:visibility="invisible"
             android:textColor="@color/white"
             android:textSize="11sp" />
     </RelativeLayout>
 
-    <com.shidai.yunshang.view.widget.pullview.PullRecyclerView_
-        android:id="@+id/pull_recycler_view"
+    <com.shidai.yunshang.view.pulltorefresh.PullToRefreshScrollView
+        android:id="@+id/pullToRefreshScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@color/color_999999"
-        android:layout_marginTop="10dp"
+        android:layout_marginLeft="6dp"
         android:layout_marginRight="6dp"
-        android:layout_marginLeft="6dp"/>
+        android:layout_marginTop="10dp"
+        ptr:ptrAnimationStyle="flip"
+        ptr:ptrMode="both"
+        android:scrollbars="none"
+        android:fillViewport="true"
+        >
+
+        <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
+            android:id="@+id/mSwipeMenuRecycleView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView>
+
+    </com.shidai.yunshang.view.pulltorefresh.PullToRefreshScrollView>
 
 </LinearLayout>

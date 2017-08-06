@@ -45,6 +45,8 @@
 
         <activity android:name=".activities.PersonMessageActivity_"/>
 
+        <activity android:name=".activities.WebActivity_"/>
+
     </application>
 
 </manifest>

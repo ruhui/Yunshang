@@ -1,5 +1,6 @@
 package com.shidai.yunshang.activities;
 
+import android.content.Intent;
 import android.os.CountDownTimer;
 import android.text.TextUtils;
 import android.widget.EditText;
@@ -11,6 +12,7 @@ import com.shidai.yunshang.activities.base.BaseActivity;
 import com.shidai.yunshang.constants.Constant;
 import com.shidai.yunshang.intefaces.EnumSendUserType;
 import com.shidai.yunshang.intefaces.ResponseResultListener;
+import com.shidai.yunshang.managers.UrlAddressManger;
 import com.shidai.yunshang.managers.UserManager;
 import com.shidai.yunshang.networks.PosetSubscriber;
 import com.shidai.yunshang.networks.requests.RegistRequest;
@@ -52,6 +54,9 @@ public class RegistActivity extends BaseActivity {
     EditText edtRecommender;
     @ViewById(R.id.editText)
     EditText editCode;
+    /*协议*/
+    @ViewById(R.id.textView24)
+    TextView textView24;
 
     private boolean timerstart = false;
     private boolean selectXieyi = false;
@@ -143,7 +148,14 @@ public class RegistActivity extends BaseActivity {
         }
     }
 
-
+    /*协议*/
+    @Click(R.id.textView24)
+    void xieyi(){
+        Intent intent = new Intent(getActivity(), WebActivity_.class);
+        intent.putExtra("titleBar", "注册协议");
+        intent.putExtra("webUrl", UrlAddressManger.REGISTPROTOCOL);
+        startActivity(intent);
+    }
 
 
     /*定义一个倒计时的内部类*/

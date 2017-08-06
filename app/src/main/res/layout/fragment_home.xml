@@ -234,6 +234,7 @@
                 </LinearLayout>
 
                 <ImageView
+                    android:id="@+id/imgVidio"
                     android:layout_width="match_parent"
                     android:layout_height="82dp"
                     android:layout_marginTop="6dp"

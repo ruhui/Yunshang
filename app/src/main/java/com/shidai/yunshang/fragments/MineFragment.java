@@ -8,8 +8,10 @@ import android.widget.TextView;
 
 import com.shidai.yunshang.R;
 import com.shidai.yunshang.activities.PersonMessageActivity_;
+import com.shidai.yunshang.activities.WebActivity_;
 import com.shidai.yunshang.fragments.base.BaseFragment;
 import com.shidai.yunshang.intefaces.ResponseResultListener;
+import com.shidai.yunshang.managers.UrlAddressManger;
 import com.shidai.yunshang.managers.UserManager;
 import com.shidai.yunshang.networks.PosetSubscriber;
 import com.shidai.yunshang.networks.responses.UsermsgResponse;
@@ -21,6 +23,7 @@ import com.shidai.yunshang.view.widget.MyscrollerView;
 import com.shidai.yunshang.view.widget.NavBarBack;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
@@ -120,9 +123,31 @@ public class MineFragment extends BaseFragment implements MyscrollerView.Scrolle
             }
         });
 
+        /*客服*/
+        itemView7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), WebActivity_.class);
+                intent.putExtra("titleBar", "QQ客服");
+                intent.putExtra("webUrl", UrlAddressManger.CUSTOMSERVICE);
+                startActivity(intent);
+            }
+        });
 
     }
 
+
+    /*晋升*/
+    @Click(R.id.imgjs)
+    void update(){
+        showFragment(getActivity(), AuthorizationFragment_.builder().build());
+    }
+
+    /*二维码*/
+    @Click(R.id.imgErweima)
+    void erweima(){
+        showFragment(getActivity(), ErweimaFragment_.builder().build());
+    }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {

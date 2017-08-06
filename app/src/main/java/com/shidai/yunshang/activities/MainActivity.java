@@ -1,9 +1,12 @@
 package com.shidai.yunshang.activities;
 
+import android.content.Intent;
+import android.os.CountDownTimer;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -15,10 +18,12 @@ import com.shidai.yunshang.fragments.HomeFragment_;
 import com.shidai.yunshang.fragments.MineFragment_;
 import com.shidai.yunshang.fragments.SharebenefitFragment_;
 import com.shidai.yunshang.fragments.WalletFragment_;
+import com.shidai.yunshang.intefaces.ActivityFinish;
 import com.shidai.yunshang.intefaces.ResponseResultListener;
 import com.shidai.yunshang.managers.UserManager;
 import com.shidai.yunshang.networks.PosetSubscriber;
 import com.shidai.yunshang.networks.responses.LoginResponse;
+import com.shidai.yunshang.utils.SecurePreferences;
 import com.shidai.yunshang.view.widget.NoScrollViewPager;
 import com.viewpagerindicator.IconPagerAdapter;
 
@@ -44,6 +49,8 @@ public class MainActivity extends BaseActivity {
     @AfterViews
     void initView(){
         setup();
+        /*开启倒计时*/
+        restart();
     }
 
     private void setup() {
@@ -154,4 +161,53 @@ public class MainActivity extends BaseActivity {
         mPager.setCurrentItem(page);
     }
 
+
+    /*开启倒计时，当为8分钟的时候自动刷新token*/
+    public void restart() {
+        timer.start();
+    }
+
+    private CountDownTimer timer = new CountDownTimer(480000, 1000) {
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+        }
+
+        @Override
+        public void onFinish() {
+            //刷新数据
+            refreshlogin();
+        }
+    };
+
+    //刷新数据
+    private void refreshlogin() {
+        Subscriber subscriber = new PosetSubscriber<LoginResponse>().getSubscriber(callback_refhresh);
+        UserManager.refreshLogin(subscriber);
+    }
+
+    //刷新数据回调
+    ResponseResultListener callback_refhresh = new ResponseResultListener<LoginResponse>() {
+        @Override
+        public void success(LoginResponse returnMsg) {
+            if (returnMsg == null || TextUtils.isEmpty(returnMsg.getAccess_token())){
+                EventBus.getDefault().post(new ActivityFinish(true));
+                Intent intent = new Intent(MainActivity.this, LoginActivity_.class);
+                startActivity(intent);
+                finish();
+            }else{
+                SecurePreferences.getInstance().edit().putString("Authorization", returnMsg.getAccess_token()).commit();
+                SecurePreferences.getInstance().edit().putString("EXPIRESDATE", returnMsg.getExpires_date()).commit();
+                restart();
+            }
+        }
+
+        @Override
+        public void fialed(String resCode, String message) {
+            EventBus.getDefault().post(new ActivityFinish(true));
+            Intent intent = new Intent(MainActivity.this, LoginActivity_.class);
+            startActivity(intent);
+            finish();
+        }
+    };
 }

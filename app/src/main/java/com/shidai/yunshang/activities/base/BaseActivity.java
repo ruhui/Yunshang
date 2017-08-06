@@ -12,7 +12,10 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.shidai.yunshang.R;
+import com.shidai.yunshang.activities.LoginActivity_;
+import com.shidai.yunshang.activities.MainActivity;
 import com.shidai.yunshang.fragments.base.BaseFragment;
+import com.shidai.yunshang.intefaces.ActivityFinish;
 import com.shidai.yunshang.intefaces.RefreshListener;
 import com.shidai.yunshang.view.widget.ProgressDialog;
 import com.shidai.yunshang.view.widget.ProgressDialog_;
@@ -174,5 +177,17 @@ public abstract class BaseActivity extends AppCompatActivity  {
         fragment.setmLastStackName("" + System.currentTimeMillis() + hashCode());
         transaction.addToBackStack(fragment.getmLastStackName());
         transaction.commitAllowingStateLoss();
+    }
+
+
+    @Subscribe
+    public void finishPage(ActivityFinish activityFinish){
+        if (activityFinish.isfinish){
+            if (BaseActivity.this instanceof MainActivity){
+                Intent intent = new Intent(this, LoginActivity_.class);
+                startActivity(intent);
+            }
+            finish();
+        }
     }
 }

@@ -2,8 +2,10 @@ package com.shidai.yunshang.managers;
 
 import com.shidai.yunshang.networks.ResponseParent;
 import com.shidai.yunshang.networks.requests.BandDeleteRequest;
+import com.shidai.yunshang.networks.requests.IdRequest;
 import com.shidai.yunshang.networks.requests.LoginRequest;
 import com.shidai.yunshang.networks.requests.PhotoRequest;
+import com.shidai.yunshang.networks.requests.RefreshUserResquest;
 import com.shidai.yunshang.networks.requests.RegistRequest;
 import com.shidai.yunshang.networks.requests.SaveCreditResquest;
 import com.shidai.yunshang.networks.requests.SaveDebitRequest;
@@ -13,6 +15,7 @@ import com.shidai.yunshang.networks.responses.BankmsgResponse;
 import com.shidai.yunshang.networks.responses.BillbagResponse;
 import com.shidai.yunshang.networks.responses.BillprofitResponse;
 import com.shidai.yunshang.networks.responses.BranchBankResponse;
+import com.shidai.yunshang.networks.responses.BulletinDataResponst;
 import com.shidai.yunshang.networks.responses.BulletinResponse;
 import com.shidai.yunshang.networks.responses.CityResponse;
 import com.shidai.yunshang.networks.responses.LoginResponse;
@@ -45,6 +48,11 @@ public interface ZZCService {
     /*注册*/
     @POST("account/register")
     Observable<ResponseParent<RegistResponse>> register(@Body RegistRequest httpClient, @HeaderMap Map<String, String> header);
+
+    /*刷新登录*/
+    @POST("account/refresh")
+    Observable<ResponseParent<LoginResponse>> refreshLogin(@Body RefreshUserResquest httpClient, @HeaderMap Map<String, String> header);
+
 
     /*获取验证码*/
     @POST("common/regsms")
@@ -109,6 +117,18 @@ public interface ZZCService {
     /*保存头像*/
     @POST("account/photo")
     Observable<ResponseParent<Boolean>> saveHeadPhoto(@Body PhotoRequest photo, @HeaderMap Map<String, String> header);
+
+    /*公告*/
+    @GET("msg/bulletins")
+    Observable<ResponseParent<BulletinDataResponst>> getBulletins(@QueryMap  Map<String, String> hashMap, @HeaderMap Map<String, String> header);
+
+    /*设置已读*/
+    @POST("msg/read")
+    Observable<ResponseParent<Boolean>> setRead(@Body IdRequest request, @HeaderMap Map<String, String> header);
+
+    /*删除消息*/
+    @POST("msg/del")
+    Observable<ResponseParent<Boolean>> deleteMessage(@Body IdRequest request, @HeaderMap Map<String, String> header);
 
 
 }

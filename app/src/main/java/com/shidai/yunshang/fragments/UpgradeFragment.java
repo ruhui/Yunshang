@@ -1,6 +1,7 @@
 package com.shidai.yunshang.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -10,9 +11,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.shidai.yunshang.R;
+import com.shidai.yunshang.activities.WebActivity;
+import com.shidai.yunshang.activities.WebActivity_;
 import com.shidai.yunshang.adapters.UpgradeAdapter;
 import com.shidai.yunshang.adapters.WalletAdapter;
 import com.shidai.yunshang.fragments.base.BaseFragment;
+import com.shidai.yunshang.managers.UrlAddressManger;
 import com.shidai.yunshang.models.BillbagModel;
 import com.shidai.yunshang.networks.ApiClient;
 import com.shidai.yunshang.networks.responses.ShowupResponse;
@@ -166,7 +170,7 @@ public class UpgradeFragment extends BaseFragment {
 
         if (showupResponse.is_online()){
             //不可升级，联系客服
-            payGrade.setText("联系客服");
+            payGrade.setText("联系我们");
         }else{
             //显示升级按钮
             payGrade.setText("支付¥" +showupResponse.getUp_fee());
@@ -186,9 +190,12 @@ public class UpgradeFragment extends BaseFragment {
     void payGrade(){
         if (showupResponse.is_online()){
             //不可升级，联系客服
-            showFragment(getActivity(), CustomServerFragment_.builder().build());
+            Intent intent = new Intent(getActivity(), WebActivity_.class);
+            intent.putExtra("titleBar", "我要代理");
+            intent.putExtra("webUrl", UrlAddressManger.GOPROXY);
+            startActivity(intent);
         }else{
-            //显示升级按钮
+            //显示支付
 
         }
     }

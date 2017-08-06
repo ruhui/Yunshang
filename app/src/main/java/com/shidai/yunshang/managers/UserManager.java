@@ -5,8 +5,10 @@ import com.shidai.yunshang.networks.ApiClient;
 import com.shidai.yunshang.networks.ResponseParent;
 import com.shidai.yunshang.networks.ZZCHeaders;
 import com.shidai.yunshang.networks.requests.BandDeleteRequest;
+import com.shidai.yunshang.networks.requests.IdRequest;
 import com.shidai.yunshang.networks.requests.LoginRequest;
 import com.shidai.yunshang.networks.requests.PhotoRequest;
+import com.shidai.yunshang.networks.requests.RefreshUserResquest;
 import com.shidai.yunshang.networks.requests.RegistRequest;
 import com.shidai.yunshang.networks.requests.SaveCreditResquest;
 import com.shidai.yunshang.networks.requests.SaveDebitRequest;
@@ -15,6 +17,7 @@ import com.shidai.yunshang.networks.responses.BankCodeAndNameResponse;
 import com.shidai.yunshang.networks.responses.BankmsgResponse;
 import com.shidai.yunshang.networks.responses.BillprofitResponse;
 import com.shidai.yunshang.networks.responses.BranchBankResponse;
+import com.shidai.yunshang.networks.responses.BulletinDataResponst;
 import com.shidai.yunshang.networks.responses.BulletinResponse;
 import com.shidai.yunshang.networks.responses.CityResponse;
 import com.shidai.yunshang.networks.responses.LoginResponse;
@@ -85,6 +88,23 @@ public class UserManager {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
+
+    /**
+     * 刷新登录
+     * @param subscriber
+     */
+    public static void refreshLogin(Subscriber<ResponseParent<LoginResponse>> subscriber){
+        String Authorization = SecurePreferences.getInstance().getString("Authorization", "");
+        RefreshUserResquest request = new RefreshUserResquest(Authorization);
+
+        ZZCHeaders zzcHeaders = new ZZCHeaders(request);
+        ApiClient.getApiService().refreshLogin(request, zzcHeaders.getHashMap())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
 
     /**
      * 获取用户资料
@@ -352,6 +372,58 @@ public class UserManager {
 
         ZZCHeaders zzcHeaders = new ZZCHeaders(Authorization, resquest);
         ApiClient.getApiService().saveHeadPhoto(resquest, zzcHeaders.getHashMap())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**getsystemmsg
+     * @param curturnPage
+     * @param subscriber
+     */
+    public static void getBulletins(int curturnPage, Subscriber<ResponseParent<BulletinDataResponst>> subscriber) {
+        String Authorization = SecurePreferences.getInstance().getString("Authorization", "");
+        Map<String, String> hashmap = new HashMap<>();
+        hashmap.put("page", String.valueOf(curturnPage));
+        hashmap.put("size", "10");
+
+        ZZCHeaders zzcHeaders = new ZZCHeaders(Authorization, hashmap);
+        ApiClient.getApiService().getBulletins(hashmap, zzcHeaders.getHashMap())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 设置已读
+     * @param ids
+     * @param subscriber
+     */
+    public static void setread(List<Integer> ids, Subscriber<ResponseParent<Boolean>> subscriber){
+        String Authorization = SecurePreferences.getInstance().getString("Authorization", "");
+        IdRequest addCarFrom = new IdRequest(ids);
+
+        ZZCHeaders zzcHeaders = new ZZCHeaders(Authorization, addCarFrom);
+        ApiClient.getApiService().setRead(addCarFrom, zzcHeaders.getHashMap())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 删除消息
+     * @param ids
+     * @param subscriber
+     */
+    public static void deleteMessage(List<Integer> ids, Subscriber<ResponseParent<Boolean>> subscriber){
+        String Authorization = SecurePreferences.getInstance().getString("Authorization", "");
+        IdRequest addCarFrom = new IdRequest(ids);
+
+        ZZCHeaders zzcHeaders = new ZZCHeaders(Authorization, addCarFrom);
+        ApiClient.getApiService().deleteMessage(addCarFrom, zzcHeaders.getHashMap())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

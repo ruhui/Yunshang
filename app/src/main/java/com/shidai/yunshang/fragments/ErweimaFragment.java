@@ -18,7 +18,7 @@ import org.androidannotations.annotations.ViewById;
 /**
  * 创建时间： 2017/8/3.
  * 作者：黄如辉
- * 功能描述：
+ * 功能描述：我的二维码
  */
 @EFragment(R.layout.frament_erweima)
 public class ErweimaFragment extends BaseFragment {
