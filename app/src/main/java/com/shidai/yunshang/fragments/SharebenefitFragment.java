@@ -1,5 +1,6 @@
 package com.shidai.yunshang.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,11 +12,15 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.shidai.yunshang.R;
+import com.shidai.yunshang.activities.JiesuanActivity;
+import com.shidai.yunshang.activities.JiesuanActivity_;
 import com.shidai.yunshang.adapters.BenefitAdapter;
 import com.shidai.yunshang.fragments.base.BaseFragment;
+import com.shidai.yunshang.intefaces.AdapterListener;
 import com.shidai.yunshang.intefaces.RefreshListener;
 import com.shidai.yunshang.intefaces.ResponseResultListener;
 import com.shidai.yunshang.managers.UserManager;
+import com.shidai.yunshang.models.GradesModel;
 import com.shidai.yunshang.networks.PosetSubscriber;
 import com.shidai.yunshang.networks.responses.BillprofitResponse;
 import com.shidai.yunshang.view.widget.NavBarWallet;
@@ -87,8 +92,16 @@ public class SharebenefitFragment extends BaseFragment {
         getBillprofit();
 
         mRecycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecycleView.setAdapter(adapter_benefit = new BenefitAdapter());
+        mRecycleView.setAdapter(adapter_benefit = new BenefitAdapter(adapterListener));
     }
+
+    /*各种版本的点击*/
+    AdapterListener adapterListener = new AdapterListener<GradesModel>() {
+        @Override
+        public void setItemClickListener(GradesModel o, int position) {
+
+        }
+    };
 
 
     @Override
@@ -120,11 +133,15 @@ public class SharebenefitFragment extends BaseFragment {
     /*结算*/
     @Click(R.id.button2)
     void jiesuan(){
-        JiesuanFragment fragment = JiesuanFragment_.builder().build();
-        Bundle bundle = new Bundle();
-        bundle.putDouble("totalMoney", totalmoney);
-        fragment.setArguments(bundle);
-        showFragment(getActivity(), fragment);
+        Intent intent = new Intent(getActivity(), JiesuanActivity_.class);
+        intent.putExtra("totalMoney", totalmoney);
+        startActivity(intent);
+
+//        JiesuanFragment fragment = JiesuanFragment_.builder().build();
+//        Bundle bundle = new Bundle();
+//        bundle.putDouble("totalMoney", totalmoney);
+//        fragment.setArguments(bundle);
+//        showFragment(getActivity(), fragment);
     }
 
 

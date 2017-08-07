@@ -22,6 +22,7 @@ import com.shidai.yunshang.networks.responses.BulletinDataResponst;
 import com.shidai.yunshang.networks.responses.BulletinResponse;
 import com.shidai.yunshang.networks.responses.CityResponse;
 import com.shidai.yunshang.networks.responses.LoginResponse;
+import com.shidai.yunshang.networks.responses.MechantListResponse;
 import com.shidai.yunshang.networks.responses.RegistResponse;
 import com.shidai.yunshang.networks.responses.SettletypeResponse;
 import com.shidai.yunshang.networks.responses.ShowupResponse;
@@ -478,6 +479,31 @@ public class UserManager {
 
         ZZCHeaders zzcHeaders = new ZZCHeaders(Authorization, addCarFrom);
         ApiClient.getApiService().setTransfer(addCarFrom, zzcHeaders.getHashMap())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 我的商户列表
+     * @param grade_id
+     * @param username
+     * @param type
+     * @param curturnpage
+     * @param subscriber
+     */
+    public static void getMechantList(String grade_id, String username, String type, int curturnpage, Subscriber<ResponseParent<MechantListResponse>> subscriber) {
+        String Authorization = SecurePreferences.getInstance().getString("Authorization", "");
+        Map<String, String> hashmap = new HashMap<>();
+        hashmap.put("grade_id", grade_id);
+        hashmap.put("q", username);
+        hashmap.put("type", type);
+        hashmap.put("page", String.valueOf(curturnpage));
+        hashmap.put("size", "10");
+
+        ZZCHeaders zzcHeaders = new ZZCHeaders(Authorization, hashmap);
+        ApiClient.getApiService().getMechantList(hashmap, zzcHeaders.getHashMap())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

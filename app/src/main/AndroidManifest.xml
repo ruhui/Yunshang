@@ -49,7 +49,7 @@
 
         <activity android:name=".activities.TixianWalletActivity_"/>
         <activity android:name=".activities.SuccessTixianActivity_"/>
-
+        <activity android:name=".activities.JiesuanActivity_"/>
     </application>
 
 </manifest>

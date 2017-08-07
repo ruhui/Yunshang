@@ -63,6 +63,12 @@ public class SortViewHold extends LinearLayout {
                 userName = userName.substring(0, 1);
             }
             txtName.setText(userName + "**");
+//            if (position < 2){
+//                txtMoney.setText("¥"+sortResponse.getProfit());
+//            }else{
+//                String moneyStr = Tool.formatPrice(sortResponse.getProfit());
+//                moneyStr.
+//            }
         }
 
     }
