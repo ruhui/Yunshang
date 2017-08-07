@@ -12,6 +12,7 @@ import com.shidai.yunshang.networks.requests.SaveDebitRequest;
 import com.shidai.yunshang.networks.requests.SendRegsmsRequest;
 import com.shidai.yunshang.networks.requests.TransferRequest;
 import com.shidai.yunshang.networks.responses.MechantListResponse;
+import com.shidai.yunshang.networks.responses.MerchantDetailResponse;
 import com.shidai.yunshang.networks.responses.SettletypeResponse;
 import com.shidai.yunshang.networks.responses.TransferResponse;
 import com.shidai.yunshang.networks.responses.VersionResponst;
@@ -150,5 +151,11 @@ public interface ZZCService {
     /*获取我的商户列表*/
     @GET("account/merchant")
     Observable<ResponseParent<MechantListResponse>> getMechantList(@QueryMap  Map<String, String> hashMap, @HeaderMap Map<String, String> header);
+
+    /*获取商户详情*/
+    @GET("account/get_merchant")
+    Observable<ResponseParent<MerchantDetailResponse>> getMerchantDetail(@QueryMap  Map<String, String> hashMap, @HeaderMap Map<String, String> header);
+
+
 
 }

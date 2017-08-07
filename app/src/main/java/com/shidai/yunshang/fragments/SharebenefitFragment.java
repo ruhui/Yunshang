@@ -99,7 +99,11 @@ public class SharebenefitFragment extends BaseFragment {
     AdapterListener adapterListener = new AdapterListener<GradesModel>() {
         @Override
         public void setItemClickListener(GradesModel o, int position) {
-
+            MechatListFragment fragment = MechatListFragment_.builder().build();
+            Bundle bundle = new Bundle();
+            bundle.putInt("gradeid", o.getGrade_id());
+            fragment.setArguments(bundle);
+            showFragment(getActivity(), fragment);
         }
     };
 
