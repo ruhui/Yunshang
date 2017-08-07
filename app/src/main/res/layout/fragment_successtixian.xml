@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/windowbackcolor">
+
+    <com.shidai.yunshang.view.widget.NavBarBack_
+        android:id="@+id/mNavbar"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        android:gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:background="@color/colorPrimary">
+
+    </com.shidai.yunshang.view.widget.NavBarBack_>
+
+    <RelativeLayout
+        android:id="@+id/relaTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mNavbar"
+        android:layout_above="@+id/txtRegist">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="190dp"
+            android:background="@color/colorPrimary">
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relaMiddle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/white">
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/cg"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:id="@+id/imageView21" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="分润提现成功"
+                android:textColor="#FF737A95"
+                android:textSize="18sp"
+                android:layout_marginTop="7dp"
+                android:layout_below="@+id/imageView21"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/textView49" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/dp_30"
+                android:layout_below="@+id/textView49"
+                android:id="@+id/linearLayout3">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="@dimen/dp_40"
+                    android:layout_marginRight="@dimen/dp_40">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="商户名"
+                        android:textColor="#FF858585"
+                        android:textSize="14sp"
+                        android:id="@+id/textView51" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" "
+                        android:textColor="#FF15B4F1"
+                        android:textSize="14sp"
+                        android:id="@+id/textView50"
+                        android:layout_marginLeft="20dp"
+                        android:gravity="right"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_toRightOf="@+id/textView51"
+                        android:layout_toEndOf="@+id/textView51" />
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="@dimen/dp_40"
+                    android:layout_marginRight="@dimen/dp_40">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="账号"
+                        android:textColor="#FF858585"
+                        android:textSize="14sp"
+                        android:id="@+id/textView53" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" "
+                        android:textColor="#FF15B4F1"
+                        android:textSize="14sp"
+                        android:id="@+id/textView52"
+                        android:layout_marginLeft="20dp"
+                        android:gravity="right"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_toRightOf="@+id/textView53"
+                        android:layout_toEndOf="@+id/textView53" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="@dimen/dp_40"
+                    android:layout_marginRight="@dimen/dp_40">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="提现金额"
+                        android:textColor="#FF858585"
+                        android:textSize="14sp"
+                        android:id="@+id/textView55" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" "
+                        android:textColor="#FF15B4F1"
+                        android:textSize="14sp"
+                        android:id="@+id/textView54"
+                        android:layout_marginLeft="20dp"
+                        android:gravity="right"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_toRightOf="@+id/textView55"
+                        android:layout_toEndOf="@+id/textView55" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="@dimen/dp_40"
+                    android:layout_marginRight="@dimen/dp_40">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="提现费"
+                        android:textColor="#FF858585"
+                        android:textSize="14sp"
+                        android:id="@+id/textView57" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="苏先生"
+                        android:textColor="#FF15B4F1"
+                        android:textSize="14sp"
+                        android:id="@+id/textView56"
+                        android:layout_marginLeft="20dp"
+                        android:gravity="right"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_toRightOf="@+id/textView57"
+                        android:layout_toEndOf="@+id/textView57" />
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="@dimen/dp_40"
+                    android:layout_marginRight="@dimen/dp_40">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="实际到账"
+                        android:textColor="#FF858585"
+                        android:textSize="14sp"
+                        android:id="@+id/textView59" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="苏先生"
+                        android:textColor="#FF15B4F1"
+                        android:textSize="14sp"
+                        android:id="@+id/textView58"
+                        android:layout_marginLeft="20dp"
+                        android:gravity="right"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_toRightOf="@+id/textView59"
+                        android:layout_toEndOf="@+id/textView59" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="@dimen/dp_40"
+                    android:layout_marginRight="@dimen/dp_40">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="到账账号"
+                        android:textColor="#FF858585"
+                        android:textSize="14sp"
+                        android:id="@+id/textView61" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="苏先生"
+                        android:textColor="#FF15B4F1"
+                        android:textSize="14sp"
+                        android:id="@+id/textView60"
+                        android:layout_marginLeft="20dp"
+                        android:gravity="right"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_toRightOf="@+id/textView61"
+                        android:layout_toEndOf="@+id/textView61" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="@dimen/dp_40"
+                    android:layout_marginRight="@dimen/dp_40">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="提现时间"
+                        android:textColor="#FF858585"
+                        android:textSize="14sp"
+                        android:id="@+id/textView63" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="苏先生"
+                        android:textColor="#FF15B4F1"
+                        android:textSize="14sp"
+                        android:id="@+id/textView62"
+                        android:layout_marginLeft="20dp"
+                        android:gravity="right"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_toRightOf="@+id/textView63"
+                        android:layout_toEndOf="@+id/textView63" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="186dp"
+                android:layout_height="40dp"
+                android:background="@drawable/shape_blue_radio"
+                android:text="确定"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="20dp"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:layout_below="@+id/linearLayout3"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>

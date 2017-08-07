@@ -47,6 +47,9 @@
 
         <activity android:name=".activities.WebActivity_"/>
 
+        <activity android:name=".activities.TixianWalletActivity_"/>
+        <activity android:name=".activities.SuccessTixianActivity_"/>
+
     </application>
 
 </manifest>

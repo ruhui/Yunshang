@@ -2,19 +2,28 @@ package com.shidai.yunshang.fragments;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.shidai.yunshang.R;
 import com.shidai.yunshang.fragments.base.BaseFragment;
+import com.shidai.yunshang.intefaces.ResponseResultListener;
+import com.shidai.yunshang.managers.UserManager;
+import com.shidai.yunshang.networks.PosetSubscriber;
+import com.shidai.yunshang.networks.responses.TransferResponse;
 import com.shidai.yunshang.utils.SecurePreferences;
+import com.shidai.yunshang.utils.ToastUtil;
 import com.shidai.yunshang.view.widget.NavBarBack;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
+import org.greenrobot.eventbus.Subscribe;
+
+import rx.Subscriber;
 
 /**
  * 创建时间： 2017/7/29.
@@ -34,6 +43,7 @@ public class JiesuanFragment extends BaseFragment{
     TextView txtRemark;
 
     private double totalMoney;
+
 
     @Override
     public void onAttach(Context context) {
@@ -61,7 +71,7 @@ public class JiesuanFragment extends BaseFragment{
                 editText.setText(totalMoney+"");
             }
         });
-        txtRemark.setText(tranfermin);
+//        txtRemark.setText("备注: 单次提现不少于¥"+tranfermin +"    可提现金额: ¥" + totalMoney);
     }
 
     /*提现*/
@@ -69,4 +79,7 @@ public class JiesuanFragment extends BaseFragment{
     void tixian(){
 
     }
+
+
+
 }

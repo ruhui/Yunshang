@@ -10,7 +10,9 @@ import com.shidai.yunshang.networks.requests.RegistRequest;
 import com.shidai.yunshang.networks.requests.SaveCreditResquest;
 import com.shidai.yunshang.networks.requests.SaveDebitRequest;
 import com.shidai.yunshang.networks.requests.SendRegsmsRequest;
+import com.shidai.yunshang.networks.requests.TransferRequest;
 import com.shidai.yunshang.networks.responses.SettletypeResponse;
+import com.shidai.yunshang.networks.responses.TransferResponse;
 import com.shidai.yunshang.networks.responses.VersionResponst;
 import com.shidai.yunshang.networks.responses.BankCodeAndNameResponse;
 import com.shidai.yunshang.networks.responses.BankmsgResponse;
@@ -139,5 +141,9 @@ public interface ZZCService {
     /*提现结算方式*/
     @GET("account/settle_type")
     Observable<ResponseParent<List<SettletypeResponse>>> getSettletype(@QueryMap  Map<String, String> hashMap, @HeaderMap Map<String, String> header);
+
+    /*余额、收益提现POST */
+    @POST("account/transfer")
+    Observable<ResponseParent<TransferResponse>> setTransfer(@Body TransferRequest request, @HeaderMap Map<String, String> header);
 
 }

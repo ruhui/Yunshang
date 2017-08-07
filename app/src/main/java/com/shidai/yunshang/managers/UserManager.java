@@ -13,6 +13,7 @@ import com.shidai.yunshang.networks.requests.RegistRequest;
 import com.shidai.yunshang.networks.requests.SaveCreditResquest;
 import com.shidai.yunshang.networks.requests.SaveDebitRequest;
 import com.shidai.yunshang.networks.requests.SendRegsmsRequest;
+import com.shidai.yunshang.networks.requests.TransferRequest;
 import com.shidai.yunshang.networks.responses.BankCodeAndNameResponse;
 import com.shidai.yunshang.networks.responses.BankmsgResponse;
 import com.shidai.yunshang.networks.responses.BillprofitResponse;
@@ -26,6 +27,7 @@ import com.shidai.yunshang.networks.responses.SettletypeResponse;
 import com.shidai.yunshang.networks.responses.ShowupResponse;
 import com.shidai.yunshang.networks.responses.SortResponse;
 import com.shidai.yunshang.networks.responses.SystemResponse;
+import com.shidai.yunshang.networks.responses.TransferResponse;
 import com.shidai.yunshang.networks.responses.UsermsgResponse;
 import com.shidai.yunshang.networks.responses.VersionResponst;
 import com.shidai.yunshang.utils.SecurePreferences;
@@ -457,6 +459,25 @@ public class UserManager {
 
         ZZCHeaders zzcHeaders = new ZZCHeaders(Authorization, hashmap);
         ApiClient.getApiService().getSettletype(hashmap, zzcHeaders.getHashMap())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 余额、收益提现
+     * @param amount 提现金额
+     * @param settle_type 结算类型：T0,T1,默认用T1
+     * @param type 提现类型：1余额，2分润
+     * @param subscriber
+     */
+    public static void setTransfer(double amount, String settle_type, int type, Subscriber<ResponseParent<TransferResponse>> subscriber){
+        String Authorization = SecurePreferences.getInstance().getString("Authorization", "");
+        TransferRequest addCarFrom = new TransferRequest(amount, settle_type, type);
+
+        ZZCHeaders zzcHeaders = new ZZCHeaders(Authorization, addCarFrom);
+        ApiClient.getApiService().setTransfer(addCarFrom, zzcHeaders.getHashMap())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

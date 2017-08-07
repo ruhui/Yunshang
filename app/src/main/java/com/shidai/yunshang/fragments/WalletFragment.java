@@ -1,5 +1,6 @@
 package com.shidai.yunshang.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.shidai.yunshang.R;
+import com.shidai.yunshang.activities.TixianWalletActivity_;
 import com.shidai.yunshang.adapters.WalletAdapter;
 import com.shidai.yunshang.adapters.WalletTitleAdapter;
 import com.shidai.yunshang.fragments.base.BaseFragment;
@@ -203,11 +205,14 @@ public class WalletFragment extends BaseFragment{
     @Click(R.id.button2)
     void tiXian(){
         String tixianMoney = txtMoney.getText().toString();
-        TixianWalletFragment fragment = TixianWalletFragment_.builder().build();
-        Bundle bundle = new Bundle();
-        bundle.putString("tixianMoney", Tool.formatPrice(billBagReturnMsg.getDeposit()));
-        fragment.setArguments(bundle);
-        showFragment(getActivity(),fragment);
+        Intent intent = new Intent(getActivity(), TixianWalletActivity_.class);
+        intent.putExtra("tixianMoney", Tool.formatPrice(billBagReturnMsg.getDeposit()));
+        startActivity(intent);
+//        TixianWalletFragment fragment = TixianWalletFragment_.builder().build();
+//        Bundle bundle = new Bundle();
+//        bundle.putString("tixianMoney", Tool.formatPrice(billBagReturnMsg.getDeposit()));
+//        fragment.setArguments(bundle);
+//        showFragment(getActivity(),fragment);
     }
 
     @Override
