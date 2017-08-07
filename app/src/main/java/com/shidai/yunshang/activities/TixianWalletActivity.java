@@ -14,6 +14,7 @@ import com.shidai.yunshang.R;
 import com.shidai.yunshang.activities.base.BaseActivity;
 import com.shidai.yunshang.adapters.WalletTixianAdapter;
 import com.shidai.yunshang.intefaces.AdapterListener;
+import com.shidai.yunshang.intefaces.RefreshListener;
 import com.shidai.yunshang.intefaces.ResponseResultListener;
 import com.shidai.yunshang.managers.UserManager;
 import com.shidai.yunshang.networks.PosetSubscriber;
@@ -29,6 +30,7 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -157,6 +159,7 @@ public class TixianWalletActivity extends BaseActivity {
         @Override
         public void success(TransferResponse returnMsg) {
             closeProgress();
+            EventBus.getDefault().post(new RefreshListener(true));
             Intent intent = new Intent(getActivity(), SuccessTixianActivity_.class);
             intent.putExtra("tranferRes", returnMsg);
             startActivity(intent);

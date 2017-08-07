@@ -2,6 +2,7 @@ package com.shidai.yunshang.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.shidai.yunshang.adapters.WalletAdapter;
 import com.shidai.yunshang.adapters.WalletTitleAdapter;
 import com.shidai.yunshang.fragments.base.BaseFragment;
 import com.shidai.yunshang.intefaces.AdapterListener;
+import com.shidai.yunshang.intefaces.RefreshListener;
 import com.shidai.yunshang.intefaces.ResponseResultListener;
 import com.shidai.yunshang.managers.UserManager;
 import com.shidai.yunshang.models.BillbagModel;
@@ -29,6 +31,8 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
@@ -61,6 +65,12 @@ public class WalletFragment extends BaseFragment{
     private WalletAdapter adapter_wallet;
     private BillbagResponse billBagReturnMsg;
     private WalletTitleAdapter walletTitleAdapter;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
 
     @AfterViews
     void initView(){
@@ -250,5 +260,16 @@ public class WalletFragment extends BaseFragment{
         }
     };
 
+    @Subscribe
+    public void refrehsData(RefreshListener refreshListener){
+        if (refreshListener.refresh){
+            getBillbag();
+        }
+    }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }

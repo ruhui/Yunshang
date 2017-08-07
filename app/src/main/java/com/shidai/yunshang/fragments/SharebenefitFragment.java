@@ -1,6 +1,7 @@
 package com.shidai.yunshang.fragments;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import com.shidai.yunshang.R;
 import com.shidai.yunshang.adapters.BenefitAdapter;
 import com.shidai.yunshang.fragments.base.BaseFragment;
+import com.shidai.yunshang.intefaces.RefreshListener;
 import com.shidai.yunshang.intefaces.ResponseResultListener;
 import com.shidai.yunshang.managers.UserManager;
 import com.shidai.yunshang.networks.PosetSubscriber;
@@ -22,6 +24,8 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import rx.Subscriber;
 
@@ -55,6 +59,11 @@ public class SharebenefitFragment extends BaseFragment {
     private BenefitAdapter adapter_benefit;
     private double totalmoney = 0 , mouthbenefit = 0;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
 
     @AfterViews
     void initView(){
@@ -148,4 +157,17 @@ public class SharebenefitFragment extends BaseFragment {
 
         }
     };
+
+    @Subscribe
+    public void refreshData(RefreshListener refreshListener){
+        if (refreshListener.refresh){
+            getBillprofit();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }
