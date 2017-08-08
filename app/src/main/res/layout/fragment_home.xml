@@ -143,8 +143,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="116dp"
                     android:background="@color/windowbackcolor"
-                    app:rollviewpager_play_delay="3000"></com.jude.rollviewpager.RollPagerView>
+                    app:rollviewpager_play_delay="3000"
+                    android:visibility="gone">
 
+                </com.jude.rollviewpager.RollPagerView>
+
+
+                <ImageView
+                    android:id="@+id/imgTop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="116dp"
+                    android:src="@drawable/bg_home_up"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -238,7 +247,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="82dp"
                     android:layout_marginTop="6dp"
-                    android:background="@color/colorPrimary"/>
+                    android:src="@drawable/bg_home_down"/>
             </LinearLayout>
 
         </RelativeLayout>

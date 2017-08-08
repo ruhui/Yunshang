@@ -1,6 +1,7 @@
 package com.shidai.yunshang.fragments;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -55,6 +56,9 @@ public class ErweimaFragment extends BaseFragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         type = getArguments().getString("type");
+        if (TextUtils.isEmpty(type)) {
+            type = "1";
+        }
     }
 
     @AfterViews

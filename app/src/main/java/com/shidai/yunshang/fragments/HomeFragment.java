@@ -2,6 +2,9 @@ package com.shidai.yunshang.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -9,9 +12,17 @@ import android.widget.RelativeLayout;
 import com.shidai.yunshang.R;
 import com.shidai.yunshang.activities.InputMoneyActivity;
 import com.shidai.yunshang.activities.InputMoneyActivity_;
+import com.shidai.yunshang.activities.TixianWalletActivity_;
 import com.shidai.yunshang.activities.WebActivity_;
 import com.shidai.yunshang.fragments.base.BaseFragment;
+import com.shidai.yunshang.intefaces.ResponseResultListener;
 import com.shidai.yunshang.managers.UrlAddressManger;
+import com.shidai.yunshang.managers.UserManager;
+import com.shidai.yunshang.models.BillbagModel;
+import com.shidai.yunshang.networks.PosetSubscriber;
+import com.shidai.yunshang.networks.responses.BillbagResponse;
+import com.shidai.yunshang.networks.responses.BillprofitResponse;
+import com.shidai.yunshang.utils.Tool;
 import com.shidai.yunshang.view.widget.NavBar;
 import com.shidai.yunshang.view.widget.PicTextView45;
 
@@ -19,6 +30,8 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
+
+import rx.Subscriber;
 
 /**
  * 创建时间： 2017/7/18.
@@ -50,6 +63,9 @@ public class HomeFragment extends BaseFragment {
     PicTextView45 picText8;
     @ViewById(R.id.imgVidio)
     ImageView imgVidio;
+
+    private BillbagResponse billBagReturnMsg;
+    private double mouthbenefit = 0;
 
     @AfterViews
     void initView(){
@@ -84,7 +100,7 @@ public class HomeFragment extends BaseFragment {
                 intent.putExtra("webUrl", UrlAddressManger.HOMEJEWELLERYADDRESS);
                 startActivity(intent);
             }
-    });
+        });
 
         /*视频*/
         imgVidio.setOnClickListener(new View.OnClickListener() {
@@ -118,6 +134,55 @@ public class HomeFragment extends BaseFragment {
                 startActivity(intent);
             }
         });
+
+        /*我要升级*/
+        picText5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFragment(getActivity(), AuthorizationFragment_.builder().build());
+            }
+        });
+
+        /*收益排行*/
+        picText6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PaihangbangFragment fragment = PaihangbangFragment_.builder().build();
+                Bundle bundle = new Bundle();
+                //当月分润
+                bundle.putDouble("mouthBenefit", mouthbenefit);
+                fragment.setArguments(bundle);
+                showFragment(getActivity(), fragment);
+            }
+        });
+
+        /*我的客服*/
+        picText7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), WebActivity_.class);
+                intent.putExtra("titleBar", "客服");
+                intent.putExtra("webUrl", UrlAddressManger.CUSTOMSERVICE);
+                startActivity(intent);
+            }
+        });
+
+        /*我的二维码*/
+        picText8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFragment(getActivity(), ErweimaFragment_.builder().build());
+            }
+        });
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser){
+            getBillbag();
+            getBillprofit();
+        }
     }
 
     /*银联支付*/
@@ -143,7 +208,7 @@ public class HomeFragment extends BaseFragment {
 
         Intent intent = new Intent(getActivity(), InputMoneyActivity_.class);
         intent.putExtra("navbarTitle", "扫码支付");
-        intent.putExtra("payCode", "GATEWAY");
+        intent.putExtra("payCode", "wxPay");
         startActivity(intent);
 
 //        InputMoneyFragment fragment = InputMoneyFragment_.builder().build();
@@ -158,9 +223,8 @@ public class HomeFragment extends BaseFragment {
     @Click(R.id.relaTixian)
     void payTixian(){
 
-        Intent intent = new Intent(getActivity(), InputMoneyActivity_.class);
-        intent.putExtra("navbarTitle", "提现");
-        intent.putExtra("payCode", "GATEWAY");
+        Intent intent = new Intent(getActivity(), TixianWalletActivity_.class);
+        intent.putExtra("tixianMoney", Tool.formatPrice(billBagReturnMsg.getDeposit()));
         startActivity(intent);
 
 //        InputMoneyFragment fragment = InputMoneyFragment_.builder().build();
@@ -169,4 +233,40 @@ public class HomeFragment extends BaseFragment {
 //        fragment.setArguments(bundle);
 //        showFragment(getActivity(), fragment);
     }
+
+    private void getBillbag() {
+        Subscriber subscriber = new PosetSubscriber<BillbagResponse>().getSubscriber(callback_getbillbag);
+        UserManager.getBillbag(subscriber);
+    }
+
+    private void getBillprofit() {
+        Subscriber subscriber = new PosetSubscriber<BillprofitResponse>().getSubscriber(callback_billprofit);
+        UserManager.getBillprofit(subscriber);
+    }
+
+
+    ResponseResultListener callback_getbillbag = new ResponseResultListener<BillbagResponse>() {
+        @Override
+        public void success(BillbagResponse returnMsg) {
+            billBagReturnMsg = returnMsg;
+        }
+
+        @Override
+        public void fialed(String resCode, String message) {
+
+        }
+    };
+
+
+    ResponseResultListener callback_billprofit = new ResponseResultListener<BillprofitResponse>() {
+        @Override
+        public void success(BillprofitResponse returnMsg) {
+            mouthbenefit = returnMsg.getMonth_profit();
+        }
+
+        @Override
+        public void fialed(String resCode, String message) {
+
+        }
+    };
 }

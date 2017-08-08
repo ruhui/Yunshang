@@ -106,7 +106,16 @@ public class SurePayFragment extends BaseFragment{
         public void success(Boolean returnMsg) {
             closeProgress();
             if (returnMsg){
-                showFragment(getActivity(), SelectBankcardFragment_.builder().build());
+                if (orderType.equals("UNIONPAY")){
+                    //选择银行卡
+                    showFragment(getActivity(), SelectBankcardFragment_.builder().build());
+                }else if (orderType.equals("ALIPAY")){
+                    //扫码支付
+
+                }else if (orderType.equals("WXPAY")){
+                    //扫码支付
+                }else if (orderType.equals("GATEWAY")){
+                }
             }else{
                 ToastUtil.showToast("数据异常");
             }

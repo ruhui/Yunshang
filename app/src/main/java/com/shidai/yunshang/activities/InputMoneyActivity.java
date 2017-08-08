@@ -149,8 +149,6 @@ public class InputMoneyActivity extends BaseActivity {
         }
         /*创建订单*/
         createOrder();
-
-
     }
 
     private void createOrder() {
