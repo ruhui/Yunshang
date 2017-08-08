@@ -13,8 +13,8 @@
 
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="57dp"
+            android:layout_height="57dp"
             app:srcCompat="@drawable/qrzf_yl"
             android:layout_marginLeft="20dp"
             android:layout_marginStart="20dp"
@@ -24,7 +24,7 @@
             android:layout_alignParentStart="true" />
 
         <TextView
-            android:text="   "
+            android:text="    "
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -37,20 +37,6 @@
             android:textSize="12sp"
             android:textColor="@color/black"/>
 
-        <TextView
-            android:text=""
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/imageView4"
-            android:layout_alignLeft="@+id/textView10"
-            android:layout_alignStart="@+id/textView10"
-            android:id="@+id/textView11"
-            android:layout_marginTop="3dp"
-            android:textSize="10sp"
-            android:textColor="@color/grey"
-            android:layout_alignRight="@+id/textView10"
-            android:layout_alignEnd="@+id/textView10" />
-
         <ImageView
             android:id="@+id/imageView5"
             android:layout_width="wrap_content"
@@ -60,6 +46,21 @@
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:text=" "
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView11"
+            android:textSize="10sp"
+            android:layout_marginRight="@dimen/size_15"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/grey"
+            android:layout_below="@+id/textView10"
+            android:layout_alignLeft="@+id/textView10"
+            android:layout_alignStart="@+id/textView10"
+            android:layout_toLeftOf="@+id/imageView5"
+            android:layout_toStartOf="@+id/imageView5" />
 
 
     </RelativeLayout>

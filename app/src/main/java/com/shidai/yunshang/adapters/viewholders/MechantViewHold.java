@@ -54,14 +54,14 @@ public class MechantViewHold extends LinearLayout {
 
         txtStatu.setText("");
 
-        if (!mechantModel.is_receipt()){
-            txtStatu.setText("未收款");
-            txtStatu.setTextColor(getResources().getColor(R.color.colorPrimary));
-        }
-
         if (mechantModel.getAuth_status() == 0){
             txtStatu.setText("未实名认证");
             txtStatu.setTextColor(getResources().getColor(R.color.gray));
+        }
+
+        if (!mechantModel.is_receipt()){
+            txtStatu.setText("未收款");
+            txtStatu.setTextColor(getResources().getColor(R.color.colorPrimary));
         }
     }
 

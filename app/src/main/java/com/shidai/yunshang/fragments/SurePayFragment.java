@@ -7,9 +7,15 @@ import android.widget.TextView;
 
 import com.shidai.yunshang.adapters.SurePayAdapter;
 import com.shidai.yunshang.intefaces.AdapterListener;
+import com.shidai.yunshang.intefaces.ResponseResultListener;
+import com.shidai.yunshang.managers.UserManager;
+import com.shidai.yunshang.models.ChannelModel;
 import com.shidai.yunshang.models.SuerPayModel;
 import com.shidai.yunshang.R;
 import com.shidai.yunshang.fragments.base.BaseFragment;
+import com.shidai.yunshang.networks.PosetSubscriber;
+import com.shidai.yunshang.networks.responses.CreatOrderResponse;
+import com.shidai.yunshang.utils.ToastUtil;
 import com.shidai.yunshang.view.widget.FullyLinearLayoutManager;
 import com.shidai.yunshang.view.widget.NavBarBack;
 import com.shidai.yunshang.view.widget.SpaceItemDecoration;
@@ -20,6 +26,8 @@ import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import rx.Subscriber;
 
 /**
  * 描述：确认支付
@@ -45,16 +53,15 @@ public class SurePayFragment extends BaseFragment{
     @ViewById(R.id.mRecycleView)
     RecyclerView mRecycleView;
 
-    private String orderId = "", orderType = "", orderMoney = "";
-    private List<SuerPayModel> listModel = new ArrayList<>();
+    private String orderType = "";
     private SurePayAdapter adapter_surepay;
+    private CreatOrderResponse orderInfo;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        orderId = getArguments().getString("orderId");
+        orderInfo = (CreatOrderResponse) getArguments().getSerializable("orderInfo");
         orderType = getArguments().getString("orderType");
-        orderMoney = getArguments().getString("orderMoney");
     }
 
     @AfterViews
@@ -69,31 +76,46 @@ public class SurePayFragment extends BaseFragment{
             }
         });
 
-        initData();
-
-        txtOrderId.setText(orderId);
-        txtType.setText(orderType);
-        txtMoney.setText(orderMoney);
+        txtOrderId.setText(orderInfo.getOrder_no());
+        txtType.setText(orderInfo.getPay_name());
+        txtMoney.setText("¥"+orderInfo.getAmount());
 
         FullyLinearLayoutManager manager = new FullyLinearLayoutManager(getActivity());
         manager.setSmoothScrollbarEnabled(true);
         mRecycleView.setLayoutManager(manager);
         mRecycleView.setAdapter(adapter_surepay = new SurePayAdapter(adapterListener));
-        adapter_surepay.addAll(listModel);
-    }
-
-    private void initData() {
-        for (int i=0;i<6;i++){
-            SuerPayModel model = new SuerPayModel("", "银联小额，秒到 费率0.38% 结算费用2.0","单笔5000  单日200000");
-            listModel.add(model);
-        }
+        adapter_surepay.addAll(orderInfo.getChannel());
     }
 
 
-    AdapterListener adapterListener = new AdapterListener<SuerPayModel>() {
+    AdapterListener adapterListener = new AdapterListener<ChannelModel>() {
         @Override
-        public void setItemClickListener(SuerPayModel suerPayModel, int position) {
-            showFragment(getActivity(), SelectBankcardFragment_.builder().build());
+        public void setItemClickListener(ChannelModel suerPayModel, int position) {
+            selectChannel(suerPayModel.getPay_channel(), suerPayModel.getSettle_type());
+        }
+    };
+
+    private void selectChannel(int pay_channel, String settle_type) {
+        showProgress();
+        Subscriber subscriber = new PosetSubscriber<Boolean>().getSubscriber(callback_selectchannel);
+        UserManager.selectChannel(String.valueOf(pay_channel), settle_type, subscriber);
+    }
+
+    ResponseResultListener callback_selectchannel = new ResponseResultListener<Boolean>() {
+        @Override
+        public void success(Boolean returnMsg) {
+            closeProgress();
+            if (returnMsg){
+                showFragment(getActivity(), SelectBankcardFragment_.builder().build());
+            }else{
+                ToastUtil.showToast("数据异常");
+            }
+        }
+
+        @Override
+        public void fialed(String resCode, String message) {
+            closeProgress();
+            ToastUtil.showToast("数据异常");
         }
     };
 }

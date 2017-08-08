@@ -2,17 +2,25 @@ package com.shidai.yunshang.managers;
 
 import com.shidai.yunshang.networks.ResponseParent;
 import com.shidai.yunshang.networks.requests.BandDeleteRequest;
+import com.shidai.yunshang.networks.requests.CreatOrderRequest;
 import com.shidai.yunshang.networks.requests.IdRequest;
 import com.shidai.yunshang.networks.requests.LoginRequest;
 import com.shidai.yunshang.networks.requests.PhotoRequest;
+import com.shidai.yunshang.networks.requests.QuickPayCodeRequest;
 import com.shidai.yunshang.networks.requests.RefreshUserResquest;
 import com.shidai.yunshang.networks.requests.RegistRequest;
 import com.shidai.yunshang.networks.requests.SaveCreditResquest;
 import com.shidai.yunshang.networks.requests.SaveDebitRequest;
+import com.shidai.yunshang.networks.requests.SelectCardRequest;
+import com.shidai.yunshang.networks.requests.SelectchannelRequest;
 import com.shidai.yunshang.networks.requests.SendRegsmsRequest;
 import com.shidai.yunshang.networks.requests.TransferRequest;
+import com.shidai.yunshang.networks.responses.CreatOrderResponse;
 import com.shidai.yunshang.networks.responses.MechantListResponse;
 import com.shidai.yunshang.networks.responses.MerchantDetailResponse;
+import com.shidai.yunshang.networks.responses.RecommenderMsgResponse;
+import com.shidai.yunshang.networks.responses.RecommenderRequest;
+import com.shidai.yunshang.networks.responses.SelectCardResponse;
 import com.shidai.yunshang.networks.responses.SettletypeResponse;
 import com.shidai.yunshang.networks.responses.TransferResponse;
 import com.shidai.yunshang.networks.responses.VersionResponst;
@@ -156,6 +164,33 @@ public interface ZZCService {
     @GET("account/get_merchant")
     Observable<ResponseParent<MerchantDetailResponse>> getMerchantDetail(@QueryMap  Map<String, String> hashMap, @HeaderMap Map<String, String> header);
 
+    /*获取推荐人*/
+    @GET("account/recommender")
+    Observable<ResponseParent<RecommenderMsgResponse>> getRecommender(@QueryMap  Map<String, String> hashMap, @HeaderMap Map<String, String> header);
+
+    /*保存推荐人*/
+    @POST("account/save_recommender")
+    Observable<ResponseParent<Boolean>> saveRecommender(@Body RecommenderRequest request, @HeaderMap Map<String, String> header);
+
+    /*创建订单*/
+    @POST("charge/create_order")
+    Observable<ResponseParent<CreatOrderResponse>> createOrder(@Body CreatOrderRequest request, @HeaderMap Map<String, String> header);
+
+    /*选择通道*/
+    @POST("charge/select_channel")
+    Observable<ResponseParent<Boolean>> selectChannel(@Body SelectchannelRequest request, @HeaderMap Map<String, String> header);
+
+    /*选择银行卡*/
+    @POST("charge/select_card")
+    Observable<ResponseParent<SelectCardResponse>> selectCard(@Body SelectCardRequest request, @HeaderMap Map<String, String> header);
+
+    /*支付获取验证码*/
+    @POST("charge/get_code")
+    Observable<ResponseParent<Boolean>> getCode(@HeaderMap Map<String, String> header);
+
+    /*快捷支付*/
+    @POST("charge/quick_pay")
+    Observable<ResponseParent<Double>> quickPay(@Body QuickPayCodeRequest request, @HeaderMap Map<String, String> header);
 
 
 }

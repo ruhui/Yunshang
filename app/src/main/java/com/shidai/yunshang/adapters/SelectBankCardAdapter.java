@@ -37,6 +37,7 @@ public class SelectBankCardAdapter extends SwipeMenuAdapter<RecyclerView.ViewHol
     private int ITEM_SAMPLE = 1, ITEM_LAST = 2;
     private Context mContext;
     private String bottomdes;
+    private boolean isshowright = false;//是否显示右边的箭号
     private int bankType = 0;//0信用卡 1银行卡
     private SelectBankListener selectBankListener;
     private List<Object> mList = new ArrayList<>();
@@ -46,6 +47,14 @@ public class SelectBankCardAdapter extends SwipeMenuAdapter<RecyclerView.ViewHol
         this.mList = mList;
         this.bottomdes = bottomdes;
         this.selectBankListener = selectBankListener;
+    }
+
+    public SelectBankCardAdapter( Context mContext, List<Object> mList, String bottomdes,  SelectBankListener selectBankListener, boolean isshowright){
+        this.mContext =mContext;
+        this.mList = mList;
+        this.bottomdes = bottomdes;
+        this.selectBankListener = selectBankListener;
+        this.isshowright = isshowright;
     }
 
     public void setData( List<Object> mList, String bottomdes){
@@ -91,17 +100,25 @@ public class SelectBankCardAdapter extends SwipeMenuAdapter<RecyclerView.ViewHol
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof ItemOneViewHold){
-            BankmsgModel model = (BankmsgModel) mList.get(position);
+            final BankmsgModel model = (BankmsgModel) mList.get(position);
             ((ItemOneViewHold) holder).txtCardNum.setText(model.getAccount_no());
             ((ItemOneViewHold) holder).imgCardIcon.setImageResource(BankManager.getDrawable(model.getBank_code()));
 //            ImageLoader.loadImage(Tool.getPicUrl(mContext, model.get()),  ((ItemOneViewHold) holder).imgCardIcon);
+
+            if (isshowright){
+                ((ItemOneViewHold) holder).imageView7.setVisibility(View.VISIBLE);
+            }else{
+                ((ItemOneViewHold) holder).imageView7.setVisibility(View.INVISIBLE);
+            }
+
 
             ((ItemOneViewHold) holder).itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //一定要有监听，否则无法拉出菜单
+                    selectBankListener.setOnclickListener(model, position);
                 }
             });
         }else if (holder instanceof ItemSecondViewHold){
@@ -135,11 +152,13 @@ public class SelectBankCardAdapter extends SwipeMenuAdapter<RecyclerView.ViewHol
 
         public ImageView imgCardIcon;
         public TextView txtCardNum;
+        public ImageView imageView7;
 
         public ItemOneViewHold(View itemView) {
             super(itemView);
             txtCardNum = (TextView) itemView.findViewById(R.id.txtCardNum);
             imgCardIcon = (ImageView) itemView.findViewById(R.id.imageView6);
+            imageView7 = (ImageView) itemView.findViewById(R.id.imageView7);
         }
     }
 

@@ -7,8 +7,14 @@ package com.shidai.yunshang.intefaces;
  **/
 public class RefreshListener {
     public boolean refresh;
+    public String tag;
 
     public RefreshListener(boolean refresh) {
         this.refresh = refresh;
+    }
+
+    public RefreshListener(boolean refresh, String tag) {
+        this.refresh = refresh;
+        this.tag =tag;
     }
 }

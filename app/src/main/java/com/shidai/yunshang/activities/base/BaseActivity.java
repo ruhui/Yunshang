@@ -179,7 +179,6 @@ public abstract class BaseActivity extends AppCompatActivity  {
         transaction.commitAllowingStateLoss();
     }
 
-
     @Subscribe
     public void finishPage(ActivityFinish activityFinish){
         if (activityFinish.isfinish){

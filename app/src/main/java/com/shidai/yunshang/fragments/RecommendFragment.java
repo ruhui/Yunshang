@@ -6,6 +6,14 @@ import android.widget.EditText;
 
 import com.shidai.yunshang.R;
 import com.shidai.yunshang.fragments.base.BaseFragment;
+import com.shidai.yunshang.intefaces.RefreshListener;
+import com.shidai.yunshang.intefaces.ResponseResultListener;
+import com.shidai.yunshang.managers.UserManager;
+import com.shidai.yunshang.networks.PosetSubscriber;
+import com.shidai.yunshang.networks.responses.RecommenderMsgResponse;
+import com.shidai.yunshang.networks.responses.UsermsgResponse;
+import com.shidai.yunshang.utils.ImageLoader;
+import com.shidai.yunshang.utils.SecurePreferences;
 import com.shidai.yunshang.utils.ToastUtil;
 import com.shidai.yunshang.utils.Tool;
 import com.shidai.yunshang.view.widget.NavBar;
@@ -15,6 +23,10 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
+import rx.Subscriber;
 
 /**
  * 创建时间： 2017/8/2.
@@ -38,7 +50,11 @@ public class RecommendFragment extends BaseFragment {
                 super.onLeftMenuClick(view);
                 finishFragment();
             }
+
         });
+
+        String recommener = SecurePreferences.getInstance().getString("USERRRECOMMENDER", "");
+        edtPhone.setText(recommener);
     }
 
 
@@ -51,6 +67,25 @@ public class RecommendFragment extends BaseFragment {
             return;
         }
 
-
+        showProgress();
+        Subscriber subscriber = new PosetSubscriber<RecommenderMsgResponse>().getSubscriber(callback_recommend);
+        UserManager.saveRecommender(phoneNum, subscriber);
     }
+
+    ResponseResultListener callback_recommend = new ResponseResultListener<Integer>() {
+        @Override
+        public void success(Integer returnMsg) {
+            closeProgress();
+            ToastUtil.showToast("修改成功");
+            /*重置用户信息*/
+            EventBus.getDefault().post(new RefreshListener(true, "userrefresh"));
+            finishFragment();
+        }
+
+        @Override
+        public void fialed(String resCode, String message) {
+            closeProgress();
+        }
+    };
+
 }

@@ -528,7 +528,7 @@ public class Tool {
                 return Constant.PICLOOKURL + url + "_1_" + weidth + "_" + height + "_0.png";
             }
         }else{
-            return "";
+            return url;
         }
     }
 

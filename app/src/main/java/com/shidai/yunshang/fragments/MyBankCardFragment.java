@@ -92,6 +92,7 @@ public class MyBankCardFragment extends BaseFragment {
                 super.onXyMenuClick(view);
                 switchBank = false;
                 cardType = 1;
+                listmodel.clear();
                 adapter_brankcard.setBottom("+ 添加另一张信用卡", 0);
                 CURTURNPAGE = Constant.DEFAULTPAGE;
                 getBankMsg();
@@ -102,6 +103,7 @@ public class MyBankCardFragment extends BaseFragment {
                 super.onBankMenuClick(view);
                 switchBank = true;
                 cardType = 2;
+                listmodel.clear();
                 adapter_brankcard.setBottom("+ 添加另一张银行卡", 1);
                 CURTURNPAGE = Constant.DEFAULTPAGE;
                 getBankMsg();
@@ -189,6 +191,11 @@ public class MyBankCardFragment extends BaseFragment {
                 showFragment(getActivity(), BindDebitFragment_.builder().build());
             }
         }
+
+        @Override
+        public void setOnclickListener(Object model, int position) {
+
+        }
     };
 
     /*删除银行卡*/
@@ -215,7 +222,6 @@ public class MyBankCardFragment extends BaseFragment {
             }else{
                 bottomDes = "+ 添加另一张信用卡";
             }
-            listmodel.clear();
             listmodel.addAll(returnMsg.getRows());
             adapter_brankcard.setData(listmodel, bottomDes);
         }

@@ -1,11 +1,16 @@
 package com.shidai.yunshang.fragments;
 
+import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shidai.yunshang.R;
 import com.shidai.yunshang.fragments.base.BaseFragment;
+import com.shidai.yunshang.intefaces.ResponseResultListener;
+import com.shidai.yunshang.managers.UserManager;
+import com.shidai.yunshang.networks.PosetSubscriber;
+import com.shidai.yunshang.networks.responses.RecommenderMsgResponse;
 import com.shidai.yunshang.utils.ImageLoader;
 import com.shidai.yunshang.utils.SecurePreferences;
 import com.shidai.yunshang.utils.Tool;
@@ -14,6 +19,11 @@ import com.shidai.yunshang.view.widget.NavBarBack;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
+import org.greenrobot.eventbus.Subscribe;
+
+import java.lang.reflect.Type;
+
+import rx.Subscriber;
 
 /**
  * 创建时间： 2017/8/3.
@@ -39,9 +49,17 @@ public class ErweimaFragment extends BaseFragment {
     @ViewById(R.id.mNavbar)
     NavBarBack mNavbar;
 
+    private String type = "1";//1是自己，2是推荐人
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        type = getArguments().getString("type");
+    }
+
     @AfterViews
     void initView(){
-        mNavbar.setMiddleTitle("我的二维码");
+
         mNavbar.setRightTxt("分享");
         mNavbar.setOnMenuClickListener(new NavBarBack.OnMenuClickListener() {
             @Override
@@ -56,15 +74,46 @@ public class ErweimaFragment extends BaseFragment {
                 /*分享*/
             }
         });
-        String qRcode = SecurePreferences.getInstance().getString("USERQRCODE", "");
-        String telePhone = SecurePreferences.getInstance().getString("USERMOBILE", "");
-        String photo = SecurePreferences.getInstance().getString("USERPHOTO", "");
-        String username = SecurePreferences.getInstance().getString("USERNAME", "");
-        ImageLoader.loadCircleImage(Tool.getPicUrl(getActivity(), photo, 68, 68), imgHead, R.drawable.dl_tx);
-        txtName.setText(username);
-        txtZhanghao.setText("账号："+telePhone);
-        ImageLoader.loadImage(Tool.getPicUrl(getActivity(), qRcode, 253, 247), imgErweima);
-        txtDes.setText(bottomStrbrf + username + bottomStraft);
+
+
+        if (type.equals("1")){
+            mNavbar.setMiddleTitle("我的二维码");
+            String qRcode = SecurePreferences.getInstance().getString("USERQRCODE", "");
+            String telePhone = SecurePreferences.getInstance().getString("USERMOBILE", "");
+            String photo = SecurePreferences.getInstance().getString("USERPHOTO", "");
+            String username = SecurePreferences.getInstance().getString("USERNAME", "");
+            ImageLoader.loadCircleImage(Tool.getPicUrl(getActivity(), photo, 68, 68), imgHead, R.drawable.dl_tx);
+            txtName.setText(username);
+            txtZhanghao.setText("账号："+telePhone);
+            ImageLoader.loadImage(Tool.getPicUrl(getActivity(), qRcode, 253, 247), imgErweima);
+            txtDes.setText(bottomStrbrf + username + bottomStraft);
+        }else{
+            mNavbar.setMiddleTitle("推荐人二维码");
+            getRemendMesg();
+        }
     }
+
+    /*获取推荐人二维码*/
+    private void getRemendMesg() {
+        showProgress();
+        Subscriber subscriber = new PosetSubscriber<RecommenderMsgResponse>().getSubscriber(callback_recommend);
+        UserManager.getRecommender(subscriber);
+    }
+
+    ResponseResultListener callback_recommend = new ResponseResultListener<RecommenderMsgResponse>() {
+        @Override
+        public void success(RecommenderMsgResponse returnMsg) {
+            closeProgress();
+            txtName.setText(returnMsg.getName());
+            txtZhanghao.setText("账号："+ returnMsg.getMobile());
+            ImageLoader.loadImage(Tool.getPicUrl(getActivity(), returnMsg.getQrcode(), 253, 247), imgErweima);
+            txtDes.setText(bottomStrbrf + returnMsg.getName() + bottomStraft);
+        }
+
+        @Override
+        public void fialed(String resCode, String message) {
+            closeProgress();
+        }
+    };
 
 }

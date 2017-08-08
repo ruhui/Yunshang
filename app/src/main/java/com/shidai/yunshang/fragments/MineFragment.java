@@ -1,6 +1,8 @@
 package com.shidai.yunshang.fragments;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -10,6 +12,7 @@ import com.shidai.yunshang.R;
 import com.shidai.yunshang.activities.PersonMessageActivity_;
 import com.shidai.yunshang.activities.WebActivity_;
 import com.shidai.yunshang.fragments.base.BaseFragment;
+import com.shidai.yunshang.intefaces.RefreshListener;
 import com.shidai.yunshang.intefaces.ResponseResultListener;
 import com.shidai.yunshang.managers.UrlAddressManger;
 import com.shidai.yunshang.managers.UserManager;
@@ -26,6 +29,8 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import rx.Subscriber;
 
@@ -73,6 +78,11 @@ public class MineFragment extends BaseFragment implements MyscrollerView.Scrolle
     @ViewById(R.id.progressBar)
     ProgressBar progressBar;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
 
     @AfterViews
     void initView(){
@@ -103,7 +113,18 @@ public class MineFragment extends BaseFragment implements MyscrollerView.Scrolle
         itemView1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showFragment(getActivity(), RecommendFragment_.builder().build());
+                int parentId = SecurePreferences.getInstance().getInt("USERPARENT", 0);//推荐人ID
+                if (parentId == 0){
+                    //添加推荐人
+                    showFragment(getActivity(), RecommendFragment_.builder().build());
+                }else{
+                    //推荐人详情
+                    ErweimaFragment fragment = ErweimaFragment_.builder().build();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("type", "2");
+                    fragment.setArguments(bundle);
+                    showFragment(getActivity(), fragment);
+                }
             }
         });
 
@@ -209,4 +230,17 @@ public class MineFragment extends BaseFragment implements MyscrollerView.Scrolle
 
         }
     };
+
+    @Subscribe
+    public void refreshData(RefreshListener refreshListener){
+        if (refreshListener.refresh && refreshListener.tag.equals("userrefresh")){
+            getUserMsg();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }

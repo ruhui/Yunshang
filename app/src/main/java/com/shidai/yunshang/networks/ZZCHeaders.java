@@ -78,6 +78,23 @@ public class ZZCHeaders<T> {
         hashMap.put("Authorization",Authorization);
     }
 
+    /*post需要授权不要数据*/
+    public ZZCHeaders(String authorization) {
+        ContentType = "application/json";
+        hashMap = new HashMap<>();
+        this.Authorization = "Bearer "+authorization;
+        nonce = getStringRandom(8);
+        timestamp = getDate();
+        sign = getsignPost();
+
+        hashMap.put("timestamp",timestamp);
+        hashMap.put("nonce",nonce);
+        hashMap.put("partner",partner);
+        hashMap.put("sign",sign);
+        hashMap.put("ContentType",ContentType);
+        hashMap.put("Authorization",Authorization);
+    }
+
     /*get授权*/
     public ZZCHeaders(String authorization, Map<String,String> parater) {
         paraMap = parater;

@@ -1,12 +1,14 @@
 package com.shidai.yunshang.models;
 
+import java.io.Serializable;
+
 /**
  * 创建时间： 2017/7/28.
  * 作者：黄如辉
  * 功能描述：
  */
 
-public class ChannelModel {
+public class ChannelModel implements Serializable{
     private int pay_channel;
     private String name;
     private String settle_type;

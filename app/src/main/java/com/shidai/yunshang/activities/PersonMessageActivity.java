@@ -1,6 +1,7 @@
 package com.shidai.yunshang.activities;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -11,6 +12,7 @@ import com.shidai.yunshang.R;
 import com.shidai.yunshang.activities.base.BaseActivity;
 import com.shidai.yunshang.constants.Constant;
 import com.shidai.yunshang.constants.Permission;
+import com.shidai.yunshang.fragments.ErweimaFragment;
 import com.shidai.yunshang.fragments.ErweimaFragment_;
 import com.shidai.yunshang.fragments.base.BaseFragment;
 import com.shidai.yunshang.intefaces.ImageUploadListener;
@@ -111,7 +113,11 @@ public class PersonMessageActivity extends BaseActivity{
         relaErweima.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showFragment( ErweimaFragment_.builder().build());
+                ErweimaFragment fragment = ErweimaFragment_.builder().build();
+                Bundle bundle = new Bundle();
+                bundle.putString("type", "1");
+                fragment.setArguments(bundle);
+                showFragment(fragment);
             }
         });
     }

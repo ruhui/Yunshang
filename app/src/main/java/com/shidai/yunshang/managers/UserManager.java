@@ -1,17 +1,22 @@
 package com.shidai.yunshang.managers;
 
 import com.shidai.yunshang.intefaces.EnumSendUserType;
+import com.shidai.yunshang.intefaces.MergePayCode;
 import com.shidai.yunshang.networks.ApiClient;
 import com.shidai.yunshang.networks.ResponseParent;
 import com.shidai.yunshang.networks.ZZCHeaders;
 import com.shidai.yunshang.networks.requests.BandDeleteRequest;
+import com.shidai.yunshang.networks.requests.CreatOrderRequest;
 import com.shidai.yunshang.networks.requests.IdRequest;
 import com.shidai.yunshang.networks.requests.LoginRequest;
 import com.shidai.yunshang.networks.requests.PhotoRequest;
+import com.shidai.yunshang.networks.requests.QuickPayCodeRequest;
 import com.shidai.yunshang.networks.requests.RefreshUserResquest;
 import com.shidai.yunshang.networks.requests.RegistRequest;
 import com.shidai.yunshang.networks.requests.SaveCreditResquest;
 import com.shidai.yunshang.networks.requests.SaveDebitRequest;
+import com.shidai.yunshang.networks.requests.SelectCardRequest;
+import com.shidai.yunshang.networks.requests.SelectchannelRequest;
 import com.shidai.yunshang.networks.requests.SendRegsmsRequest;
 import com.shidai.yunshang.networks.requests.TransferRequest;
 import com.shidai.yunshang.networks.responses.BankCodeAndNameResponse;
@@ -24,7 +29,10 @@ import com.shidai.yunshang.networks.responses.CityResponse;
 import com.shidai.yunshang.networks.responses.LoginResponse;
 import com.shidai.yunshang.networks.responses.MechantListResponse;
 import com.shidai.yunshang.networks.responses.MerchantDetailResponse;
+import com.shidai.yunshang.networks.responses.RecommenderMsgResponse;
+import com.shidai.yunshang.networks.responses.RecommenderRequest;
 import com.shidai.yunshang.networks.responses.RegistResponse;
+import com.shidai.yunshang.networks.responses.SelectCardResponse;
 import com.shidai.yunshang.networks.responses.SettletypeResponse;
 import com.shidai.yunshang.networks.responses.ShowupResponse;
 import com.shidai.yunshang.networks.responses.SortResponse;
@@ -523,6 +531,129 @@ public class UserManager {
 
         ZZCHeaders zzcHeaders = new ZZCHeaders(Authorization, hashmap);
         ApiClient.getApiService().getMerchantDetail(hashmap, zzcHeaders.getHashMap())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 获取推荐人信息
+     * @param subscriber
+     */
+    public static void getRecommender(Subscriber<ResponseParent<RecommenderMsgResponse>> subscriber) {
+        String Authorization = SecurePreferences.getInstance().getString("Authorization", "");
+        String userid = SecurePreferences.getInstance().getString("USERPARENT", "");
+
+
+        Map<String, String> hashmap = new HashMap<>();
+        hashmap.put("id", String.valueOf(userid));
+
+        ZZCHeaders zzcHeaders = new ZZCHeaders(Authorization, hashmap);
+        ApiClient.getApiService().getRecommender(hashmap, zzcHeaders.getHashMap())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 保存推荐人
+     * @param mobile
+     * @param subscriber
+     */
+    public static void saveRecommender(String mobile, Subscriber<ResponseParent<Boolean>> subscriber){
+        String Authorization = SecurePreferences.getInstance().getString("Authorization", "");
+        RecommenderRequest request = new RecommenderRequest(mobile);
+
+        ZZCHeaders zzcHeaders = new ZZCHeaders(Authorization, request);
+        ApiClient.getApiService().saveRecommender(request, zzcHeaders.getHashMap())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+
+    /**
+     * 创建订单
+     * @param amount
+     * @param paycode
+     * @param subscriber
+     */
+    public static void createOrder(String amount, MergePayCode paycode, Subscriber<ResponseParent<Boolean>> subscriber){
+        String Authorization = SecurePreferences.getInstance().getString("Authorization", "");
+        CreatOrderRequest request = new CreatOrderRequest(amount, paycode);
+
+        ZZCHeaders zzcHeaders = new ZZCHeaders(Authorization, request);
+        ApiClient.getApiService().createOrder(request, zzcHeaders.getHashMap())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 先责通道
+     * @param pay_channel
+     * @param settle_type
+     * @param subscriber
+     */
+    public static void selectChannel(String pay_channel, String settle_type, Subscriber<ResponseParent<Boolean>> subscriber){
+        String Authorization = SecurePreferences.getInstance().getString("Authorization", "");
+        SelectchannelRequest request = new SelectchannelRequest(pay_channel, settle_type);
+
+        ZZCHeaders zzcHeaders = new ZZCHeaders(Authorization, request);
+        ApiClient.getApiService().selectChannel(request, zzcHeaders.getHashMap())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 选择银行卡
+     * @param bank_id
+     * @param subscriber
+     */
+    public static void selectCard(int bank_id, Subscriber<ResponseParent<SelectCardResponse>> subscriber){
+        String Authorization = SecurePreferences.getInstance().getString("Authorization", "");
+        SelectCardRequest request = new SelectCardRequest(bank_id);
+
+        ZZCHeaders zzcHeaders = new ZZCHeaders(Authorization, request);
+        ApiClient.getApiService().selectCard(request, zzcHeaders.getHashMap())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 支付获取验证码
+     * @param subscriber
+     */
+    public static void getCode(Subscriber<ResponseParent<Boolean>> subscriber){
+        String authorization = SecurePreferences.getInstance().getString("Authorization", "");
+
+        ZZCHeaders zzcHeaders = new ZZCHeaders(authorization);
+        ApiClient.getApiService().getCode(zzcHeaders.getHashMap())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 快捷支付
+     * @param code
+     * @param subscriber
+     */
+    public static void quickPay(String code, Subscriber<ResponseParent<Double>> subscriber){
+        String authorization = SecurePreferences.getInstance().getString("Authorization", "");
+        QuickPayCodeRequest request = new QuickPayCodeRequest(code);
+
+        ZZCHeaders zzcHeaders = new ZZCHeaders(authorization, request);
+        ApiClient.getApiService().quickPay(request, zzcHeaders.getHashMap())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

@@ -50,6 +50,7 @@
         <activity android:name=".activities.TixianWalletActivity_"/>
         <activity android:name=".activities.SuccessTixianActivity_"/>
         <activity android:name=".activities.JiesuanActivity_"/>
+        <activity android:name=".activities.InputMoneyActivity_"/>
     </application>
 
 </manifest>

@@ -7,6 +7,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.shidai.yunshang.R;
+import com.shidai.yunshang.activities.InputMoneyActivity;
+import com.shidai.yunshang.activities.InputMoneyActivity_;
 import com.shidai.yunshang.activities.WebActivity_;
 import com.shidai.yunshang.fragments.base.BaseFragment;
 import com.shidai.yunshang.managers.UrlAddressManger;
@@ -121,30 +123,50 @@ public class HomeFragment extends BaseFragment {
     /*银联支付*/
     @Click(R.id.relaYinlian)
     void payYinlian(){
-        InputMoneyFragment fragment = InputMoneyFragment_.builder().build();
-        Bundle bundle = new Bundle();
-        bundle.putString("navbarTitle", "银联支付");
-        fragment.setArguments(bundle);
-        showFragment(getActivity(), fragment);
+        //ALIPAY，WXPAY，UNIONPAY，GATEWAY
+        Intent intent = new Intent(getActivity(), InputMoneyActivity_.class);
+        intent.putExtra("navbarTitle", "银联支付");
+        intent.putExtra("payCode", "UNIONPAY");
+        startActivity(intent);
+
+//        InputMoneyFragment fragment = InputMoneyFragment_.builder().build();
+//        Bundle bundle = new Bundle();
+//        bundle.putString("navbarTitle", "银联支付");
+//        bundle.putString("payCode", "UNIONPAY");
+//        fragment.setArguments(bundle);
+//        showFragment(getActivity(), fragment);
     }
 
     /*扫码*/
     @Click(R.id.relaSaoma)
     void paySaoma(){
-        InputMoneyFragment fragment = InputMoneyFragment_.builder().build();
-        Bundle bundle = new Bundle();
-        bundle.putString("navbarTitle", "扫码支付");
-        fragment.setArguments(bundle);
-        showFragment(getActivity(), fragment);
+
+        Intent intent = new Intent(getActivity(), InputMoneyActivity_.class);
+        intent.putExtra("navbarTitle", "扫码支付");
+        intent.putExtra("payCode", "GATEWAY");
+        startActivity(intent);
+
+//        InputMoneyFragment fragment = InputMoneyFragment_.builder().build();
+//        Bundle bundle = new Bundle();
+//        bundle.putString("navbarTitle", "扫码支付");
+//        bundle.putString("payCode", "GATEWAY");
+//        fragment.setArguments(bundle);
+//        showFragment(getActivity(), fragment);
     }
 
     /*提现*/
     @Click(R.id.relaTixian)
     void payTixian(){
-        InputMoneyFragment fragment = InputMoneyFragment_.builder().build();
-        Bundle bundle = new Bundle();
-        bundle.putString("navbarTitle", "提现");
-        fragment.setArguments(bundle);
-        showFragment(getActivity(), fragment);
+
+        Intent intent = new Intent(getActivity(), InputMoneyActivity_.class);
+        intent.putExtra("navbarTitle", "提现");
+        intent.putExtra("payCode", "GATEWAY");
+        startActivity(intent);
+
+//        InputMoneyFragment fragment = InputMoneyFragment_.builder().build();
+//        Bundle bundle = new Bundle();
+//        bundle.putString("navbarTitle", "提现");
+//        fragment.setArguments(bundle);
+//        showFragment(getActivity(), fragment);
     }
 }

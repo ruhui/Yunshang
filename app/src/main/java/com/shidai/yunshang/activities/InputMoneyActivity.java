@@ -1,31 +1,41 @@
-package com.shidai.yunshang.fragments;
+package com.shidai.yunshang.activities;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import com.shidai.yunshang.R;
-import com.shidai.yunshang.fragments.base.BaseFragment;
+import com.shidai.yunshang.activities.base.BaseActivity;
+import com.shidai.yunshang.fragments.SurePayFragment;
+import com.shidai.yunshang.fragments.SurePayFragment_;
+import com.shidai.yunshang.intefaces.MergePayCode;
+import com.shidai.yunshang.intefaces.RefreshListener;
+import com.shidai.yunshang.intefaces.ResponseResultListener;
+import com.shidai.yunshang.managers.UserManager;
+import com.shidai.yunshang.networks.PosetSubscriber;
+import com.shidai.yunshang.networks.responses.CreatOrderResponse;
+import com.shidai.yunshang.utils.ToastUtil;
 import com.shidai.yunshang.utils.Tool;
-import com.shidai.yunshang.view.widget.NavBar;
 import com.shidai.yunshang.view.widget.NavBarBack;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
+import org.greenrobot.eventbus.Subscribe;
+
+import rx.Subscriber;
 
 /**
  * 描述：输入金额
  * 创建作者： 黄如辉
  * 创建时间： 2017/7/20 14:26
  **/
-@EFragment(R.layout.fragment_inputmoney)
-public class InputMoneyFragment extends BaseFragment {
+@EActivity(R.layout.fragment_inputmoney)
+public class InputMoneyActivity extends BaseActivity {
 
     private String navbarTitle;
-    private String moneyDes = "0";
+    private String moneyDes = "0", payCode = "";
 
     @ViewById(R.id.mNavbar)
     NavBarBack navBarBack;
@@ -33,20 +43,16 @@ public class InputMoneyFragment extends BaseFragment {
     @ViewById(R.id.txtMoney)
     TextView txtMoney;
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        navbarTitle = getArguments().getString("navbarTitle");
-    }
-
     @AfterViews
     void initView(){
+        navbarTitle = getIntent().getStringExtra("navbarTitle");
+        payCode = getIntent().getStringExtra("payCode");
         navBarBack.setMiddleTitle(navbarTitle);
         navBarBack.setOnMenuClickListener(new NavBarBack.OnMenuClickListener() {
             @Override
             public void onLeftMenuClick(View view) {
                 super.onLeftMenuClick(view);
-                finishFragment();
+                finish();
             }
         });
 
@@ -137,12 +143,54 @@ public class InputMoneyFragment extends BaseFragment {
     /*提交，收款*/
     @Click(R.id.btnSubmit)
     void btnSubmit(){
-        SurePayFragment fragment = SurePayFragment_.builder().build();
-        Bundle bundle = new Bundle();
-        bundle.putString("orderId", "");
-        bundle.putString("orderType", "");
-        bundle.putString("orderMoney", Tool.formatPrice(moneyDes));
-        fragment.setArguments(bundle);
-        showFragment(getActivity(), fragment);
+        if (Double.valueOf(moneyDes) <= 0){
+            ToastUtil.showToast("请输入大于0的金额");
+            return;
+        }
+        /*创建订单*/
+        createOrder();
+
+
+    }
+
+    private void createOrder() {
+        showProgress();
+        MergePayCode mergePayCode = null;
+        if (payCode.equals("UNIONPAY")){
+            mergePayCode = MergePayCode.UNIONPAY;
+        }else if (payCode.equals("ALIPAY")){
+            mergePayCode = MergePayCode.ALIPAY;
+        }else if (payCode.equals("WXPAY")){
+            mergePayCode = MergePayCode.WXPAY;
+        }else if (payCode.equals("GATEWAY")){
+            mergePayCode = MergePayCode.GATEWAY;
+        }
+        Subscriber subscriber = new PosetSubscriber<CreatOrderResponse>().getSubscriber(callback_creatorder);
+        UserManager.createOrder(Tool.formatPrice(moneyDes), mergePayCode, subscriber);
+    }
+
+    ResponseResultListener callback_creatorder = new ResponseResultListener<CreatOrderResponse>() {
+        @Override
+        public void success(CreatOrderResponse returnMsg) {
+            closeProgress();
+            SurePayFragment fragment = SurePayFragment_.builder().build();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("orderInfo", returnMsg);
+            bundle.putString("orderType", payCode);
+            fragment.setArguments(bundle);
+            showFragment(fragment);
+        }
+
+        @Override
+        public void fialed(String resCode, String message) {
+            closeProgress();
+        }
+    };
+
+    @Subscribe
+    public void finishFragmet(RefreshListener refreshListener){
+        if (refreshListener.refresh && refreshListener.tag.equals("finishFragment")){
+            finish();
+        }
     }
 }
