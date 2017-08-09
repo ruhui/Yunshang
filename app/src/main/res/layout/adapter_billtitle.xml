@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="#F9F9F9"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="#FF000000"
+            android:textSize="14sp"
+            android:layout_marginLeft="13dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="15dp"
+            android:id="@+id/textView80" />
+
+        <RelativeLayout
+            android:id="@+id/relaRight"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_toRightOf="@+id/textView80"
+            android:layout_toEndOf="@+id/textView80">
+
+            <TextView
+                android:id="@+id/txtAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¥"
+                android:textSize="@dimen/sp_14"
+                android:textColor="@color/colorPrimary"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="当前收入: "
+                android:textColor="#FF000000"
+                android:textSize="14sp"
+                android:id="@+id/textView81"
+                android:layout_alignBaseline="@+id/txtAmount"
+                android:layout_alignBottom="@+id/txtAmount"
+                android:layout_toLeftOf="@+id/txtAmount"
+                android:layout_toStartOf="@+id/txtAmount"
+                android:layout_marginRight="5dp"
+                android:layout_marginEnd="5dp" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+</LinearLayout>

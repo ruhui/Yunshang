@@ -1,5 +1,6 @@
 package com.shidai.yunshang.managers;
 
+import com.shidai.yunshang.intefaces.EnumBillType;
 import com.shidai.yunshang.intefaces.EnumSendUserType;
 import com.shidai.yunshang.intefaces.MergePayCode;
 import com.shidai.yunshang.networks.ApiClient;
@@ -21,6 +22,7 @@ import com.shidai.yunshang.networks.requests.SendRegsmsRequest;
 import com.shidai.yunshang.networks.requests.TransferRequest;
 import com.shidai.yunshang.networks.responses.BankCodeAndNameResponse;
 import com.shidai.yunshang.networks.responses.BankmsgResponse;
+import com.shidai.yunshang.networks.responses.BillListResponse;
 import com.shidai.yunshang.networks.responses.BillprofitResponse;
 import com.shidai.yunshang.networks.responses.BranchBankResponse;
 import com.shidai.yunshang.networks.responses.BulletinDataResponst;
@@ -34,9 +36,11 @@ import com.shidai.yunshang.networks.responses.RecommenderRequest;
 import com.shidai.yunshang.networks.responses.RegistResponse;
 import com.shidai.yunshang.networks.responses.SelectCardResponse;
 import com.shidai.yunshang.networks.responses.SettletypeResponse;
+import com.shidai.yunshang.networks.responses.ShoukuanDetailResponse;
 import com.shidai.yunshang.networks.responses.ShowupResponse;
 import com.shidai.yunshang.networks.responses.SortResponse;
 import com.shidai.yunshang.networks.responses.SystemResponse;
+import com.shidai.yunshang.networks.responses.TixianDetailResponse;
 import com.shidai.yunshang.networks.responses.TransferResponse;
 import com.shidai.yunshang.networks.responses.UsermsgResponse;
 import com.shidai.yunshang.networks.responses.VersionResponst;
@@ -545,7 +549,6 @@ public class UserManager {
         String Authorization = SecurePreferences.getInstance().getString("Authorization", "");
         String userid = SecurePreferences.getInstance().getString("USERPARENT", "");
 
-
         Map<String, String> hashmap = new HashMap<>();
         hashmap.put("id", String.valueOf(userid));
 
@@ -654,6 +657,105 @@ public class UserManager {
 
         ZZCHeaders zzcHeaders = new ZZCHeaders(authorization, request);
         ApiClient.getApiService().quickPay(request, zzcHeaders.getHashMap())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 获取账单列表
+     * @param orderNo
+     * @param billType
+     * @param status
+     * @param startDate
+     * @param endDate
+     * @param page
+     * @param subscriber
+     */
+    public static void getBillList(String orderNo, EnumBillType billType, String status, String startDate, String endDate,
+                                   int page, Subscriber<ResponseParent<BillListResponse>> subscriber) {
+        String billtype = "";
+        switch (billType){
+            case TYPE_SK:
+                //收款
+                billtype = "1";
+                break;
+            case TYPE_DDSR:
+                //订单收入
+                billtype = "2";
+                break;
+            case TYPE_TK:
+                //退款
+                billtype = "3";
+                break;
+            case TYPE_TX:
+                //提现
+                billtype = "4";
+                break;
+            case  TYPE_FR:
+                //分润
+                billtype = "5";
+                break;
+            case TYPE_SXF:
+                //手续费
+                billtype = "6";
+                break;
+            case  TYPE_ZF:
+                //支付
+                billtype = "7";
+                break;
+
+        }
+
+        String Authorization = SecurePreferences.getInstance().getString("Authorization", "");
+        Map<String, String> hashmap = new HashMap<>();
+        hashmap.put("order_no", orderNo);
+        hashmap.put("bill_type", billtype);
+        hashmap.put("status", status);
+        hashmap.put("start_date", startDate);
+        hashmap.put("end_date", endDate);
+        hashmap.put("page", String.valueOf(page));
+        hashmap.put("size", "10");
+
+        ZZCHeaders zzcHeaders = new ZZCHeaders(Authorization, hashmap);
+        ApiClient.getApiService().getBillList(hashmap, zzcHeaders.getHashMap())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 获取提现详情
+     * @param orderNo
+     * @param subscriber
+     */
+    public static void getTixianDetail(String orderNo, Subscriber<ResponseParent<TixianDetailResponse>> subscriber) {
+        String Authorization = SecurePreferences.getInstance().getString("Authorization", "");
+        Map<String, String> hashmap = new HashMap<>();
+        hashmap.put("order_no", orderNo);
+
+        ZZCHeaders zzcHeaders = new ZZCHeaders(Authorization, hashmap);
+        ApiClient.getApiService().getTixianDetail(hashmap, zzcHeaders.getHashMap())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 获取收款详情
+     * @param orderNo
+     * @param subscriber
+     */
+    public static void getReceiptDetail(String orderNo, Subscriber<ResponseParent<ShoukuanDetailResponse>> subscriber) {
+        String Authorization = SecurePreferences.getInstance().getString("Authorization", "");
+        Map<String, String> hashmap = new HashMap<>();
+        hashmap.put("order_no", orderNo);
+
+        ZZCHeaders zzcHeaders = new ZZCHeaders(Authorization, hashmap);
+        ApiClient.getApiService().getReceiptDetail(hashmap, zzcHeaders.getHashMap())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

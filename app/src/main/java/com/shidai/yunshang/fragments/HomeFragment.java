@@ -78,7 +78,7 @@ public class HomeFragment extends BaseFragment {
         picText5.setTextView(R.string.home_sy_wysj);picText5.setImageResource(R.drawable.sy_wysj);
         picText6.setTextView(R.string.home_sy_syph);picText6.setImageResource(R.drawable.sy_syph);
         picText7.setTextView(R.string.home_sy_wdkf);picText7.setImageResource(R.drawable.sy_wdkf);
-        picText8.setTextView(R.string.home_sy_gd);picText8.setImageResource(R.drawable.sy_gd);
+        picText8.setTextView(R.string.home_sy_gd);picText8.setImageResource(R.drawable.sy_ewm);
 
         /*微商城*/
         picText1.setOnClickListener(new View.OnClickListener() {
@@ -174,6 +174,15 @@ public class HomeFragment extends BaseFragment {
                 showFragment(getActivity(), ErweimaFragment_.builder().build());
             }
         });
+
+        /*账单*/
+        mNavbar.setOnMenuClickListener(new NavBar.OnMenuClickListener() {
+            @Override
+            public void onLeftMenuClick(View view) {
+                super.onLeftMenuClick(view);
+                showFragment(getActivity(), BillFragment_.builder().build());
+            }
+        });
     }
 
     @Override
@@ -208,7 +217,7 @@ public class HomeFragment extends BaseFragment {
 
         Intent intent = new Intent(getActivity(), InputMoneyActivity_.class);
         intent.putExtra("navbarTitle", "扫码支付");
-        intent.putExtra("payCode", "wxPay");
+        intent.putExtra("payCode", "WXPAY");
         startActivity(intent);
 
 //        InputMoneyFragment fragment = InputMoneyFragment_.builder().build();

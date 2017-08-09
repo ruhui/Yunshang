@@ -15,6 +15,7 @@ import com.shidai.yunshang.networks.requests.SelectCardRequest;
 import com.shidai.yunshang.networks.requests.SelectchannelRequest;
 import com.shidai.yunshang.networks.requests.SendRegsmsRequest;
 import com.shidai.yunshang.networks.requests.TransferRequest;
+import com.shidai.yunshang.networks.responses.BillListResponse;
 import com.shidai.yunshang.networks.responses.CreatOrderResponse;
 import com.shidai.yunshang.networks.responses.MechantListResponse;
 import com.shidai.yunshang.networks.responses.MerchantDetailResponse;
@@ -22,6 +23,8 @@ import com.shidai.yunshang.networks.responses.RecommenderMsgResponse;
 import com.shidai.yunshang.networks.responses.RecommenderRequest;
 import com.shidai.yunshang.networks.responses.SelectCardResponse;
 import com.shidai.yunshang.networks.responses.SettletypeResponse;
+import com.shidai.yunshang.networks.responses.ShoukuanDetailResponse;
+import com.shidai.yunshang.networks.responses.TixianDetailResponse;
 import com.shidai.yunshang.networks.responses.TransferResponse;
 import com.shidai.yunshang.networks.responses.VersionResponst;
 import com.shidai.yunshang.networks.responses.BankCodeAndNameResponse;
@@ -192,5 +195,16 @@ public interface ZZCService {
     @POST("charge/quick_pay")
     Observable<ResponseParent<Double>> quickPay(@Body QuickPayCodeRequest request, @HeaderMap Map<String, String> header);
 
+    /*账单列表*/
+    @GET("account/bills")
+    Observable<ResponseParent<BillListResponse>> getBillList(@QueryMap  Map<String, String> hashMap, @HeaderMap Map<String, String> header);
+
+    /*提现详情*/
+    @GET("account/transfer")
+    Observable<ResponseParent<TixianDetailResponse>> getTixianDetail(@QueryMap  Map<String, String> hashMap, @HeaderMap Map<String, String> header);
+
+    /*收款详情*/
+    @GET("account/receipt")
+    Observable<ResponseParent<ShoukuanDetailResponse>> getReceiptDetail(@QueryMap  Map<String, String> hashMap, @HeaderMap Map<String, String> header);
 
 }

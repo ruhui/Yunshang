@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/txtOrderno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="单号:"
+            android:textColor="#FF000000"
+            android:textSize="14sp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginLeft="@dimen/dp_30"
+            android:layout_toLeftOf="@+id/textView83"
+            android:layout_toStartOf="@+id/textView83" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¥"
+            android:textColor="#FF0786E7"
+            android:textSize="14sp"
+            android:layout_marginTop="18dp"
+            android:layout_marginRight="@dimen/dp_30"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/textView83" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" "
+            android:textColor="#FF000000"
+            android:textSize="14sp"
+            android:layout_below="@+id/txtOrderno"
+            android:layout_alignLeft="@+id/txtOrderno"
+            android:layout_alignStart="@+id/txtOrderno"
+            android:id="@+id/textView84"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" "
+            android:textColor="#FF939393"
+            android:textSize="14sp"
+            android:layout_alignBaseline="@+id/textView84"
+            android:layout_alignBottom="@+id/textView84"
+            android:layout_alignRight="@+id/textView83"
+            android:layout_alignEnd="@+id/textView83"
+            android:id="@+id/textView82" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/windowbackcolor"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp"/>
+
+</LinearLayout>
