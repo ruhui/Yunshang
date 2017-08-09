@@ -15,6 +15,7 @@ import com.shidai.yunshang.R;
 import com.shidai.yunshang.activities.LoginActivity_;
 import com.shidai.yunshang.activities.MainActivity;
 import com.shidai.yunshang.fragments.base.BaseFragment;
+import com.shidai.yunshang.intefaces.AcitivtyFinishListener;
 import com.shidai.yunshang.intefaces.ActivityFinish;
 import com.shidai.yunshang.intefaces.RefreshListener;
 import com.shidai.yunshang.view.widget.ProgressDialog;
@@ -186,6 +187,14 @@ public abstract class BaseActivity extends AppCompatActivity  {
                 Intent intent = new Intent(this, LoginActivity_.class);
                 startActivity(intent);
             }
+            finish();
+        }
+    }
+
+    @Subscribe
+    public void finishActivity(AcitivtyFinishListener listener){
+        if (listener.isfinish){
+            //设置下次登录不自动登录
             finish();
         }
     }

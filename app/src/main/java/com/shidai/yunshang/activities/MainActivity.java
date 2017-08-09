@@ -18,6 +18,7 @@ import com.shidai.yunshang.fragments.HomeFragment_;
 import com.shidai.yunshang.fragments.MineFragment_;
 import com.shidai.yunshang.fragments.SharebenefitFragment_;
 import com.shidai.yunshang.fragments.WalletFragment_;
+import com.shidai.yunshang.intefaces.AcitivtyFinishListener;
 import com.shidai.yunshang.intefaces.ActivityFinish;
 import com.shidai.yunshang.intefaces.ResponseResultListener;
 import com.shidai.yunshang.managers.UserManager;
@@ -32,6 +33,7 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 
@@ -234,4 +236,23 @@ public class MainActivity extends BaseActivity {
 
         }
     };
+
+    @Subscribe
+    public void finishActivity(ActivityFinish listener) {
+        if (listener.isfinish) {
+            SecurePreferences.getInstance().edit().putString("Authorization", "").commit();
+            SecurePreferences.getInstance().edit().putString("EXPIRESDATE", "").commit();
+            SecurePreferences.getInstance().edit().putString("USERQRCODE", "").commit(); //二维码
+            SecurePreferences.getInstance().edit().putString("USERRRECOMMENDER", "").commit();//推荐人
+            SecurePreferences.getInstance().edit().putInt("USERID", 0).commit();//商户id
+            SecurePreferences.getInstance().edit().putInt("USERAUTHSTATUS", 0).commit();//认证状态：0未认证，1待认证，2未通过，3已认证
+            SecurePreferences.getInstance().edit().putInt("USERGRADEID", 0).commit();//当前等级数
+            SecurePreferences.getInstance().edit().putString("USERNAME", "").commit();//姓名
+            SecurePreferences.getInstance().edit().putString("USERPHOTO", "").commit();//头像
+            SecurePreferences.getInstance().edit().putString("USERAUTHSTATUSNAME", "").commit();//认证状态
+            SecurePreferences.getInstance().edit().putString("USERGRADENAME", "").commit();//等级
+            SecurePreferences.getInstance().edit().putInt("USERPARENT", 0).commit();//推荐人ID
+            SecurePreferences.getInstance().edit().putInt("USERGRADECOUNT", 0).commit();//等级总数
+        }
+    }
 }

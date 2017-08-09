@@ -12,6 +12,7 @@
     <string name="search">筛选</string>
     <string name="selectpaytrannel">请选择支付通道</string>
     <string name="shouquanzizhi">授权资质</string>
+    <string name="version_name">版本号：%s</string>
 
     <string name="home_tabtitle">时代云商</string>
     <string name="zf_yinlian">银联支付</string>

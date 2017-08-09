@@ -79,6 +79,7 @@ public class SharebenefitFragment extends BaseFragment {
             public void onLeftMenuClick(View view) {
                 super.onLeftMenuClick(view);
                 //账单
+                showFragment(getActivity(), BillFragment_.builder().build());
             }
 
             @Override

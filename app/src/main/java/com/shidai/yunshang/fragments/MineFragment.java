@@ -155,6 +155,13 @@ public class MineFragment extends BaseFragment implements MyscrollerView.Scrolle
             }
         });
 
+        /*更多*/
+        itemView8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFragment(getActivity(), MoreFragment_.builder().build());
+            }
+        });
     }
 
 
