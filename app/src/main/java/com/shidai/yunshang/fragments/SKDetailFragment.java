@@ -1,6 +1,7 @@
 package com.shidai.yunshang.fragments;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.TextView;
 
 import com.shidai.yunshang.R;
@@ -9,6 +10,7 @@ import com.shidai.yunshang.intefaces.ResponseResultListener;
 import com.shidai.yunshang.managers.UserManager;
 import com.shidai.yunshang.networks.PosetSubscriber;
 import com.shidai.yunshang.networks.responses.ShoukuanDetailResponse;
+import com.shidai.yunshang.view.widget.NavBarBack;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
@@ -47,18 +49,8 @@ public class SKDetailFragment extends BaseFragment {
     /*实收*/
     @ViewById(R.id.textView114)
     TextView txtSH;
-    /*商品名称*/
-    @ViewById(R.id.textView115)
-    TextView txtProductName;
-    /*单价*/
-    @ViewById(R.id.textView118)
-    TextView txtProductPrice;
-    /*数量*/
-    @ViewById(R.id.textView120)
-    TextView txtCount;
-    /*金额*/
-    @ViewById(R.id.textView122)
-    TextView txtAmount;
+    @ViewById(R.id.mNavbar)
+    NavBarBack mNavbar;
 
     private String orderno;
 
@@ -71,6 +63,14 @@ public class SKDetailFragment extends BaseFragment {
 
     @AfterViews
     void initView(){
+        mNavbar.setMiddleTitle("收款详情");
+        mNavbar.setOnMenuClickListener(new NavBarBack.OnMenuClickListener() {
+            @Override
+            public void onLeftMenuClick(View view) {
+                super.onLeftMenuClick(view);
+                finishFragment();
+            }
+        });
         /*获取收款详情*/
         getReceiptDetail();
     }
@@ -86,6 +86,26 @@ public class SKDetailFragment extends BaseFragment {
         @Override
         public void success(ShoukuanDetailResponse returnMsg) {
             closeProgress();
+            txtMoney.setText("¥"+returnMsg.getOrder_amount());
+            txtTime.setText(returnMsg.getOrder_time());
+            txtOrderno.setText(returnMsg.getOrder_no());
+//            String orderStatu = "";
+//            if (returnMsg.getStatus() == 1){
+//                orderStatu = "待支付";
+//            }else if (returnMsg.getStatus() == 2){
+//                orderStatu = "已完成";
+//            }else if (returnMsg.getStatus() == 3){
+//                orderStatu = "支付中";
+//            }else if (returnMsg.getStatus() == 4){
+//                orderStatu = "失败";
+//            }else if (returnMsg.getStatus() == 5){
+//                orderStatu = "已关闭";
+//            }
+            txtPaytype.setText(returnMsg.getPay_name());
+            txtTotalMoney.setText("¥"+returnMsg.getOrder_amount());
+            txtYS.setText("¥"+returnMsg.getPay_amount());
+            txtSXF.setText("¥"+returnMsg.getFee_amount());
+            txtSH.setText("¥"+returnMsg.getAmount());
         }
 
         @Override

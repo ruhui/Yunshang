@@ -99,7 +99,11 @@ public class BillFragment extends BasePullRecyclerFragment {
             switch (billType) {
                 case TYPE_SK:
                     //收款
-
+                    SKDetailFragment fragment_sk = SKDetailFragment_.builder().build();
+                    Bundle bundle_sk = new Bundle();
+                    bundle_sk.putString("orderno", model.getOrder_no());
+                    fragment_sk.setArguments(bundle_sk);
+                    showFragment(getActivity(), fragment_sk);
                     break;
                 case TYPE_DDSR:
                     //订单收入
@@ -109,11 +113,11 @@ public class BillFragment extends BasePullRecyclerFragment {
                     break;
                 case TYPE_TX:
                     //提现
-                    TXDetailFragment fragment = TXDetailFragment_.builder().build();
-                    Bundle bundle = new Bundle();
-                    bundle.putString("orderno", model.getOrder_no());
-                    fragment.setArguments(bundle);
-                    showFragment(getActivity(), fragment);
+                    TXDetailFragment fragment_tx = TXDetailFragment_.builder().build();
+                    Bundle bundle_tx = new Bundle();
+                    bundle_tx.putString("orderno", model.getOrder_no());
+                    fragment_tx.setArguments(bundle_tx);
+                    showFragment(getActivity(), fragment_tx);
                     break;
                 case TYPE_FR:
                     //分润
@@ -132,7 +136,11 @@ public class BillFragment extends BasePullRecyclerFragment {
             switch (billType) {
                 case TYPE_SK:
                     //收款
-
+                    SKDetailFragment fragment_sk = SKDetailFragment_.builder().build();
+                    Bundle bundle_sk = new Bundle();
+                    bundle_sk.putString("orderno", model.getOrder_no());
+                    fragment_sk.setArguments(bundle_sk);
+                    showFragment(getActivity(), fragment_sk);
                     break;
                 case TYPE_DDSR:
                     //订单收入

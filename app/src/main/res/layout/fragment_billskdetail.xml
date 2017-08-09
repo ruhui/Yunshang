@@ -19,7 +19,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+       >
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -37,6 +38,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
+                android:layout_marginRight="6dp"
+                android:layout_marginLeft="6dp"
                 android:layout_marginTop="@dimen/dp_10">
 
                 <RelativeLayout
@@ -237,106 +240,6 @@
                         android:layout_alignRight="@+id/textView106"
                         android:layout_alignEnd="@+id/textView106"
                         android:id="@+id/textView114" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="165dp"
-                    android:background="@color/white"
-                    android:layout_marginBottom="@dimen/dp_30"
-                    android:layout_marginTop="@dimen/dp_10">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="商品名称"
-                        android:textColor="#FF000000"
-                        android:textSize="14sp"
-                        android:layout_marginTop="18dp"
-                        android:layout_marginLeft="@dimen/dp_30"
-                        android:id="@+id/textView116" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="收款"
-                        android:textColor="#FF000000"
-                        android:textSize="14sp"
-                        android:layout_marginRight="@dimen/dp_30"
-                        android:id="@+id/textView115"
-                        android:layout_alignBottom="@+id/textView116"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentEnd="true" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="单价"
-                        android:textColor="#FF000000"
-                        android:textSize="14sp"
-                        android:layout_marginTop="19dp"
-                        android:layout_below="@+id/textView116"
-                        android:layout_alignLeft="@+id/textView116"
-                        android:layout_alignStart="@+id/textView116"
-                        android:id="@+id/textView117" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="¥0"
-                        android:textColor="#FF000000"
-                        android:textSize="14sp"
-                        android:layout_alignBottom="@+id/textView117"
-                        android:layout_alignRight="@+id/textView115"
-                        android:layout_alignEnd="@+id/textView115"
-                        android:id="@+id/textView118" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="数量"
-                        android:textColor="#FF000000"
-                        android:textSize="14sp"
-                        android:layout_marginTop="19dp"
-                        android:layout_below="@+id/textView117"
-                        android:layout_alignLeft="@+id/textView117"
-                        android:layout_alignStart="@+id/textView117"
-                        android:id="@+id/textView119" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0"
-                        android:textColor="#FF000000"
-                        android:textSize="14sp"
-                        android:layout_alignBaseline="@+id/textView119"
-                        android:layout_alignBottom="@+id/textView119"
-                        android:layout_alignRight="@+id/textView118"
-                        android:layout_alignEnd="@+id/textView118"
-                        android:id="@+id/textView120" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="金额"
-                        android:textColor="#FF000000"
-                        android:textSize="14sp"
-                        android:layout_marginTop="19dp"
-                        android:layout_below="@+id/textView119"
-                        android:layout_alignLeft="@+id/textView119"
-                        android:layout_alignStart="@+id/textView119"
-                        android:id="@+id/textView121" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="¥0"
-                        android:textColor="#FF000000"
-                        android:textSize="14sp"
-                        android:layout_alignBottom="@+id/textView121"
-                        android:layout_alignRight="@+id/textView120"
-                        android:layout_alignEnd="@+id/textView120"
-                        android:id="@+id/textView122" />
                 </RelativeLayout>
             </LinearLayout>
         </RelativeLayout>
