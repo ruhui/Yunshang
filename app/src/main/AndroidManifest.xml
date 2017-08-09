@@ -23,13 +23,16 @@
 
         </activity>
 
-        <activity android:name=".activities.LoginActivity_"
-            android:launchMode="singleTask">
+        <activity android:name=".activities.FlashActivity_">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity android:name=".activities.LoginActivity_"
+            android:launchMode="singleTask">
         </activity>
 
         <activity android:name=".activities.RegistActivity_"
@@ -51,6 +54,7 @@
         <activity android:name=".activities.SuccessTixianActivity_"/>
         <activity android:name=".activities.JiesuanActivity_"/>
         <activity android:name=".activities.InputMoneyActivity_"/>
+
     </application>
 
 </manifest>
