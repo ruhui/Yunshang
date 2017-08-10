@@ -42,6 +42,10 @@ public class Constant {
     /* 下载保存路径 */
     public static final String SAVEAPPFILEPATH = Environment.getExternalStorageDirectory()
             + "/"  + "xinggou/XGW.apk";
+    /*极光KEY*/
+    public static final String JPUSHAPPKEY = "52fb0a9adf8deda74ff1270b";
+    /*极光secret*/
+    public static final String JPUSHSECRET = "feb02bb1b96e3b4236e912df ";
     /*环信用户头像*/
 //    public static final String USER_NAME = "USERNAME";
 //    /*环信用户头像图片*/

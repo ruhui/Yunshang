@@ -1,5 +1,6 @@
 package com.shidai.yunshang.fragments;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,10 +8,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.shidai.yunshang.R;
+import com.shidai.yunshang.activities.WebActivity_;
 import com.shidai.yunshang.fragments.base.BaseFragment;
 import com.shidai.yunshang.intefaces.AcitivtyFinishListener;
 import com.shidai.yunshang.intefaces.ActivityFinish;
 import com.shidai.yunshang.managers.DataCleanManager;
+import com.shidai.yunshang.managers.UrlAddressManger;
 import com.shidai.yunshang.managers.UserManager;
 import com.shidai.yunshang.utils.SecurePreferences;
 import com.shidai.yunshang.utils.Tool;
@@ -55,7 +58,10 @@ public class MoreFragment extends BaseFragment{
     /*关于我们*/
     @Click(R.id.relaAboutus)
     void aboutUs(){
-
+        Intent intent = new Intent(getActivity(), WebActivity_.class);
+        intent.putExtra("titleBar", getResources().getString(R.string.app_about));
+        intent.putExtra("webUrl", UrlAddressManger.ABOUTUS);
+        startActivity(intent);
     }
 
     /*当前版本*/
@@ -67,7 +73,10 @@ public class MoreFragment extends BaseFragment{
     /*服务协议*/
     @Click(R.id.relaXieyi)
     void xieyi(){
-
+        Intent intent = new Intent(getActivity(), WebActivity_.class);
+        intent.putExtra("titleBar", getResources().getString(R.string.app_protocol));
+        intent.putExtra("webUrl", UrlAddressManger.REGPROTOCOL);
+        startActivity(intent);
     }
 
     /*退出登录*/

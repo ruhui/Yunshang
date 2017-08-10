@@ -26,6 +26,8 @@
     <string name="home_sy_syph">收益排行</string>
     <string name="home_sy_wdkf">我的客服</string>
     <string name="home_sy_gd">我的二维码</string>
+    <string name="app_about">关于我们</string>
+    <string name="app_protocol">服务协议</string>
 
 
     <string name="views_load_more_loading">加载中...</string>

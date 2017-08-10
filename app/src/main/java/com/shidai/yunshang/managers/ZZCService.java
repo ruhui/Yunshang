@@ -3,6 +3,7 @@ package com.shidai.yunshang.managers;
 import com.shidai.yunshang.networks.ResponseParent;
 import com.shidai.yunshang.networks.requests.BandDeleteRequest;
 import com.shidai.yunshang.networks.requests.CreatOrderRequest;
+import com.shidai.yunshang.networks.requests.ForgetPwdRequest;
 import com.shidai.yunshang.networks.requests.IdRequest;
 import com.shidai.yunshang.networks.requests.LoginRequest;
 import com.shidai.yunshang.networks.requests.PhotoRequest;
@@ -206,5 +207,9 @@ public interface ZZCService {
     /*收款详情*/
     @GET("account/receipt")
     Observable<ResponseParent<ShoukuanDetailResponse>> getReceiptDetail(@QueryMap  Map<String, String> hashMap, @HeaderMap Map<String, String> header);
+
+    /*忘记密码*/
+    @POST("account/forget")
+    Observable<ResponseParent<Boolean>> forgetPwd(@Body ForgetPwdRequest request, @HeaderMap Map<String, String> header);
 
 }

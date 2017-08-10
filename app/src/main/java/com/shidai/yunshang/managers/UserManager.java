@@ -8,6 +8,7 @@ import com.shidai.yunshang.networks.ResponseParent;
 import com.shidai.yunshang.networks.ZZCHeaders;
 import com.shidai.yunshang.networks.requests.BandDeleteRequest;
 import com.shidai.yunshang.networks.requests.CreatOrderRequest;
+import com.shidai.yunshang.networks.requests.ForgetPwdRequest;
 import com.shidai.yunshang.networks.requests.IdRequest;
 import com.shidai.yunshang.networks.requests.LoginRequest;
 import com.shidai.yunshang.networks.requests.PhotoRequest;
@@ -756,6 +757,20 @@ public class UserManager {
 
         ZZCHeaders zzcHeaders = new ZZCHeaders(Authorization, hashmap);
         ApiClient.getApiService().getReceiptDetail(hashmap, zzcHeaders.getHashMap())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 忘记密码
+     * @param subscriber
+     */
+    public static void forgetPwd(ForgetPwdRequest request, Subscriber<ResponseParent<Boolean>> subscriber){
+
+        ZZCHeaders zzcHeaders = new ZZCHeaders(request);
+        ApiClient.getApiService().forgetPwd(request, zzcHeaders.getHashMap())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

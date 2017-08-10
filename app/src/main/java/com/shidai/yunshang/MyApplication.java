@@ -9,6 +9,8 @@ import android.text.TextUtils;
 import com.shidai.yunshang.constants.Constant;
 import com.umeng.analytics.MobclickAgent;
 
+import cn.jpush.android.api.JPushInterface;
+
 /**
  *
  * 创建作者： 黄如辉
@@ -34,6 +36,8 @@ public class MyApplication extends Application {
         MobclickAgent.setDebugMode(true);
         MobclickAgent.UMAnalyticsConfig config = new MobclickAgent.UMAnalyticsConfig( mInstance, Constant.UMENGAPPKEY, "yingyongbao");
         MobclickAgent. startWithConfigure(config);
+        JPushInterface.init(this);
+        JPushInterface.setDebugMode(true);
     }
 
     public static MyApplication getInstance() {

@@ -31,4 +31,9 @@ public class UrlAddressManger {
     public static final String HOMEJEWELLERYADDRESS = ApiClient.BASE_URL_TEST + "jewellery_ad";
     /*升级中我要代理*/
     public static final String GOPROXY = ApiClient.BASE_URL_TEST + "proxy";
+    /*服务协议*/
+    public static final String REGPROTOCOL = ApiClient.BASE_URL_TEST + "reg_protocol";
+    /*关于我们*/
+    public static final String ABOUTUS = ApiClient.BASE_URL_TEST + "about";
+
 }
