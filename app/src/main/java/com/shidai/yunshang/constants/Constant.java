@@ -41,7 +41,7 @@ public class Constant {
     public static final String EMCHATPASSWORD = "car123456";
     /* 下载保存路径 */
     public static final String SAVEAPPFILEPATH = Environment.getExternalStorageDirectory()
-            + "/"  + "xinggou/XGW.apk";
+            + "/"  + "sdys/sdyunshang.apk";
     /*极光KEY*/
     public static final String JPUSHAPPKEY = "52fb0a9adf8deda74ff1270b";
     /*极光secret*/

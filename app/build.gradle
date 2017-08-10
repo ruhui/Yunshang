@@ -11,7 +11,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
 
@@ -133,4 +133,6 @@ dependencies {
 
     compile 'cn.jiguang.sdk:jpush:3.0.3'
     compile 'cn.jiguang.sdk:jcore:1.1.1'
+    //权限管理，需要rxjava
+    compile 'com.tbruyelle.rxpermissions:rxpermissions:0.7.0@aar'
 }

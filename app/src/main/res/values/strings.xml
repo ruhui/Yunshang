@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">商付宝</string>
+    <string name="app_name">时代云商</string>
     <string name="app_title_name">时代云商</string>
     <string name="app_login">登录</string>
     <string name="state_network_no">当前网络异常，请检查网络设置</string>

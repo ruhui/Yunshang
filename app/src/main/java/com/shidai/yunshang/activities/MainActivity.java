@@ -1,32 +1,52 @@
 package com.shidai.yunshang.activities;
 
+import android.Manifest;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.CountDownTimer;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v4.view.ViewPager;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RemoteViews;
 import android.widget.TextView;
 
+import com.shidai.yunshang.MyApplication;
 import com.shidai.yunshang.R;
 import com.shidai.yunshang.activities.base.BaseActivity;
+import com.shidai.yunshang.constants.Constant;
 import com.shidai.yunshang.fragments.HomeFragment_;
 import com.shidai.yunshang.fragments.MineFragment_;
 import com.shidai.yunshang.fragments.SharebenefitFragment_;
 import com.shidai.yunshang.fragments.WalletFragment_;
 import com.shidai.yunshang.intefaces.AcitivtyFinishListener;
 import com.shidai.yunshang.intefaces.ActivityFinish;
+import com.shidai.yunshang.intefaces.DownLoadListener;
 import com.shidai.yunshang.intefaces.ResponseResultListener;
 import com.shidai.yunshang.managers.UserManager;
+import com.shidai.yunshang.networks.DownloadTask;
 import com.shidai.yunshang.networks.PosetSubscriber;
 import com.shidai.yunshang.networks.responses.LoginResponse;
 import com.shidai.yunshang.networks.responses.VersionResponst;
 import com.shidai.yunshang.utils.SecurePreferences;
+import com.shidai.yunshang.utils.ToastUtil;
 import com.shidai.yunshang.view.widget.NoScrollViewPager;
+import com.shidai.yunshang.view.widget.dialogs.UploadAlertDialog;
+import com.tbruyelle.rxpermissions.RxPermissions;
 import com.viewpagerindicator.IconPagerAdapter;
 
 import org.androidannotations.annotations.AfterViews;
@@ -35,9 +55,11 @@ import org.androidannotations.annotations.ViewById;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import rx.Subscriber;
+import rx.functions.Action1;
 
 @EActivity(R.layout.activity_main)
 public class MainActivity extends BaseActivity {
@@ -48,6 +70,8 @@ public class MainActivity extends BaseActivity {
     @ViewById(R.id.pager)
     NoScrollViewPager mPager;
 
+    private boolean isdownLoad = false;
+    private DownloadTask downloadTask;
 
     @AfterViews
     void initView(){
@@ -229,6 +253,26 @@ public class MainActivity extends BaseActivity {
             SecurePreferences.getInstance().edit().putInt("REGIONVERSION", returnMsg.getRegion_version()).commit();
             SecurePreferences.getInstance().edit().putString("SERVERPHONE", returnMsg.getService_phone()).commit();
             SecurePreferences.getInstance().edit().putString("MINTRANSFER", returnMsg.getMin_transfer()).commit();
+
+            try {
+                PackageManager pm = getPackageManager();
+                PackageInfo packageInfo = pm.getPackageInfo(getPackageName(), 0);
+                int curtentVersion = packageInfo.versionCode;
+                int serverVersion = returnMsg.getAndroid_version_num();
+                if (curtentVersion < serverVersion) {
+                    //判断是否需要强制升级
+                    if (returnMsg.is_force_update()) {
+                        //直接升级
+                        UpdateCorrect(returnMsg);
+                    } else {
+                        //提示升级
+                        AlertUpdate(returnMsg);
+                    }
+
+                }
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            }
         }
 
         @Override
@@ -254,5 +298,168 @@ public class MainActivity extends BaseActivity {
             SecurePreferences.getInstance().edit().putInt("USERPARENT", 0).commit();//推荐人ID
             SecurePreferences.getInstance().edit().putInt("USERGRADECOUNT", 0).commit();//等级总数
         }
+    }
+
+
+
+    private UploadAlertDialog myAlertDialog;
+
+    private void AlertUpdate(final VersionResponst returnMsg) {
+        myAlertDialog = new UploadAlertDialog(MainActivity.this, true);
+        myAlertDialog.show();
+        myAlertDialog.setCancelable(false);
+        myAlertDialog.setContent(Html.fromHtml(returnMsg.getAndroid_update_content()));
+        myAlertDialog.setLeftText("立即升级");
+        myAlertDialog.setRightText("以后再说");
+        myAlertDialog.setOnPositiveListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //更新
+                UpdateNow(returnMsg.getAndroid_update_url(),  returnMsg.getFile_size());
+            }
+        });
+    }
+
+    private void UpdateCorrect(final VersionResponst returnMsg) {
+        myAlertDialog = new UploadAlertDialog(MainActivity.this, false);
+        myAlertDialog.show();
+        myAlertDialog.setCancelable(false);
+        myAlertDialog.setContent(Html.fromHtml(returnMsg.getAndroid_update_content()));
+        myAlertDialog.setLeftText("立即升级");
+        myAlertDialog.setOnPositiveListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //更新
+                UpdateNow(returnMsg.getAndroid_update_url(), returnMsg.getFile_size());
+            }
+        });
+    }
+
+    /*开始升级*/
+    public void UpdateNow(final String downloadUrl, final int packageSize) {
+        /*测试地址*/
+//        downloadUrl = "http://orzrcdvjo.bkt.clouddn.com/XGW.apk";
+        //下载需要写SD卡权限, targetSdkVersion>=23 需要动态申请权限
+        RxPermissions.getInstance(MainActivity.this)
+                // 申请权限
+                .request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .subscribe(new Action1<Boolean>() {
+                    @Override
+                    public void call(Boolean granted) {
+                        if(granted){
+                            //请求成功
+                            ToastUtil.showToast("正在下载，请稍后...");
+                            if (!isdownLoad){
+                                isdownLoad = true;
+                                //开始升级
+                                downloadTask = new DownloadTask(packageSize, downLoadListener);
+                                downloadTask.execute(downloadUrl);
+                            }
+                        }else{
+                            // 请求失败回收当前服务
+                            getVersion();
+                        }
+                    }
+                });
+
+    }
+
+    /*下载更新包回调*/
+    DownLoadListener downLoadListener = new DownLoadListener() {
+        @Override
+        public void finishNotify() {
+            isdownLoad = false;
+            finishNotifyV();
+        }
+
+        @Override
+        public void shownotifi() {
+            shownotifiV();
+        }
+
+        @Override
+        public void installApk() {
+            installApkV();
+        }
+
+        @Override
+        public void refreshView(int filelen, int nowlenth) {
+            myAlertDialog.setProgress(nowlenth * 100/filelen);
+
+            views.setProgressBar(R.id.progressBar1, filelen, nowlenth, false);
+            views.setTextViewText(R.id.textView1, nowlenth * 100/filelen + "%");
+            mNotification.notify(123, build);
+        }
+
+        @Override
+        public void dismisNotification() {
+            build.flags = Notification.FLAG_AUTO_CANCEL;
+        }
+
+        @Override
+        public void cancleNotification() {
+            mNotification.cancel(123);
+        }
+    };
+
+
+    private NotificationManager mNotification;
+    private RemoteViews views;
+    private Notification build;
+
+
+    public void finishNotifyV() {
+        views.setViewVisibility(R.id.progressBar1, View.INVISIBLE);
+        views.setTextViewText(R.id.textView1, "下载完成,点击升级");
+        views.setTextViewText(R.id.textView2, "");
+        mNotification.cancel(123);
+    }
+
+    public void shownotifiV() {
+        mNotification = (NotificationManager) MyApplication.getInstance().getSystemService(Context.NOTIFICATION_SERVICE);
+        views = new RemoteViews(MyApplication.getInstance().getPackageName(), R.layout.notification);
+        Intent intent = new Intent();
+        PendingIntent ic = PendingIntent.getActivity(this, 0, intent, 0);
+        build = new NotificationCompat.Builder(this)
+                .setContent(views)
+                .setContentTitle("升级")
+                .setTicker("开始升级")
+                .setWhen(System.currentTimeMillis())
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentIntent(ic)
+                .build();
+        if (Build.VERSION.SDK_INT <= 10) {
+            build.contentView = views;
+        }
+        mNotification.notify(123, build);
+    }
+
+    /**
+     * 安装APK文件
+     */
+    private void installApkV() {
+        File apkfile = new File(Constant.SAVEAPPFILEPATH);
+        if (!apkfile.exists()) {
+            return;
+        }
+//        // 通过Intent安装APK文件
+//        Intent i = new Intent(Intent.ACTION_VIEW);
+//        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        i.setDataAndType(Uri.parse("file://" + apkfile.toString()),
+//                "application/vnd.android.package-archive");
+//        startActivity(i);
+
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        //判断是否是AndroidN以及更高的版本
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Uri uri = FileProvider.getUriForFile(MainActivity.this, "com.shidai.yunshang", apkfile);    //第二个参数是manifest中定义的`authorities`
+            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.setDataAndType(uri, "application/vnd.android.package-archive");
+        } else {
+            intent.setDataAndType(Uri.fromFile(apkfile), "application/vnd.android.package-archive");
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        }
+        startActivity(intent);
+        android.os.Process.killProcess(android.os.Process.myPid());
     }
 }

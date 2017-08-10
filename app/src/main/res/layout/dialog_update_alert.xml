@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:id="@+id/relativeLayout4"
+        android:layout_width="280dp"
+        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_update"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@drawable/bg_update_white"
+            android:layout_above="@+id/linearLayout2"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="@dimen/size_15"
+                >
+
+                <TextView
+                    android:text="升级到新版本"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView59"
+                    android:textSize="16sp"
+                    android:gravity="left"
+                    android:textColor="@color/color_444444"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    />
+
+                <TextView
+                    android:text=""
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView60"
+                    android:gravity="center|left"
+                    android:lineSpacingExtra="6sp"
+                    android:layout_marginTop="5dp"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="13sp"
+                    android:visibility="visible"
+                    android:textColor="@color/color_444444"
+                    android:scrollbars="vertical"/>
+
+                <com.shidai.yunshang.view.widget.MSeekBar
+                    android:id="@+id/mSeekbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:max="100"
+                    android:layout_above="@+id/tv_main2"
+                    android:progress="0"
+                    android:maxHeight="5dp"
+                    android:progressDrawable="@drawable/bg_seekbar_progress_drawable"
+                    android:thumb="@drawable/icon_seekbar_thumb"
+                    app:textBackground="@drawable/popwindow_bg1"
+                    app:textColor="@color/white"
+                    app:textOrientation="top"
+                    app:textSize="12sp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    />
+            </LinearLayout>
+
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/color_dddddd"
+                android:layout_above="@+id/linearLayout2"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:id="@+id/view11" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:id="@+id/linearLayout2"
+                android:visibility="visible"
+                >
+
+                <RelativeLayout
+                    android:id="@+id/relaCancle"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    >
+
+                    <TextView
+                        android:id="@+id/btnCancel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="以后再说"
+                        android:textSize="@dimen/size_15"
+                        android:textColor="@color/gray"
+                        />
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/color_dddddd"/>
+
+                <RelativeLayout
+                    android:id="@+id/relaSure"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    >
+
+                    <TextView
+                        android:text="立即升级"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView61"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/size_15"
+                        android:textStyle="bold"
+                        />
+
+                </RelativeLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</RelativeLayout>

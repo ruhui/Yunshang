@@ -12,12 +12,12 @@ public class VersionResponst {
     private String android_update_content;
     private String android_update_url;
     private boolean is_force_update;
-    private long file_size;
+    private int file_size;
     private int region_version;
     private String service_phone;
     private String min_transfer;
 
-    public VersionResponst(int android_version_num, String android_version, String android_update_content, String android_update_url, boolean is_force_update, long file_size, int region_version, String service_phone, String min_transfer) {
+    public VersionResponst(int android_version_num, String android_version, String android_update_content, String android_update_url, boolean is_force_update, int file_size, int region_version, String service_phone, String min_transfer) {
         this.android_version_num = android_version_num;
         this.android_version = android_version;
         this.android_update_content = android_update_content;
@@ -69,11 +69,11 @@ public class VersionResponst {
         this.is_force_update = is_force_update;
     }
 
-    public long getFile_size() {
+    public int getFile_size() {
         return file_size;
     }
 
-    public void setFile_size(long file_size) {
+    public void setFile_size(int file_size) {
         this.file_size = file_size;
     }
 

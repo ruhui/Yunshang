@@ -119,4 +119,14 @@
         <attr name="mhv_HeightRatio" format="reference|float" />
         <attr name="mhv_HeightDimen" format="reference|dimension" />
     </declare-styleable>
+
+    <declare-styleable name="MSeekBar">
+        <attr name="textSize" format="dimension" />
+        <attr name="textColor" format="color" />
+        <attr name="textBackground" format="reference" />
+        <attr name="textOrientation" format="enum">
+            <enum name="top" value="1" />
+            <enum name="bottom" value="2" />
+        </attr>
+    </declare-styleable>
 </resources>
