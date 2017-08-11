@@ -16,7 +16,7 @@
 
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="58ef20a6cae7e7474500182a" />
+            android:value="598d89c0ae1bf83f54001b37" />
 
         <activity android:name=".activities.MainActivity_"
             android:launchMode="singleTask">

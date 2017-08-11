@@ -86,7 +86,7 @@ public class UpgradeFragment extends BaseFragment {
 
     @AfterViews
     void initView(){
-        txtFeilv.setText("费率" + Tool.formatPrice(showupResponse.getUp_fee())+"%");
+        txtFeilv.setText("");
         mNavbar.setMiddleTitle(showupResponse.getName());
         mNavbar.setOnMenuClickListener(new NavBarBack.OnMenuClickListener() {
             @Override
@@ -108,8 +108,8 @@ public class UpgradeFragment extends BaseFragment {
         progressBar.setMax(gradeCount);
         progressBar.setProgress(curturnGrade);
 
-        String pictureUrl = ApiClient.BASE_URL_TEST + "content/images/grade/"+showupResponse.getId()+".jpg";
-        ImageLoader.loadImage(Tool.getPicUrl(getContext(), pictureUrl), imgIcon);
+        String pictureUrl = ApiClient.BASE_URL_TEST + "content/images/grade/"+showupResponse.getId()+".png";
+        ImageLoader.loadImage(pictureUrl, imgIcon);
 
         //默认显示银联支付
         mRecycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
