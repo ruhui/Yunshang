@@ -15,6 +15,8 @@ import com.shidai.yunshang.models.ChannelModel;
 
 public class UpgradeAdapter extends BaseRecyclerAdapter<ChannelModel, WalletViewHold> {
 
+    private String code;
+
     @Override
     protected WalletViewHold onCreateItemView(ViewGroup parent, int viewType) {
         return WalletViewHold_.build(parent.getContext());
@@ -22,6 +24,10 @@ public class UpgradeAdapter extends BaseRecyclerAdapter<ChannelModel, WalletView
 
     @Override
     protected void onBindView(WalletViewHold itemView, ChannelModel model, int position) {
-        itemView.bind(model);
+        itemView.bind(code, model);
+    }
+
+    public void setCode(String name) {
+        this.code = name;
     }
 }

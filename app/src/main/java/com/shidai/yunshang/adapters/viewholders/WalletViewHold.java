@@ -38,7 +38,7 @@ public class WalletViewHold extends LinearLayout {
         super(context, attrs);
     }
 
-    public void bind(ChannelModel model){
+    public void bind(String code, ChannelModel model){
 //        if (payType.equals("ALIPAY")){
 //            //支付宝
 //            imgCardIcon.setImageResource(R.drawable.qb_zfb);
@@ -47,7 +47,7 @@ public class WalletViewHold extends LinearLayout {
 //            imgCardIcon.setImageResource(R.drawable.qb_wxzf);
 //        }else if (payType.equals("UNIONPAY")){
 //            //银联支付
-        imgCardIcon.setImageResource(R.drawable.qb_ylzf);
+//        imgCardIcon.setImageResource(R.drawable.qb_ylzf);
 //        }
 
         String single_quota;//单笔额度
@@ -69,6 +69,17 @@ public class WalletViewHold extends LinearLayout {
 
         String settle ;//结算费
         settle = Tool.formatPrice(model.getSettle())+"元";
+
+        if (code.equals("UNIONPAY")){
+            //联合支付
+            imgCardIcon.setImageResource(R.drawable.qb_ylzf);
+        }else if (code.equals("WXPAY_JS")){
+            //微信支付
+            imgCardIcon.setImageResource(R.drawable.qb_wxzf);
+        }else if (code.equals("ALIPAY_JS")){
+            //支付宝支付
+            imgCardIcon.setImageResource(R.drawable.qb_zfb);
+        }
 
         txtName.setText(model.getName());
         txtContent.setText("额度:" + single_quota +"  "+ card_quota + "    费率:" +fee + "    结算费:"+settle);

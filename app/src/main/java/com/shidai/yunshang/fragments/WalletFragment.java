@@ -183,6 +183,7 @@ public class WalletFragment extends BaseFragment{
                 BillbagModel billbagModel = billBagReturnMsg.getPayments().get(position);
                 List<ChannelModel>  listChannel = billbagModel.getChannel();
                 adapter_wallet.clear();
+                adapter_wallet.setCode(billbagModel.getCode());
                 adapter_wallet.addAll(listChannel);
             }
         }
@@ -199,9 +200,12 @@ public class WalletFragment extends BaseFragment{
         txtMoney.setText("¥"+ Tool.formatPrice(billBagReturnMsg.getDeposit()));
         txtShouKuan.setText("共累计收款："+Tool.formatPrice(billBagReturnMsg.getTotal_receipt()));
 
+        adapter_wallet = new WalletAdapter();
+        adapter_wallet.setCode("UNIONPAY");
+
         //默认显示银联支付
         mRecycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecycleView.setAdapter(adapter_wallet = new WalletAdapter());
+        mRecycleView.setAdapter(adapter_wallet);
 
         for (BillbagModel billbagModel : billBagReturnMsg.getPayments()){
             if (billbagModel.getCode().equals("UNIONPAY")){

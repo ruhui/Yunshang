@@ -114,7 +114,7 @@ public class UpgradeFragment extends BaseFragment {
         //默认显示银联支付
         mRecycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecycleView.setAdapter(adapter_upgrade = new UpgradeAdapter());
-
+        adapter_upgrade.setCode("UNIONPAY");
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -213,6 +213,7 @@ public class UpgradeFragment extends BaseFragment {
     AdapterListener adapterListener = new AdapterListener<BillbagModel>() {
         @Override
         public void setItemClickListener(BillbagModel o, int position) {
+            String code = showupResponse.getPayments().get(position).getCode();
             adapter_upgrade.clear();
             if (showupResponse != null){
                 for (BillbagModel billbagModel : showupResponse.getPayments()){
@@ -228,6 +229,7 @@ public class UpgradeFragment extends BaseFragment {
                 walletTitleAdapter.replaceWith(showupResponse.getPayments());
                 BillbagModel billbagModel = showupResponse.getPayments().get(position);
                 List<ChannelModel> listChannel = billbagModel.getChannel();
+                adapter_upgrade.setCode(code);
                 adapter_upgrade.clear();
                 adapter_upgrade.addAll(listChannel);
             }

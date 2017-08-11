@@ -52,5 +52,16 @@ public class WalletTitleViewHold extends LinearLayout {
         }else{
             viewLine.setVisibility(INVISIBLE);
         }
+
+        if (model.getCode().equals("UNIONPAY")){
+            //联合支付
+            imgZFB.setImageResource(R.drawable.qb_ylzf);
+        }else if (model.getCode().equals("WXPAY_JS")){
+            //微信支付
+            imgZFB.setImageResource(R.drawable.qb_wxzf);
+        }else if (model.getCode().equals("ALIPAY_JS")){
+            //支付宝支付
+            imgZFB.setImageResource(R.drawable.qb_zfb);
+        }
     }
 }
