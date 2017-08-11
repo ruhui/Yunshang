@@ -18,6 +18,7 @@ import com.shidai.yunshang.networks.requests.SendRegsmsRequest;
 import com.shidai.yunshang.networks.requests.TransferRequest;
 import com.shidai.yunshang.networks.responses.BillListResponse;
 import com.shidai.yunshang.networks.responses.CreatOrderResponse;
+import com.shidai.yunshang.networks.responses.CreatQcodeResponse;
 import com.shidai.yunshang.networks.responses.MechantListResponse;
 import com.shidai.yunshang.networks.responses.MerchantDetailResponse;
 import com.shidai.yunshang.networks.responses.RecommenderMsgResponse;
@@ -211,5 +212,13 @@ public interface ZZCService {
     /*忘记密码*/
     @POST("account/forget")
     Observable<ResponseParent<Boolean>> forgetPwd(@Body ForgetPwdRequest request, @HeaderMap Map<String, String> header);
+
+    /*选择通道生成微信/支付宝二维码*/
+    @POST("charge/create_qr")
+    Observable<ResponseParent<CreatQcodeResponse>> createQrode(@Body SelectchannelRequest request, @HeaderMap Map<String, String> header);
+
+    /*切换支付方式，二维码*/
+    @GET("charge/select_pay")
+    Observable<ResponseParent<String>> selectPay(@QueryMap  Map<String, String> hashMap, @HeaderMap Map<String, String> header);
 
 }

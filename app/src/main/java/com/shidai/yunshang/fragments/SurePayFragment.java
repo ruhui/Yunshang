@@ -1,10 +1,12 @@
 package com.shidai.yunshang.fragments;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.shidai.yunshang.activities.InputMoneyActivity;
 import com.shidai.yunshang.adapters.SurePayAdapter;
 import com.shidai.yunshang.intefaces.AdapterListener;
 import com.shidai.yunshang.intefaces.ResponseResultListener;
@@ -15,6 +17,7 @@ import com.shidai.yunshang.R;
 import com.shidai.yunshang.fragments.base.BaseFragment;
 import com.shidai.yunshang.networks.PosetSubscriber;
 import com.shidai.yunshang.networks.responses.CreatOrderResponse;
+import com.shidai.yunshang.networks.responses.CreatQcodeResponse;
 import com.shidai.yunshang.utils.ToastUtil;
 import com.shidai.yunshang.view.widget.FullyLinearLayoutManager;
 import com.shidai.yunshang.view.widget.NavBarBack;
@@ -67,6 +70,8 @@ public class SurePayFragment extends BaseFragment{
     @AfterViews
     void initView(){
 
+        ((InputMoneyActivity)getActivity()).setErweimaShow();
+
         mNavbar.setBarTitle("确认支付");
         mNavbar.setOnMenuClickListener(new NavBarBack.OnMenuClickListener() {
             @Override
@@ -91,9 +96,22 @@ public class SurePayFragment extends BaseFragment{
     AdapterListener adapterListener = new AdapterListener<ChannelModel>() {
         @Override
         public void setItemClickListener(ChannelModel suerPayModel, int position) {
-            selectChannel(suerPayModel.getPay_channel(), suerPayModel.getSettle_type());
+            if (orderType.equals("UNIONPAY")){
+                //选择银行卡
+                selectChannel(suerPayModel.getPay_channel(), suerPayModel.getSettle_type());
+            }else if (orderType.equals("ALIPAY_JS") || orderType.equals("WXPAY_JS")){
+                //扫码支付
+                selectSMchannel(suerPayModel.getPay_channel(), suerPayModel.getSettle_type());
+            }else if (orderType.equals("GATEWAY")){
+            }
         }
     };
+
+    private void selectSMchannel(int pay_channel, String settle_type) {
+        showProgress();
+        Subscriber subscriber = new PosetSubscriber<CreatQcodeResponse>().getSubscriber(callback_selectsmchannel);
+        UserManager.createQrode(String.valueOf(pay_channel), settle_type, subscriber);
+    }
 
     private void selectChannel(int pay_channel, String settle_type) {
         showProgress();
@@ -104,15 +122,13 @@ public class SurePayFragment extends BaseFragment{
     ResponseResultListener callback_selectchannel = new ResponseResultListener<Boolean>() {
         @Override
         public void success(Boolean returnMsg) {
+            //ALIPAY_QR, WXPAY_QR, JDPAY_QR, WXPAY_JS, ALIPAY_JS, UNIONPAY, GATEWAY
             closeProgress();
             if (returnMsg){
                 if (orderType.equals("UNIONPAY")){
                     //选择银行卡
                     showFragment(getActivity(), SelectBankcardFragment_.builder().build());
-                }else if (orderType.equals("ALIPAY")){
-                    //扫码支付
-
-                }else if (orderType.equals("WXPAY")){
+                }else if (orderType.equals("ALIPAY_JS") || orderType.equals("WXPAY_JS")){
                     //扫码支付
                 }else if (orderType.equals("GATEWAY")){
                 }
@@ -125,6 +141,25 @@ public class SurePayFragment extends BaseFragment{
         public void fialed(String resCode, String message) {
             closeProgress();
             ToastUtil.showToast("数据异常");
+        }
+    };
+
+    /*扫码选择通道的回调*/
+    ResponseResultListener callback_selectsmchannel = new ResponseResultListener<CreatQcodeResponse>() {
+        @Override
+        public void success(CreatQcodeResponse returnMsg) {
+            closeProgress();
+            SaomaPayFragment fragment = SaomaPayFragment_.builder().build();
+            Bundle bundle = new Bundle();
+            bundle.putString("payType", orderType);
+            bundle.putSerializable("qcodeData", returnMsg);
+            fragment.setArguments(bundle);
+            showFragment(getActivity(), fragment);
+        }
+
+        @Override
+        public void fialed(String resCode, String message) {
+            closeProgress();
         }
     };
 }

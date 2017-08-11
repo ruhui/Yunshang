@@ -79,8 +79,7 @@ public class TixianWalletActivity extends BaseActivity {
         mRecycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecycleView.setAdapter(adapter_wallettixian = new WalletTixianAdapter(adapterListener));
 
-        String mintransfer = SecurePreferences.getInstance().getString("MINTRANSFER", "");
-        txtRemak.setText("备注: 单次提现不少于¥" + tixianMoney + "   可提现金额: ¥"+ Tool.formatPrice(mintransfer));
+        //String mintransfer = SecurePreferences.getInstance().getString("MINTRANSFER", "");
 
         txtAll.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,6 +105,8 @@ public class TixianWalletActivity extends BaseActivity {
                 }
             }
             adapter_wallettixian.replaceWith(listResponse);
+
+            txtRemak.setText("单次提现不少于" + o.getSingle_quota() + "   可提现金额: ¥"+ Tool.formatPrice(tixianMoney));
         }
     };
 
@@ -146,6 +147,11 @@ public class TixianWalletActivity extends BaseActivity {
             listResponse.addAll(returnMsg);
             adapter_wallettixian.clear();
             adapter_wallettixian.addAll(listResponse);
+            for (SettletypeResponse response : returnMsg){
+                if (response.getSettle_type().equals("T0")){
+                    txtRemak.setText("单次提现不少于" + response.getSingle_quota() + "   可提现金额: ¥"+ Tool.formatPrice(tixianMoney));
+                }
+            }
         }
 
         @Override

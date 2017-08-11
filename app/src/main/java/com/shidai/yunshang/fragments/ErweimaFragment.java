@@ -1,18 +1,21 @@
 package com.shidai.yunshang.fragments;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shidai.yunshang.R;
+import com.shidai.yunshang.constants.Constant;
 import com.shidai.yunshang.fragments.base.BaseFragment;
 import com.shidai.yunshang.intefaces.ResponseResultListener;
 import com.shidai.yunshang.managers.UserManager;
 import com.shidai.yunshang.networks.PosetSubscriber;
 import com.shidai.yunshang.networks.responses.RecommenderMsgResponse;
 import com.shidai.yunshang.utils.ImageLoader;
+import com.shidai.yunshang.utils.QRCodeUtil;
 import com.shidai.yunshang.utils.SecurePreferences;
 import com.shidai.yunshang.utils.Tool;
 import com.shidai.yunshang.view.widget.NavBarBack;
@@ -22,6 +25,7 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.io.File;
 import java.lang.reflect.Type;
 
 import rx.Subscriber;
@@ -89,12 +93,37 @@ public class ErweimaFragment extends BaseFragment {
             ImageLoader.loadCircleImage(Tool.getPicUrl(getActivity(), photo, 68, 68), imgHead, R.drawable.dl_tx);
             txtName.setText(username);
             txtZhanghao.setText("账号："+telePhone);
-            ImageLoader.loadImage(Tool.getPicUrl(getActivity(), qRcode, 253, 247), imgErweima);
+            setErweima(qRcode);
             txtDes.setText(bottomStrbrf + username + bottomStraft);
         }else{
             mNavbar.setMiddleTitle("推荐人二维码");
             getRemendMesg();
         }
+    }
+
+    /*生成二维码*/
+    private void setErweima(final String qcodeUil) {
+        final String filePath = Constant.ERWEIMA + File.separator
+                + "qr_" + System.currentTimeMillis() + ".jpg";
+
+        //二维码图片较大时，生成图片、保存文件的时间可能较长，因此放在新线程中
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                boolean success = QRCodeUtil.createQRImage(qcodeUil.trim(), 253, 247,
+                        true ? BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher) : null,
+                        filePath);
+
+                if (success) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            imgErweima.setImageBitmap(BitmapFactory.decodeFile(filePath));
+                        }
+                    });
+                }
+            }
+        }).start();
     }
 
     /*获取推荐人二维码*/
@@ -110,8 +139,8 @@ public class ErweimaFragment extends BaseFragment {
             closeProgress();
             txtName.setText(returnMsg.getName());
             txtZhanghao.setText("账号："+ returnMsg.getMobile());
-            ImageLoader.loadImage(Tool.getPicUrl(getActivity(), returnMsg.getQrcode(), 253, 247), imgErweima);
             txtDes.setText(bottomStrbrf + returnMsg.getName() + bottomStraft);
+            setErweima(returnMsg.getQrcode());
         }
 
         @Override

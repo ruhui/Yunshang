@@ -17,14 +17,14 @@ public class CreatOrderRequest {
     }
 
     private String getpayCode( MergePayCode paycode) {
-        //ALIPAY, WXPAY, UNIONPAY, GATEWAY
+        //ALIPAY_QR, WXPAY_QR, JDPAY_QR, WXPAY_JS, ALIPAY_JS, UNIONPAY, GATEWAY
         String payCode = "";
         switch (paycode){
-            case ALIPAY:
-                payCode = "ALIPAY";
+            case ALIPAY_JS:
+                payCode = "ALIPAY_JS";
                 break;
-            case WXPAY:
-                payCode = "WXPAY";
+            case WXPAY_JS:
+                payCode = "WXPAY_JS";
                 break;
             case UNIONPAY:
                 payCode = "UNIONPAY";

@@ -18,6 +18,7 @@
     </com.shidai.yunshang.view.widget.NavBarBack_>
 
     <ScrollView
+        android:id="@+id/mScroller"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -104,18 +105,6 @@
                     android:textSize="10sp"
                     android:layout_below="@+id/linearLayout4"
                     android:layout_centerHorizontal="true" />
-
-                <Button
-                    android:id="@+id/button2"
-                    android:layout_width="186dp"
-                    android:layout_height="40dp"
-                    android:layout_centerHorizontal="true"
-                    android:background="@drawable/shape_blue_radio"
-                    android:text="确认"
-                    android:layout_marginTop="50dp"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:layout_below="@+id/txtDes"/>
 
                 <TextView
                     android:layout_width="match_parent"

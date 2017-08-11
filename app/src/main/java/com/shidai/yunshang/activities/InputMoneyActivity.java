@@ -36,6 +36,8 @@ public class InputMoneyActivity extends BaseActivity {
 
     private String navbarTitle;
     private String moneyDes = "0", payCode = "";
+    /*是否二维码页面显示*/
+    private boolean erweimaShow = false;
 
     @ViewById(R.id.mNavbar)
     NavBarBack navBarBack;
@@ -151,15 +153,21 @@ public class InputMoneyActivity extends BaseActivity {
         createOrder();
     }
 
+    /*二维码页面是否显示*/
+    public void setErweimaShow(){
+        erweimaShow = true;
+    }
+
     private void createOrder() {
         showProgress();
+        // ALIPAY_QR, WXPAY_QR, JDPAY_QR, WXPAY_JS, ALIPAY_JS, UNIONPAY, GATEWAY
         MergePayCode mergePayCode = null;
         if (payCode.equals("UNIONPAY")){
             mergePayCode = MergePayCode.UNIONPAY;
         }else if (payCode.equals("ALIPAY")){
-            mergePayCode = MergePayCode.ALIPAY;
-        }else if (payCode.equals("WXPAY")){
-            mergePayCode = MergePayCode.WXPAY;
+            mergePayCode = MergePayCode.ALIPAY_JS;
+        }else if (payCode.equals("WXPAY_JS")){
+            mergePayCode = MergePayCode.WXPAY_JS;
         }else if (payCode.equals("GATEWAY")){
             mergePayCode = MergePayCode.GATEWAY;
         }
@@ -188,6 +196,14 @@ public class InputMoneyActivity extends BaseActivity {
     @Subscribe
     public void finishFragmet(RefreshListener refreshListener){
         if (refreshListener.refresh && refreshListener.tag.equals("finishFragment")){
+            finish();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (erweimaShow){
             finish();
         }
     }

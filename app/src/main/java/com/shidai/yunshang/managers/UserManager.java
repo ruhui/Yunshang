@@ -29,6 +29,7 @@ import com.shidai.yunshang.networks.responses.BranchBankResponse;
 import com.shidai.yunshang.networks.responses.BulletinDataResponst;
 import com.shidai.yunshang.networks.responses.BulletinResponse;
 import com.shidai.yunshang.networks.responses.CityResponse;
+import com.shidai.yunshang.networks.responses.CreatQcodeResponse;
 import com.shidai.yunshang.networks.responses.LoginResponse;
 import com.shidai.yunshang.networks.responses.MechantListResponse;
 import com.shidai.yunshang.networks.responses.MerchantDetailResponse;
@@ -771,6 +772,42 @@ public class UserManager {
 
         ZZCHeaders zzcHeaders = new ZZCHeaders(request);
         ApiClient.getApiService().forgetPwd(request, zzcHeaders.getHashMap())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 选择通道生成微信/支付宝二维码
+     * @param pay_channel
+     * @param settle_type
+     * @param subscriber
+     */
+    public static void createQrode(String pay_channel, String settle_type, Subscriber<ResponseParent<CreatQcodeResponse>> subscriber){
+        String Authorization = SecurePreferences.getInstance().getString("Authorization", "");
+        SelectchannelRequest request = new SelectchannelRequest(pay_channel, settle_type);
+
+        ZZCHeaders zzcHeaders = new ZZCHeaders(Authorization, request);
+        ApiClient.getApiService().createQrode(request, zzcHeaders.getHashMap())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 切换支付方式
+     * @param payOrder
+     * @param subscriber
+     */
+    public static void selectPay(String payOrder, Subscriber<ResponseParent<String>> subscriber) {
+        String Authorization = SecurePreferences.getInstance().getString("Authorization", "");
+        Map<String, String> hashmap = new HashMap<>();
+        hashmap.put("pay_code", payOrder);
+
+        ZZCHeaders zzcHeaders = new ZZCHeaders(Authorization, hashmap);
+        ApiClient.getApiService().selectPay(hashmap, zzcHeaders.getHashMap())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

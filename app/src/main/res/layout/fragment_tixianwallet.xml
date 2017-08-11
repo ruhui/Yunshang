@@ -130,6 +130,7 @@
                         android:layout_marginTop="60dp" />
 
                     <TextView
+                        android:id="@+id/txtRemark"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="温馨提醒：\nT+0到账时间\n工作日（周一到周六）8点到15点 申请 当天2分钟内到帐。15点到0点 申请 次日10点前到帐0点到8点 申请 次日10点前到帐；

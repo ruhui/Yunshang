@@ -130,9 +130,11 @@ dependencies {
     compile 'com.android.support:support-v4:25.1.0'
     compile 'com.android.support:appcompat-v7:25.1.0'
     compile 'com.yanzhenjie:recyclerview-swipe:1.0.1'
-
     compile 'cn.jiguang.sdk:jpush:3.0.3'
     compile 'cn.jiguang.sdk:jcore:1.1.1'
+    //权限管理，需要rxjava
+    compile 'com.tbruyelle.rxpermissions:rxpermissions:0.7.0@aar'
+    compile files('libs/zixing-core-3.2.0.jar')
     //权限管理，需要rxjava
     compile 'com.tbruyelle.rxpermissions:rxpermissions:0.7.0@aar'
 }

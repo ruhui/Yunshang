@@ -197,7 +197,7 @@ public class HomeFragment extends BaseFragment {
     /*银联支付*/
     @Click(R.id.relaYinlian)
     void payYinlian(){
-        //ALIPAY，WXPAY，UNIONPAY，GATEWAY
+        // ALIPAY_QR, WXPAY_QR, JDPAY_QR, WXPAY_JS, ALIPAY_JS, UNIONPAY, GATEWAY
         Intent intent = new Intent(getActivity(), InputMoneyActivity_.class);
         intent.putExtra("navbarTitle", "银联支付");
         intent.putExtra("payCode", "UNIONPAY");
@@ -217,7 +217,7 @@ public class HomeFragment extends BaseFragment {
 
         Intent intent = new Intent(getActivity(), InputMoneyActivity_.class);
         intent.putExtra("navbarTitle", "扫码支付");
-        intent.putExtra("payCode", "WXPAY");
+        intent.putExtra("payCode", "WXPAY_JS");
         startActivity(intent);
 
 //        InputMoneyFragment fragment = InputMoneyFragment_.builder().build();

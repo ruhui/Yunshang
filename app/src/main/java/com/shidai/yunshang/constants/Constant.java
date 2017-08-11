@@ -2,6 +2,8 @@ package com.shidai.yunshang.constants;
 
 import android.os.Environment;
 
+import java.io.File;
+
 /**
  * Created by Administrator on 2017/2/21.
  */
@@ -42,6 +44,8 @@ public class Constant {
     /* 下载保存路径 */
     public static final String SAVEAPPFILEPATH = Environment.getExternalStorageDirectory()
             + "/"  + "sdys/sdyunshang.apk";
+    /*保存的二维码路径*/
+    public static final String ERWEIMA =  Environment.getExternalStorageDirectory()+"/image";
     /*极光KEY*/
     public static final String JPUSHAPPKEY = "52fb0a9adf8deda74ff1270b";
     /*极光secret*/
