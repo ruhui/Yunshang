@@ -21,6 +21,7 @@ import com.shidai.yunshang.networks.requests.SelectCardRequest;
 import com.shidai.yunshang.networks.requests.SelectchannelRequest;
 import com.shidai.yunshang.networks.requests.SendRegsmsRequest;
 import com.shidai.yunshang.networks.requests.TransferRequest;
+import com.shidai.yunshang.networks.requests.UpdateGradeSelectCard;
 import com.shidai.yunshang.networks.responses.BankCodeAndNameResponse;
 import com.shidai.yunshang.networks.responses.BankmsgResponse;
 import com.shidai.yunshang.networks.responses.BillListResponse;
@@ -808,6 +809,56 @@ public class UserManager {
 
         ZZCHeaders zzcHeaders = new ZZCHeaders(Authorization, hashmap);
         ApiClient.getApiService().selectPay(hashmap, zzcHeaders.getHashMap())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 升级选择银行卡
+     * @param grade_id
+     * @param bank_id
+     * @param amount
+     * @param subscriber
+     */
+    public static void upgradeSelectCard(int grade_id, int bank_id, double amount, Subscriber<ResponseParent<SelectCardResponse>> subscriber){
+        String Authorization = SecurePreferences.getInstance().getString("Authorization", "");
+        UpdateGradeSelectCard request = new UpdateGradeSelectCard(String.valueOf(grade_id), String.valueOf(bank_id), String.valueOf(amount));
+
+        ZZCHeaders zzcHeaders = new ZZCHeaders(Authorization, request);
+        ApiClient.getApiService().upgradeSelectCard(request, zzcHeaders.getHashMap())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 升级服务商用到的发送验证码
+     * @param subscriber
+     */
+    public static void upgradeGetCode(Subscriber<ResponseParent<Boolean>> subscriber){
+        String Authorization = SecurePreferences.getInstance().getString("Authorization", "");
+
+        ZZCHeaders zzcHeaders = new ZZCHeaders(Authorization);
+        ApiClient.getApiService().upgradeGetCode(zzcHeaders.getHashMap())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 升级的快捷支付
+     * @param sms_code
+     * @param subscriber
+     */
+    public static void upgradequickpay(String sms_code, Subscriber<ResponseParent<Double>> subscriber){
+        String Authorization = SecurePreferences.getInstance().getString("Authorization", "");
+
+        ZZCHeaders zzcHeaders = new ZZCHeaders(Authorization, sms_code);
+        ApiClient.getApiService().upgradequickpay(sms_code, zzcHeaders.getHashMap())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

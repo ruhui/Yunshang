@@ -2,6 +2,7 @@ package com.shidai.yunshang.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -240,6 +241,12 @@ public class UpgradeFragment extends BaseFragment {
     void payGrade(){
         if (showupResponse.is_online()){
             //显示支付
+            SJSelectBankcardFragment fragment = SJSelectBankcardFragment_.builder().build();
+            Bundle bundle = new Bundle();
+            bundle.putDouble("upgradeMoney", showupResponse.getUp_fee());
+            bundle.putInt("gradeid", showupResponse.getId());
+            fragment.setArguments(bundle);
+            showFragment(getActivity(), fragment);
         }else{
             //不可升级，联系客服
             Intent intent = new Intent(getActivity(), WebActivity_.class);

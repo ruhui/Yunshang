@@ -16,6 +16,7 @@ import com.shidai.yunshang.networks.requests.SelectCardRequest;
 import com.shidai.yunshang.networks.requests.SelectchannelRequest;
 import com.shidai.yunshang.networks.requests.SendRegsmsRequest;
 import com.shidai.yunshang.networks.requests.TransferRequest;
+import com.shidai.yunshang.networks.requests.UpdateGradeSelectCard;
 import com.shidai.yunshang.networks.responses.BillListResponse;
 import com.shidai.yunshang.networks.responses.CreatOrderResponse;
 import com.shidai.yunshang.networks.responses.CreatQcodeResponse;
@@ -220,5 +221,17 @@ public interface ZZCService {
     /*切换支付方式，二维码*/
     @GET("charge/select_pay")
     Observable<ResponseParent<String>> selectPay(@QueryMap  Map<String, String> hashMap, @HeaderMap Map<String, String> header);
+
+    /*升级选择银行卡*/
+    @POST("upgrade/select_card")
+    Observable<ResponseParent<SelectCardResponse>> upgradeSelectCard(@Body UpdateGradeSelectCard request, @HeaderMap Map<String, String> header);
+
+    /*升级用到的发送验证码*/
+    @POST("upgrade/get_code")
+    Observable<ResponseParent<Boolean>> upgradeGetCode(@HeaderMap Map<String, String> header);
+
+    /*升级的快捷支付*/
+    @POST("upgrade/quick_pay")
+    Observable<ResponseParent<Double>> upgradequickpay(@Body String sms_code, @HeaderMap Map<String, String> header);
 
 }

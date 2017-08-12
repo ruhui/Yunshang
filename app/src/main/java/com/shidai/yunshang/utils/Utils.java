@@ -6,6 +6,8 @@ import android.util.Log;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 关于时间和数字的一些工具方法
@@ -108,6 +110,11 @@ public class Utils {
 		return  getMillSecond() + getStringRandom(15);
 	}
 
-
+	// 校验Tag Alias 只能是数字,英文字母和中文
+	public static boolean isValidTagAndAlias(String s) {
+		Pattern p = Pattern.compile("^[\u4E00-\u9FA50-9a-zA-Z_!@#$&*+=.|]+$");
+		Matcher m = p.matcher(s);
+		return m.matches();
+	}
 
 }

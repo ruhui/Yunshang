@@ -11,6 +11,8 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -44,9 +46,11 @@ import com.shidai.yunshang.networks.responses.LoginResponse;
 import com.shidai.yunshang.networks.responses.UsermsgResponse;
 import com.shidai.yunshang.networks.responses.VersionResponst;
 import com.shidai.yunshang.utils.ImageLoader;
+import com.shidai.yunshang.utils.LogUtil;
 import com.shidai.yunshang.utils.SecurePreferences;
 import com.shidai.yunshang.utils.ToastUtil;
 import com.shidai.yunshang.utils.Tool;
+import com.shidai.yunshang.utils.Utils;
 import com.shidai.yunshang.view.widget.NoScrollViewPager;
 import com.shidai.yunshang.view.widget.dialogs.UploadAlertDialog;
 import com.tbruyelle.rxpermissions.RxPermissions;
@@ -60,7 +64,10 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Set;
 
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 import rx.Subscriber;
 import rx.functions.Action1;
 
@@ -78,6 +85,7 @@ public class MainActivity extends BaseActivity {
 
     @AfterViews
     void initView(){
+        JPushInterface.resumePush(getActivity());
         setup();
         /*开启倒计时*/
         restart();
@@ -289,6 +297,7 @@ public class MainActivity extends BaseActivity {
     @Subscribe
     public void finishActivity(ActivityFinish listener) {
         if (listener.isfinish) {
+            JPushInterface.stopPush(getActivity());
             SecurePreferences.getInstance().edit().putString("Authorization", "").commit();
             SecurePreferences.getInstance().edit().putString("EXPIRESDATE", "").commit();
             SecurePreferences.getInstance().edit().putString("USERQRCODE", "").commit(); //二维码
@@ -476,7 +485,8 @@ public class MainActivity extends BaseActivity {
     ResponseResultListener callback_usremsg = new ResponseResultListener<UsermsgResponse>() {
         @Override
         public void success(UsermsgResponse returnMsg) {
-
+            /*设置别名*/
+            setAlias(returnMsg.getMobile());
             SecurePreferences.getInstance().edit().putString("USERQRCODE", returnMsg.getQrcode()).commit(); //二维码
             SecurePreferences.getInstance().edit().putString("USERRRECOMMENDER", returnMsg.getRecommender()).commit();//推荐人
             SecurePreferences.getInstance().edit().putInt("USERID", returnMsg.getId()).commit();//商户id
@@ -496,4 +506,59 @@ public class MainActivity extends BaseActivity {
 
         }
     };
+
+
+    //极光推送的设置
+    /*设置别名*/
+    private void setAlias(String mobile) {
+        if (!Utils.isValidTagAndAlias(mobile)) {
+            LogUtil.E("别名设置", "error_tag_gs_empty");
+            return;
+        }
+
+        // 调用 Handler 来异步设置别名
+        mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, mobile));
+    }
+
+    private final TagAliasCallback mAliasCallback = new TagAliasCallback() {
+        @Override
+        public void gotResult(int code, String alias, Set<String> tags) {
+            String logs;
+            switch (code) {
+                case 0:
+                    /*别名设置成功*/
+                    logs = "Set tag and alias success";
+                    // 建议这里往 SharePreference 里写一个成功设置的状态。成功设置一次后，以后不必再次设置了。
+                    break;
+                case 6002:
+                    /*别名设置失败*/
+                    logs = "Failed to set alias and tags due to timeout. Try again after 60s.";
+                    // 延迟 60 秒来调用 Handler 设置别名
+                    mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_SET_ALIAS, alias), 1000 * 60);
+                    break;
+                default:
+                    logs = "Failed with errorCode = " + code;
+            }
+        }
+    };
+    private static final int MSG_SET_ALIAS = 1001;
+    private final Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case MSG_SET_ALIAS:
+                    // 调用 JPush 接口来设置别名。
+                    JPushInterface.setAliasAndTags(getApplicationContext(),
+                            (String) msg.obj,
+                            null,
+                            mAliasCallback);
+                    break;
+
+                default:
+            }
+        }
+    };
+
+
 }

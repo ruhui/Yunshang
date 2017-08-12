@@ -6,6 +6,7 @@ import android.text.TextUtils;
 
 import com.shidai.yunshang.R;
 import com.shidai.yunshang.activities.base.BaseActivity;
+import com.shidai.yunshang.fragments.MineMsgFragment_;
 import com.shidai.yunshang.fragments.base.BaseFragment;
 
 import org.androidannotations.annotations.AfterViews;
@@ -20,7 +21,7 @@ public class JupshReceiveActivity extends BaseActivity {
     void initView(){
         Bundle bundle = getIntent().getExtras();
         String extData = bundle.getString(JPushInterface.EXTRA_EXTRA);
-
+        showFragment(MineMsgFragment_.builder().build());
     }
 
     private void showJupshFragment(BaseFragment fragment){
