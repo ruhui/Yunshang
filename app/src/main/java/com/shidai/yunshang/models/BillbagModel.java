@@ -1,5 +1,6 @@
 package com.shidai.yunshang.models;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -8,7 +9,7 @@ import java.util.List;
  * 功能描述：
  */
 
-public class BillbagModel {
+public class BillbagModel implements Serializable{
     private String name;
     private String code;
     private boolean isClick;

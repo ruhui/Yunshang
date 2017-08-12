@@ -180,26 +180,26 @@ public class Tool {
         int num = 2;
         BigDecimal b = new BigDecimal(number);
         double f1 = b.setScale(num, BigDecimal.ROUND_HALF_UP).doubleValue();
-        String res = f1 + "";
-        res = res.substring(res.indexOf(".") + 1);
-        if (Integer.valueOf(res) > 9){
-            //判断位数是否为0
-            int last = Integer.valueOf(res) % 10;
-            if (last == 0){
-                res = f1 + "";
-                res = res.substring(0, res.indexOf(".") + 1);
-            }else{
-                res = f1 + "";
-            }
-        }else if (Integer.valueOf(res) <= 9 && Integer.valueOf(res) > 0){
-            //直接显示
-            res = f1 + "";
-        }else if (Integer.valueOf(res) == 0){
-            //显示整数
-            res = f1 + "";
-            res = res.substring(0, res.indexOf("."));
-        }
-        return res;
+//        String res = f1 + "";
+//        res = res.substring(res.indexOf(".") + 1);
+//        if (Integer.valueOf(res) > 9){
+//            //判断位数是否为0
+//            int last = Integer.valueOf(res) % 10;
+//            if (last == 0){
+//                res = f1 + "";
+//                res = res.substring(0, res.indexOf(".") + 1);
+//            }else{
+//                res = f1 + "";
+//            }
+//        }else if (Integer.valueOf(res) <= 9 && Integer.valueOf(res) > 0){
+//            //直接显示
+//            res = f1 + "";
+//        }else if (Integer.valueOf(res) == 0){
+//            //显示整数
+//            res = f1 + "";
+//            res = res.substring(0, res.indexOf("."));
+//        }
+        return String.valueOf(f1);
     }
 
     /**
@@ -221,25 +221,25 @@ public class Tool {
             e.printStackTrace();
             res = number;
         }
-        String f1 = res;
-        res = res.substring(res.indexOf(".") + 1);
-        if (Integer.valueOf(res) > 9){
-            //判断位数是否为0
-            int last = Integer.valueOf(res) % 10;
-            if (last == 0){
-                res = f1 + "";
-                res = res.substring(0, res.indexOf(".") + 1);
-            }else{
-                res = f1 + "";
-            }
-        }else if (Integer.valueOf(res) <= 9 && Integer.valueOf(res) > 0){
-            //直接显示
-            res = f1 + "";
-        }else if (Integer.valueOf(res) == 0){
-            //显示整数
-            res = f1 + "";
-            res = res.substring(0, res.indexOf("."));
-        }
+//        String f1 = res;
+//        res = res.substring(res.indexOf(".") + 1);
+//        if (Integer.valueOf(res) > 9){
+//            //判断位数是否为0
+//            int last = Integer.valueOf(res) % 10;
+//            if (last == 0){
+//                res = f1 + "";
+//                res = res.substring(0, res.indexOf(".") + 1);
+//            }else{
+//                res = f1 + "";
+//            }
+//        }else if (Integer.valueOf(res) <= 9 && Integer.valueOf(res) > 0){
+//            //直接显示
+//            res = f1 + "";
+//        }else if (Integer.valueOf(res) == 0){
+//            //显示整数
+//            res = f1 + "";
+//            res = res.substring(0, res.indexOf("."));
+//        }
         return res;
     }
 

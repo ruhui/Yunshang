@@ -41,9 +41,12 @@ import com.shidai.yunshang.managers.UserManager;
 import com.shidai.yunshang.networks.DownloadTask;
 import com.shidai.yunshang.networks.PosetSubscriber;
 import com.shidai.yunshang.networks.responses.LoginResponse;
+import com.shidai.yunshang.networks.responses.UsermsgResponse;
 import com.shidai.yunshang.networks.responses.VersionResponst;
+import com.shidai.yunshang.utils.ImageLoader;
 import com.shidai.yunshang.utils.SecurePreferences;
 import com.shidai.yunshang.utils.ToastUtil;
+import com.shidai.yunshang.utils.Tool;
 import com.shidai.yunshang.view.widget.NoScrollViewPager;
 import com.shidai.yunshang.view.widget.dialogs.UploadAlertDialog;
 import com.tbruyelle.rxpermissions.RxPermissions;
@@ -80,6 +83,8 @@ public class MainActivity extends BaseActivity {
         restart();
         /*获取版本号*/
         getVersion();
+        /*用户信息*/
+        getUserMsg();
     }
 
 
@@ -462,4 +467,33 @@ public class MainActivity extends BaseActivity {
         startActivity(intent);
         android.os.Process.killProcess(android.os.Process.myPid());
     }
+
+    private void getUserMsg() {
+        Subscriber subscriber = new PosetSubscriber<UsermsgResponse>().getSubscriber(callback_usremsg);
+        UserManager.getUsermsg(subscriber);
+    }
+
+    ResponseResultListener callback_usremsg = new ResponseResultListener<UsermsgResponse>() {
+        @Override
+        public void success(UsermsgResponse returnMsg) {
+
+            SecurePreferences.getInstance().edit().putString("USERQRCODE", returnMsg.getQrcode()).commit(); //二维码
+            SecurePreferences.getInstance().edit().putString("USERRRECOMMENDER", returnMsg.getRecommender()).commit();//推荐人
+            SecurePreferences.getInstance().edit().putInt("USERID", returnMsg.getId()).commit();//商户id
+            SecurePreferences.getInstance().edit().putInt("USERAUTHSTATUS", returnMsg.getAuth_status()).commit();//认证状态：0未认证，1待认证，2未通过，3已认证
+            SecurePreferences.getInstance().edit().putString("USERMOBILE", returnMsg.getMobile()).commit();//电话
+            SecurePreferences.getInstance().edit().putInt("USERGRADEID", returnMsg.getGrade_id()).commit();//当前等级数
+            SecurePreferences.getInstance().edit().putString("USERNAME", returnMsg.getName()).commit();//姓名
+            SecurePreferences.getInstance().edit().putString("USERPHOTO", returnMsg.getPhoto()).commit();//头像
+            SecurePreferences.getInstance().edit().putString("USERAUTHSTATUSNAME", returnMsg.getAuth_status_name()).commit();//认证状态
+            SecurePreferences.getInstance().edit().putString("USERGRADENAME", returnMsg.getGrade_name()).commit();//等级
+            SecurePreferences.getInstance().edit().putInt("USERPARENT", returnMsg.getParent_id()).commit();//推荐人ID
+            SecurePreferences.getInstance().edit().putInt("USERGRADECOUNT", returnMsg.getGrade_count()).commit();//等级总数
+        }
+
+        @Override
+        public void fialed(String resCode, String message) {
+
+        }
+    };
 }

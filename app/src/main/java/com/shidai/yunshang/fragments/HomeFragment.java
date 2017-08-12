@@ -22,6 +22,8 @@ import com.shidai.yunshang.models.BillbagModel;
 import com.shidai.yunshang.networks.PosetSubscriber;
 import com.shidai.yunshang.networks.responses.BillbagResponse;
 import com.shidai.yunshang.networks.responses.BillprofitResponse;
+import com.shidai.yunshang.utils.SecurePreferences;
+import com.shidai.yunshang.utils.ToastUtil;
 import com.shidai.yunshang.utils.Tool;
 import com.shidai.yunshang.view.widget.NavBar;
 import com.shidai.yunshang.view.widget.PicTextView45;
@@ -197,6 +199,11 @@ public class HomeFragment extends BaseFragment {
     /*银联支付*/
     @Click(R.id.relaYinlian)
     void payYinlian(){
+        String userStatu = SecurePreferences.getInstance().getString("USERAUTHSTATUS","");
+        if (!userStatu.equals("3")){
+            ToastUtil.showToast("跳到认证界面");
+            return;
+        }
         // ALIPAY_QR, WXPAY_QR, JDPAY_QR, WXPAY_JS, ALIPAY_JS, UNIONPAY, GATEWAY
         Intent intent = new Intent(getActivity(), InputMoneyActivity_.class);
         intent.putExtra("navbarTitle", "银联支付");
@@ -214,7 +221,11 @@ public class HomeFragment extends BaseFragment {
     /*扫码*/
     @Click(R.id.relaSaoma)
     void paySaoma(){
-
+        String userStatu = SecurePreferences.getInstance().getString("USERAUTHSTATUS","");
+        if (!userStatu.equals("3")){
+            ToastUtil.showToast("跳到认证界面");
+            return;
+        }
         Intent intent = new Intent(getActivity(), InputMoneyActivity_.class);
         intent.putExtra("navbarTitle", "扫码支付");
         intent.putExtra("payCode", "WXPAY_JS");
@@ -231,7 +242,11 @@ public class HomeFragment extends BaseFragment {
     /*提现*/
     @Click(R.id.relaTixian)
     void payTixian(){
-
+        String userStatu = SecurePreferences.getInstance().getString("USERAUTHSTATUS","");
+        if (!userStatu.equals("3")){
+            ToastUtil.showToast("跳到认证界面");
+            return;
+        }
         Intent intent = new Intent(getActivity(), TixianWalletActivity_.class);
         intent.putExtra("tixianMoney", Tool.formatPrice(billBagReturnMsg.getDeposit()));
         startActivity(intent);

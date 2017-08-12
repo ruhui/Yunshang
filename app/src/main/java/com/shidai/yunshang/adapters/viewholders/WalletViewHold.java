@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.shidai.yunshang.R;
 import com.shidai.yunshang.models.BillbagModel;
 import com.shidai.yunshang.models.ChannelModel;
+import com.shidai.yunshang.utils.ImageLoader;
 import com.shidai.yunshang.utils.Tool;
 
 import org.androidannotations.annotations.EViewGroup;
@@ -50,18 +51,11 @@ public class WalletViewHold extends LinearLayout {
 //        imgCardIcon.setImageResource(R.drawable.qb_ylzf);
 //        }
 
-        String single_quota;//单笔额度
-        if (model.getSingle_quota() == 0){
+        String single_quota;//额度
+        if (model.getSingle_quota() == 0 && model.getCard_quota() == 0){
             single_quota = "不限";
         }else{
-            single_quota = Tool.formatPrice(model.getSingle_quota()) + "万/笔";
-        }
-
-        String card_quota = "";//单卡额度/天,0不限
-        if (model.getCard_quota() == 0){
-            card_quota = "不限";
-        }else{
-            single_quota = Tool.formatPrice(model.getCard_quota()) + "万/天";
+            single_quota = Tool.formatPrice(model.getSingle_quota())+"~" + Tool.formatPrice(model.getCard_quota()) + "元";
         }
 
         String fee ;//费率
@@ -82,6 +76,6 @@ public class WalletViewHold extends LinearLayout {
         }
 
         txtName.setText(model.getName());
-        txtContent.setText("额度:" + single_quota +"  "+ card_quota + "    费率:" +fee + "    结算费:"+settle);
+        txtContent.setText("额度:" + single_quota  + "    费率:" +fee + "    结算费:"+settle);
     }
 }

@@ -89,6 +89,7 @@ public class SurePayFragment extends BaseFragment{
         manager.setSmoothScrollbarEnabled(true);
         mRecycleView.setLayoutManager(manager);
         mRecycleView.setAdapter(adapter_surepay = new SurePayAdapter(adapterListener));
+        adapter_surepay.setPaycode(orderInfo.getPay_code());
         adapter_surepay.addAll(orderInfo.getChannel());
     }
 

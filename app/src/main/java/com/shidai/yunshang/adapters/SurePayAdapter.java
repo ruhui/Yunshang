@@ -18,6 +18,7 @@ import com.shidai.yunshang.models.SuerPayModel;
 public class SurePayAdapter extends BaseRecyclerAdapter<ChannelModel, SureOrderViewHold>{
 
     private AdapterListener adapterListener;
+    private String pay_code;
 
     public SurePayAdapter( AdapterListener adapterListener ){
         this.adapterListener = adapterListener;
@@ -36,6 +37,10 @@ public class SurePayAdapter extends BaseRecyclerAdapter<ChannelModel, SureOrderV
                 adapterListener.setItemClickListener(model, position);
             }
         });
-        itemView.bind(model);
+        itemView.bind(pay_code, model);
+    }
+
+    public void setPaycode(String pay_code) {
+        this.pay_code = pay_code;
     }
 }

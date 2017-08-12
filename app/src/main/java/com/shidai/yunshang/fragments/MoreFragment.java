@@ -17,6 +17,7 @@ import com.shidai.yunshang.managers.UrlAddressManger;
 import com.shidai.yunshang.managers.UserManager;
 import com.shidai.yunshang.utils.SecurePreferences;
 import com.shidai.yunshang.utils.Tool;
+import com.shidai.yunshang.view.widget.NavBarBack;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -36,9 +37,13 @@ public class MoreFragment extends BaseFragment{
     TextView txtMore;
     @ViewById(R.id.textView26)
     TextView txtCach;
+    @ViewById(R.id.mNavbar)
+    NavBarBack mNavbar;
 
     @AfterViews
     void initView(){
+
+        mNavbar.setMiddleTitle("更多");
         try{
             String totalcash = DataCleanManager.getTotalCacheSize(getActivity());
             txtCach.setText(totalcash);

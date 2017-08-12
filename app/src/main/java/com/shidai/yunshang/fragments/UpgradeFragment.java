@@ -239,14 +239,13 @@ public class UpgradeFragment extends BaseFragment {
     @Click(R.id.button2)
     void payGrade(){
         if (showupResponse.is_online()){
+            //显示支付
+        }else{
             //不可升级，联系客服
             Intent intent = new Intent(getActivity(), WebActivity_.class);
             intent.putExtra("titleBar", "我要代理");
             intent.putExtra("webUrl", UrlAddressManger.GOPROXY);
             startActivity(intent);
-        }else{
-            //显示支付
-
         }
     }
 

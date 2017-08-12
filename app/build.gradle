@@ -135,6 +135,4 @@ dependencies {
     //权限管理，需要rxjava
     compile 'com.tbruyelle.rxpermissions:rxpermissions:0.7.0@aar'
     compile files('libs/zixing-core-3.2.0.jar')
-    //权限管理，需要rxjava
-    compile 'com.tbruyelle.rxpermissions:rxpermissions:0.7.0@aar'
 }

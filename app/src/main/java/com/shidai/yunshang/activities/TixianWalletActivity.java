@@ -60,6 +60,8 @@ public class TixianWalletActivity extends BaseActivity {
     private WalletTixianAdapter adapter_wallettixian;
     private String tixianMoney="";
     private String setType = "";
+    /*当日提现*/
+    private double single_quota = 0;
 
     @AfterViews
     void initView(){
@@ -94,6 +96,7 @@ public class TixianWalletActivity extends BaseActivity {
         @Override
         public void setItemClickListener(SettletypeResponse o, int position) {
             setType = o.getSettle_type();
+            single_quota = o.getSingleQuota();
             for (SettletypeResponse response : listResponse){
                 response.setClick(false);
             }
@@ -106,7 +109,7 @@ public class TixianWalletActivity extends BaseActivity {
             }
             adapter_wallettixian.replaceWith(listResponse);
 
-            txtRemak.setText("单次提现不少于" + o.getSingle_quota() + "   可提现金额: ¥"+ Tool.formatPrice(tixianMoney));
+            txtRemak.setText("单次提现不少于" + o.getSingle_quota() + ",不高于" + o.getCard_quota() + "   可提现金额: ¥"+ Tool.formatPrice(tixianMoney));
         }
     };
 
@@ -119,7 +122,6 @@ public class TixianWalletActivity extends BaseActivity {
     /*提现*/
     @Click(R.id.button2)
     void commitTixian(){
-        String tranfermin = SecurePreferences.getInstance().getString("MINTRANSFER", "");
         String inputMoney = edtMoney.getText().toString();
         if (TextUtils.isEmpty(setType)){
             ToastUtil.showToast("请选择结算类型");
@@ -129,13 +131,13 @@ public class TixianWalletActivity extends BaseActivity {
             ToastUtil.showToast("请输入金额");
             return;
         }
-        if (Double.valueOf(inputMoney) == 0 || Double.valueOf(inputMoney) < Double.valueOf(tranfermin)){
-            ToastUtil.showToast("单次提现不少于¥"+tranfermin );
+        if (Double.valueOf(inputMoney) == 0 || Double.valueOf(inputMoney) < Double.valueOf(single_quota)){
+            ToastUtil.showToast("单次提现不少于¥"+single_quota );
             return;
         }
         showProgress();
         Subscriber subscribe = new PosetSubscriber<TransferResponse>().getSubscriber(callback_transfer);
-        UserManager.setTransfer(Double.valueOf(tranfermin), setType, 1, subscribe);
+        UserManager.setTransfer(Double.valueOf(inputMoney), setType, 1, subscribe);
     }
 
 
@@ -149,7 +151,7 @@ public class TixianWalletActivity extends BaseActivity {
             adapter_wallettixian.addAll(listResponse);
             for (SettletypeResponse response : returnMsg){
                 if (response.getSettle_type().equals("T0")){
-                    txtRemak.setText("单次提现不少于" + response.getSingle_quota() + "   可提现金额: ¥"+ Tool.formatPrice(tixianMoney));
+                    txtRemak.setText("单次提现不少于" + response.getSingle_quota() + ",不高于" + response.getCard_quota() +"   可提现金额: ¥"+ Tool.formatPrice(tixianMoney));
                 }
             }
         }

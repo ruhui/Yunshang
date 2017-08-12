@@ -93,7 +93,7 @@ public class SettletypeResponse {
         if (single_quota == 0){
             singQuota = "不限";
         }else{
-            singQuota = "¥"+Tool.formatPrice(single_quota) + "/笔";
+            singQuota = Tool.formatPrice(single_quota) + "元";
         }
         return singQuota;
     }
@@ -111,7 +111,7 @@ public class SettletypeResponse {
         if (card_quota == 0){
             cardQuota = "不限";
         }else{
-            cardQuota = Tool.formatPrice(card_quota) + "万/天";
+            cardQuota = Tool.formatPrice(card_quota) + "元";
         }
         return cardQuota;
     }

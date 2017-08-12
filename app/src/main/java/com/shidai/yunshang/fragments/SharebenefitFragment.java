@@ -23,6 +23,8 @@ import com.shidai.yunshang.managers.UserManager;
 import com.shidai.yunshang.models.GradesModel;
 import com.shidai.yunshang.networks.PosetSubscriber;
 import com.shidai.yunshang.networks.responses.BillprofitResponse;
+import com.shidai.yunshang.utils.SecurePreferences;
+import com.shidai.yunshang.utils.ToastUtil;
 import com.shidai.yunshang.view.widget.NavBarWallet;
 
 import org.androidannotations.annotations.AfterViews;
@@ -138,6 +140,11 @@ public class SharebenefitFragment extends BaseFragment {
     /*结算*/
     @Click(R.id.button2)
     void jiesuan(){
+        String userStatu = SecurePreferences.getInstance().getString("USERAUTHSTATUS","");
+        if (!userStatu.equals("3")){
+            ToastUtil.showToast("跳到认证界面");
+            return;
+        }
         Intent intent = new Intent(getActivity(), JiesuanActivity_.class);
         intent.putExtra("totalMoney", totalmoney);
         startActivity(intent);

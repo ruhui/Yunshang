@@ -58,8 +58,6 @@ public class JiesuanActivity extends BaseActivity{
             }
         });
 
-        String tranfermin = SecurePreferences.getInstance().getString("MINTRANSFER", "");
-
         /*全部*/
         txtAll.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,25 +65,23 @@ public class JiesuanActivity extends BaseActivity{
                 editText.setText(totalMoney+"");
             }
         });
-        txtRemark.setText("备注: 单次提现不少于¥"+tranfermin);
     }
 
     /*提现*/
     @Click(R.id.button2)
     void tixian(){
-        String tranfermin = SecurePreferences.getInstance().getString("MINTRANSFER", "");
         String inputMoney = editText.getText().toString();
         if (TextUtils.isEmpty(inputMoney)){
             ToastUtil.showToast("请输入金额");
             return;
         }
-        if (Double.valueOf(inputMoney) == 0 || Double.valueOf(inputMoney) < Double.valueOf(tranfermin)){
-            ToastUtil.showToast("单次提现不少于¥"+tranfermin );
-            return;
-        }
+//        if (Double.valueOf(inputMoney) == 0 || Double.valueOf(inputMoney) < Double.valueOf(tranfermin)){
+//            ToastUtil.showToast("单次提现不少于¥"+tranfermin );
+//            return;
+//        }
         showProgress();
         Subscriber subscribe = new PosetSubscriber<TransferResponse>().getSubscriber(callback_transfer);
-        UserManager.setTransfer(Double.valueOf(tranfermin), "", 2, subscribe);
+        UserManager.setTransfer(Double.valueOf(inputMoney), "", 2, subscribe);
     }
 
 

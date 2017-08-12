@@ -38,20 +38,22 @@ public class SureOrderViewHold extends LinearLayout {
         super(context, attrs);
     }
 
-    public void bind(ChannelModel model){
-        imgCardIcon.setImageResource(R.drawable.qb_ylzf);
-        String single_quota;//单笔额度
-        if (model.getSingle_quota() == 0){
-            single_quota = "不限";
-        }else{
-            single_quota = Tool.formatPrice(model.getSingle_quota()) + "万/笔";
+    public void bind(String pay_code, ChannelModel model){
+        if (pay_code.equals("UNIONPAY")){
+            //银联支付
+            imgCardIcon.setImageResource(R.drawable.qrzf_yl);
+        }else if(pay_code.equals("ALIPAY_JS")){
+
+        }else if(pay_code.equals("WXPAY_JS")){
+
         }
 
-        String card_quota = "";//单卡额度/天,0不限
-        if (model.getCard_quota() == 0){
-            card_quota = "不限";
+        String single_quota;//额度
+
+        if (model.getSingle_quota() == 0 && model.getCard_quota() == 0){
+            single_quota = "不限";
         }else{
-            single_quota = Tool.formatPrice(model.getCard_quota()) + "万/天";
+            single_quota = "额度:"+model.getSingle_quota()+"~"+model.getCard_quota()+"元";
         }
 
         String fee ;//费率
@@ -61,6 +63,6 @@ public class SureOrderViewHold extends LinearLayout {
         settle = Tool.formatPrice(model.getSettle());
 
         txtTitle.setText(model.getName()  + "    费率:" +fee + "    结算费: ¥"+settle);
-        txtContent.setText("单笔:" + single_quota +"  单日:"+ card_quota);
+        txtContent.setText(single_quota);
     }
 }
