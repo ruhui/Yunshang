@@ -31,6 +31,7 @@ import com.shidai.yunshang.networks.responses.BulletinDataResponst;
 import com.shidai.yunshang.networks.responses.BulletinResponse;
 import com.shidai.yunshang.networks.responses.CityResponse;
 import com.shidai.yunshang.networks.responses.CreatQcodeResponse;
+import com.shidai.yunshang.networks.responses.HomeAdResponse;
 import com.shidai.yunshang.networks.responses.LoginResponse;
 import com.shidai.yunshang.networks.responses.MechantListResponse;
 import com.shidai.yunshang.networks.responses.MerchantDetailResponse;
@@ -859,6 +860,24 @@ public class UserManager {
 
         ZZCHeaders zzcHeaders = new ZZCHeaders(Authorization, sms_code);
         ApiClient.getApiService().upgradequickpay(sms_code, zzcHeaders.getHashMap())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 获取首页图片
+     * @param id
+     * @param subscriber
+     */
+    public static void homeGets(String id, Subscriber<ResponseParent<List<HomeAdResponse>>> subscriber) {
+        String Authorization = SecurePreferences.getInstance().getString("Authorization", "");
+        Map<String, String> hashmap = new HashMap<>();
+        hashmap.put("id", id);
+
+        ZZCHeaders zzcHeaders = new ZZCHeaders(Authorization, hashmap);
+        ApiClient.getApiService().homeGets(hashmap, zzcHeaders.getHashMap())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

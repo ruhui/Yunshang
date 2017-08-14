@@ -20,6 +20,7 @@ import com.shidai.yunshang.networks.requests.UpdateGradeSelectCard;
 import com.shidai.yunshang.networks.responses.BillListResponse;
 import com.shidai.yunshang.networks.responses.CreatOrderResponse;
 import com.shidai.yunshang.networks.responses.CreatQcodeResponse;
+import com.shidai.yunshang.networks.responses.HomeAdResponse;
 import com.shidai.yunshang.networks.responses.MechantListResponse;
 import com.shidai.yunshang.networks.responses.MerchantDetailResponse;
 import com.shidai.yunshang.networks.responses.RecommenderMsgResponse;
@@ -233,5 +234,9 @@ public interface ZZCService {
     /*升级的快捷支付*/
     @POST("upgrade/quick_pay")
     Observable<ResponseParent<Double>> upgradequickpay(@Body String sms_code, @HeaderMap Map<String, String> header);
+
+    /*首页广告*/
+    @GET("ad/gets")
+    Observable<ResponseParent<List<HomeAdResponse>>> homeGets(@QueryMap  Map<String, String> hashMap, @HeaderMap Map<String, String> header);
 
 }

@@ -20,6 +20,8 @@ import com.bumptech.glide.load.engine.Resource;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapResource;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
@@ -111,7 +113,17 @@ public class ImageLoader {
     }
 
     public static void loadImage(String url, ImageView imageView) {
-        Glide.with(imageView.getContext()).load(url).fitCenter().diskCacheStrategy(DiskCacheStrategy.ALL).centerCrop().into(imageView);
+        Glide.with(imageView.getContext()).load(url).fitCenter().diskCacheStrategy(DiskCacheStrategy.ALL).centerCrop().listener(new RequestListener<String, GlideDrawable>() {
+            @Override
+            public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                return false;
+            }
+
+            @Override
+            public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                return false;
+            }
+        }).into(imageView);
     }
 
     public static void loadImageRadio(String url, ImageView imageView,int radio) {

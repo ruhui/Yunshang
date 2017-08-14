@@ -36,8 +36,8 @@ public class MyApplication extends Application {
         MobclickAgent.setDebugMode(true);
         MobclickAgent.UMAnalyticsConfig config = new MobclickAgent.UMAnalyticsConfig( mInstance, Constant.UMENGAPPKEY, "yingyongbao");
         MobclickAgent. startWithConfigure(config);
-        JPushInterface.init(this);
         JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
     }
 
     public static MyApplication getInstance() {

@@ -1,11 +1,13 @@
 package com.shidai.yunshang.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -22,6 +24,9 @@ import com.shidai.yunshang.models.BillbagModel;
 import com.shidai.yunshang.networks.PosetSubscriber;
 import com.shidai.yunshang.networks.responses.BillbagResponse;
 import com.shidai.yunshang.networks.responses.BillprofitResponse;
+import com.shidai.yunshang.networks.responses.HomeAdResponse;
+import com.shidai.yunshang.utils.ImageLoader;
+import com.shidai.yunshang.utils.LogUtil;
 import com.shidai.yunshang.utils.SecurePreferences;
 import com.shidai.yunshang.utils.ToastUtil;
 import com.shidai.yunshang.utils.Tool;
@@ -32,6 +37,8 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
+
+import java.util.List;
 
 import rx.Subscriber;
 
@@ -65,6 +72,8 @@ public class HomeFragment extends BaseFragment {
     PicTextView45 picText8;
     @ViewById(R.id.imgVidio)
     ImageView imgVidio;
+    @ViewById(R.id.imgTop)
+    ImageView imgTop;
 
     private BillbagResponse billBagReturnMsg;
     private double mouthbenefit = 0;
@@ -193,8 +202,13 @@ public class HomeFragment extends BaseFragment {
         if (isVisibleToUser){
             getBillbag();
             getBillprofit();
+            /*获取首页图片*/
+            getHomeAd("1");
+            getHomeAd("2");
         }
     }
+
+
 
     /*银联支付*/
     @Click(R.id.relaYinlian)
@@ -293,4 +307,47 @@ public class HomeFragment extends BaseFragment {
 
         }
     };
+
+    private void getHomeAd(final String id) {
+        Subscriber subscriber = new PosetSubscriber<List<HomeAdResponse>>().getSubscriber(new ResponseResultListener<List<HomeAdResponse>>() {
+            @Override
+            public void success(final List<HomeAdResponse> returnMsg) {
+                LogUtil.E("success", "success");
+                WindowManager wm = (WindowManager) getContext()
+                        .getSystemService(Context.WINDOW_SERVICE);
+                int width = wm.getDefaultDisplay().getWidth();
+                if (id.equals("1")){
+                    //上面的广告图
+                    ImageLoader.loadImage(Tool.getPicUrl(getActivity(), returnMsg.get(0).getImage_path(), width, 116), imgTop);
+                    imgTop.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getActivity(), WebActivity_.class);
+                            intent.putExtra("titleBar", returnMsg.get(0).getName());
+                            intent.putExtra("webUrl", returnMsg.get(0).getUrl());
+                            startActivity(intent);
+                        }
+                    });
+                }else if (id.equals("2")){
+                    //厦门的广告图
+                    ImageLoader.loadImage(Tool.getPicUrl(getActivity(), returnMsg.get(0).getImage_path(), width, 82), imgVidio);
+                    imgVidio.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getActivity(), WebActivity_.class);
+                            intent.putExtra("titleBar", returnMsg.get(0).getName());
+                            intent.putExtra("webUrl", returnMsg.get(0).getUrl());
+                            startActivity(intent);
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void fialed(String resCode, String message) {
+                LogUtil.E("fialed", "fialed");
+            }
+        });
+        UserManager.homeGets(id, subscriber);
+    }
 }
