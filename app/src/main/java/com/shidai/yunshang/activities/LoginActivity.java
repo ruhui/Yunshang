@@ -66,12 +66,17 @@ public class LoginActivity extends BaseActivity {
         mNavbar.setMiddleTitle("登录");
 
         remindPassword = SecurePreferences.getInstance().getBoolean("REMINDPASSWORD", false);
+        //直接登录？
+        boolean derectlogin = SecurePreferences.getInstance().getBoolean("DERECTLOGIN", false);
         if (remindPassword){
             String phone = SecurePreferences.getInstance().getString("USERMOBILE", "");
             String userpassword = SecurePreferences.getInstance().getString("USERPASSWORD", "");
             edtTelphone.setText(phone);
             edtPassword.setText(userpassword);
             imgSelect.setImageResource(R.drawable.dl_jzmm_xz);
+            if (derectlogin){
+                loginUser();
+            }
         }else{
             imgSelect.setImageResource(R.drawable.dl_jzmm);
         }
@@ -90,9 +95,11 @@ public class LoginActivity extends BaseActivity {
         if (remindPassword){
             remindPassword = false;
             imgSelect.setImageResource(R.drawable.dl_jzmm);
+            SecurePreferences.getInstance().edit().putBoolean("DERECTLOGIN", false).commit();
         }else{
             remindPassword = true;
             imgSelect.setImageResource(R.drawable.dl_jzmm_xz);
+            SecurePreferences.getInstance().edit().putBoolean("DERECTLOGIN", true).commit();
         }
     }
 
@@ -106,6 +113,10 @@ public class LoginActivity extends BaseActivity {
     /*登录*/
     @Click(R.id.button2)
     void login(){
+        loginUser();
+    }
+
+    private void loginUser() {
         String phonenum = edtTelphone.getText().toString();
         String password = edtPassword.getText().toString();
 
@@ -152,6 +163,7 @@ public class LoginActivity extends BaseActivity {
         @Override
         public void fialed(String resCode, String message) {
             closeProgress();
+            SecurePreferences.getInstance().edit().putBoolean("DERECTLOGIN", false).commit();
         }
     };
 }

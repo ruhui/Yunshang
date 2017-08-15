@@ -320,6 +320,7 @@ public class MainActivity extends BaseActivity {
             SecurePreferences.getInstance().edit().putString("USERGRADENAME", "").commit();//等级
             SecurePreferences.getInstance().edit().putInt("USERPARENT", 0).commit();//推荐人ID
             SecurePreferences.getInstance().edit().putInt("USERGRADECOUNT", 0).commit();//等级总数
+            SecurePreferences.getInstance().edit().putBoolean("DERECTLOGIN", false).commit();
         }
     }
 
@@ -513,7 +514,6 @@ public class MainActivity extends BaseActivity {
             SecurePreferences.getInstance().edit().putString("USERRRECOMMENDER", returnMsg.getRecommender()).commit();//推荐人
             SecurePreferences.getInstance().edit().putInt("USERID", returnMsg.getId()).commit();//商户id
             SecurePreferences.getInstance().edit().putInt("USERAUTHSTATUS", returnMsg.getAuth_status()).commit();//认证状态：0未认证，1待认证，2未通过，3已认证
-            SecurePreferences.getInstance().edit().putString("USERMOBILE", returnMsg.getMobile()).commit();//电话
             SecurePreferences.getInstance().edit().putInt("USERGRADEID", returnMsg.getGrade_id()).commit();//当前等级数
             SecurePreferences.getInstance().edit().putString("USERNAME", returnMsg.getName()).commit();//姓名
             SecurePreferences.getInstance().edit().putString("USERPHOTO", returnMsg.getPhoto()).commit();//头像
@@ -535,7 +535,8 @@ public class MainActivity extends BaseActivity {
         @Override
         public void success(List<TipsMsgResponse> returnMsg) {
             if (returnMsg.size()>0){
-                showTips(returnMsg, 0);
+                position = 0;
+                showTips(returnMsg);
             }
         }
 
@@ -546,8 +547,9 @@ public class MainActivity extends BaseActivity {
     };
 
     private MyAlertDialog mAlertDialog;
+    private int position = 0;
 
-    private void showTips(final List<TipsMsgResponse> returnMsg, final int position) {
+    private void showTips(final List<TipsMsgResponse> returnMsg) {
         if (returnMsg.size() > position){
             final String positive, negtive;
             final TipsMsgResponse response = returnMsg.get(position);
@@ -580,7 +582,8 @@ public class MainActivity extends BaseActivity {
             mAlertDialog.setOnNegsitiveListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showTips(returnMsg, 1);
+                    position++;
+                    showTips(returnMsg);
                     mAlertDialog.dismiss();
                 }
             });
