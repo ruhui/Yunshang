@@ -53,29 +53,7 @@
             android:id="@+id/linearLayout2"
             >
 
-            <RelativeLayout
-                android:id="@+id/relaSure"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                >
 
-                <TextView
-                    android:text="@string/submit_sure"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView61"
-                    android:layout_centerVertical="true"
-                    android:layout_centerHorizontal="true"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="@dimen/size_15"/>
-
-            </RelativeLayout>
-
-            <View
-                android:layout_width="0.5dp"
-                android:layout_height="match_parent"
-                android:background="@color/color_dddddd"/>
 
             <RelativeLayout
                 android:id="@+id/relaCancle"
@@ -94,6 +72,30 @@
                     android:textSize="@dimen/size_15"
                     android:textColor="@color/gray"
                     />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_dddddd"/>
+
+            <RelativeLayout
+                android:id="@+id/relaSure"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                >
+
+                <TextView
+                    android:text="@string/submit_sure"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView61"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/size_15"/>
 
             </RelativeLayout>
 
