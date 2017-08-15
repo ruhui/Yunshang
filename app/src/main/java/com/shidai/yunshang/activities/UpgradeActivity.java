@@ -1,4 +1,4 @@
-package com.shidai.yunshang.fragments;
+package com.shidai.yunshang.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,11 +14,15 @@ import android.widget.TextView;
 import com.shidai.yunshang.R;
 import com.shidai.yunshang.activities.WebActivity;
 import com.shidai.yunshang.activities.WebActivity_;
+import com.shidai.yunshang.activities.base.BaseActivity;
 import com.shidai.yunshang.adapters.UpgradeAdapter;
 import com.shidai.yunshang.adapters.WalletAdapter;
 import com.shidai.yunshang.adapters.WalletTitleAdapter;
+import com.shidai.yunshang.fragments.SJSelectBankcardFragment;
+import com.shidai.yunshang.fragments.SJSelectBankcardFragment_;
 import com.shidai.yunshang.fragments.base.BaseFragment;
 import com.shidai.yunshang.intefaces.AdapterListener;
+import com.shidai.yunshang.intefaces.RefreshListener;
 import com.shidai.yunshang.managers.UrlAddressManger;
 import com.shidai.yunshang.models.BillbagModel;
 import com.shidai.yunshang.models.ChannelModel;
@@ -32,8 +36,10 @@ import com.shidai.yunshang.view.widget.SwitchPayTypeView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
@@ -42,8 +48,8 @@ import java.util.List;
  * 作者：黄如辉
  * 功能描述：升级授权
  */
-@EFragment(R.layout.fragment_upgrade)
-public class UpgradeFragment extends BaseFragment {
+@EActivity(R.layout.fragment_upgrade)
+public class UpgradeActivity extends BaseActivity {
 
     @ViewById(R.id.mNavbar)
     NavBarBack mNavbar;
@@ -75,25 +81,21 @@ public class UpgradeFragment extends BaseFragment {
     private UpgradeAdapter adapter_upgrade;
     private WalletTitleAdapter walletTitleAdapter;
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        showupResponse = (ShowupResponse) getArguments().getSerializable("showupResponse");
+    @AfterViews
+    void initView(){
+        showupResponse = (ShowupResponse) getIntent().getSerializableExtra("showupResponse");
         if (showupResponse.getPayments().size() > 0){
             BillbagModel billbagModel = showupResponse.getPayments().get(0);
             billbagModel.setClick(true);
         }
-    }
 
-    @AfterViews
-    void initView(){
         txtFeilv.setText("");
         mNavbar.setMiddleTitle(showupResponse.getName());
         mNavbar.setOnMenuClickListener(new NavBarBack.OnMenuClickListener() {
             @Override
             public void onLeftMenuClick(View view) {
                 super.onLeftMenuClick(view);
-                finishFragment();
+                finish();
             }
         });
 
@@ -130,63 +132,6 @@ public class UpgradeFragment extends BaseFragment {
             adapter_upgrade.addAll(listBill);
         }
 
-        /*银联支付*/
-//        mSwitchPayTypeView.setYLPayLisener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mSwitchPayTypeView.showYLline();
-//                if (showupResponse == null){
-//                    return;
-//                }
-//                for (BillbagModel billbagModel : showupResponse.getPayments()){
-//                    if (billbagModel.getCode().equals("UNIONPAY")){
-//                        //默认银联
-//                        adapter_upgrade.setType(billbagModel.getCode());
-//                        adapter_upgrade.clear();
-//                        adapter_upgrade.addAll(billbagModel.getChannel());
-//                    }
-//                }
-//            }
-//        });
-//
-//        /*支付宝*/
-//        mSwitchPayTypeView.setZFBPayLisener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mSwitchPayTypeView.showZFBline();
-//                if (showupResponse == null){
-//                    return;
-//                }
-//                for (BillbagModel billbagModel : showupResponse.getPayments()){
-//                    if (billbagModel.getCode().equals("ALIPAY")){
-//                        //默认银联
-//                        adapter_upgrade.setType(billbagModel.getCode());
-//                        adapter_upgrade.clear();
-//                        adapter_upgrade.addAll(billbagModel.getChannel());
-//                    }
-//                }
-//            }
-//        });
-//
-//        /*微信支付*/
-//        mSwitchPayTypeView.setWXPayLisener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mSwitchPayTypeView.showWXline();
-//                if (showupResponse == null){
-//                    return;
-//                }
-//                for (BillbagModel billbagModel : showupResponse.getPayments()){
-//                    if (billbagModel.getCode().equals("WXPAY")){
-//                        //默认银联
-//                        adapter_upgrade.setType(billbagModel.getCode());
-//                        adapter_upgrade.clear();
-//                        adapter_upgrade.addAll(billbagModel.getChannel());
-//                    }
-//                }
-//            }
-//        });
-
         if (showupResponse.is_show()){
             payGrade.setVisibility(View.VISIBLE);
         }else{
@@ -201,14 +146,6 @@ public class UpgradeFragment extends BaseFragment {
             payGrade.setText("联系我们");
         }
 
-//        for (BillbagModel billbagModel : showupResponse.getPayments()){
-//            if (billbagModel.getCode().equals("UNIONPAY")){
-//                //默认银联
-//                adapter_upgrade.setType(billbagModel.getCode());
-//                adapter_upgrade.clear();
-//                adapter_upgrade.addAll(billbagModel.getChannel());
-//            }
-//        }
     }
 
     AdapterListener adapterListener = new AdapterListener<BillbagModel>() {
@@ -246,13 +183,20 @@ public class UpgradeFragment extends BaseFragment {
             bundle.putDouble("upgradeMoney", showupResponse.getUp_fee());
             bundle.putInt("gradeid", showupResponse.getId());
             fragment.setArguments(bundle);
-            showFragment(getActivity(), fragment);
+            showFragment(fragment);
         }else{
             //不可升级，联系客服
             Intent intent = new Intent(getActivity(), WebActivity_.class);
             intent.putExtra("titleBar", "我要代理");
             intent.putExtra("webUrl", UrlAddressManger.GOPROXY);
             startActivity(intent);
+        }
+    }
+
+    @Subscribe
+    public void refreshData(RefreshListener refreshListener){
+        if (refreshListener.tag.equals("finishFragment") && refreshListener.refresh){
+            finish();
         }
     }
 

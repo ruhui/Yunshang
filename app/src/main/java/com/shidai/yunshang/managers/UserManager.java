@@ -8,6 +8,7 @@ import com.shidai.yunshang.networks.ResponseParent;
 import com.shidai.yunshang.networks.ZZCHeaders;
 import com.shidai.yunshang.networks.requests.BandDeleteRequest;
 import com.shidai.yunshang.networks.requests.CreatOrderRequest;
+import com.shidai.yunshang.networks.requests.EmptyRequest;
 import com.shidai.yunshang.networks.requests.ForgetPwdRequest;
 import com.shidai.yunshang.networks.requests.IdRequest;
 import com.shidai.yunshang.networks.requests.LoginRequest;
@@ -22,6 +23,7 @@ import com.shidai.yunshang.networks.requests.SelectchannelRequest;
 import com.shidai.yunshang.networks.requests.SendRegsmsRequest;
 import com.shidai.yunshang.networks.requests.TransferRequest;
 import com.shidai.yunshang.networks.requests.UpdateGradeSelectCard;
+import com.shidai.yunshang.networks.requests.UpgradeQuickPayResponse;
 import com.shidai.yunshang.networks.responses.BankCodeAndNameResponse;
 import com.shidai.yunshang.networks.responses.BankmsgResponse;
 import com.shidai.yunshang.networks.responses.BillListResponse;
@@ -44,6 +46,7 @@ import com.shidai.yunshang.networks.responses.ShoukuanDetailResponse;
 import com.shidai.yunshang.networks.responses.ShowupResponse;
 import com.shidai.yunshang.networks.responses.SortResponse;
 import com.shidai.yunshang.networks.responses.SystemResponse;
+import com.shidai.yunshang.networks.responses.TipsMsgResponse;
 import com.shidai.yunshang.networks.responses.TixianDetailResponse;
 import com.shidai.yunshang.networks.responses.TransferResponse;
 import com.shidai.yunshang.networks.responses.UsermsgResponse;
@@ -841,9 +844,10 @@ public class UserManager {
      */
     public static void upgradeGetCode(Subscriber<ResponseParent<Boolean>> subscriber){
         String Authorization = SecurePreferences.getInstance().getString("Authorization", "");
+        EmptyRequest request = new EmptyRequest();
 
-        ZZCHeaders zzcHeaders = new ZZCHeaders(Authorization);
-        ApiClient.getApiService().upgradeGetCode(zzcHeaders.getHashMap())
+        ZZCHeaders zzcHeaders = new ZZCHeaders(Authorization, request);
+        ApiClient.getApiService().upgradeGetCode(request, zzcHeaders.getHashMap())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -858,8 +862,10 @@ public class UserManager {
     public static void upgradequickpay(String sms_code, Subscriber<ResponseParent<Double>> subscriber){
         String Authorization = SecurePreferences.getInstance().getString("Authorization", "");
 
-        ZZCHeaders zzcHeaders = new ZZCHeaders(Authorization, sms_code);
-        ApiClient.getApiService().upgradequickpay(sms_code, zzcHeaders.getHashMap())
+        UpgradeQuickPayResponse response = new UpgradeQuickPayResponse(sms_code);
+
+        ZZCHeaders zzcHeaders = new ZZCHeaders(Authorization, response);
+        ApiClient.getApiService().upgradequickpay(response, zzcHeaders.getHashMap())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -878,6 +884,22 @@ public class UserManager {
 
         ZZCHeaders zzcHeaders = new ZZCHeaders(Authorization, hashmap);
         ApiClient.getApiService().homeGets(hashmap, zzcHeaders.getHashMap())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 首页获取提示信息
+     * @param subscriber
+     */
+    public static void getTips(Subscriber<ResponseParent<List<TipsMsgResponse>>> subscriber) {
+        String Authorization = SecurePreferences.getInstance().getString("Authorization", "");
+        Map<String, String> hashmap = new HashMap<>();
+
+        ZZCHeaders zzcHeaders = new ZZCHeaders(Authorization, hashmap);
+        ApiClient.getApiService().getTips(hashmap, zzcHeaders.getHashMap())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

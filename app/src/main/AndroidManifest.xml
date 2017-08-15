@@ -73,6 +73,8 @@
 
         <activity android:name=".activities.JupshReceiveActivity_"
             android:screenOrientation="portrait"></activity>
+
+        <activity android:name=".activities.UpgradeActivity_"/>
     </application>
 
 </manifest>

@@ -1,6 +1,7 @@
 package com.shidai.yunshang.activities;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -31,6 +32,8 @@ import com.shidai.yunshang.MyApplication;
 import com.shidai.yunshang.R;
 import com.shidai.yunshang.activities.base.BaseActivity;
 import com.shidai.yunshang.constants.Constant;
+import com.shidai.yunshang.fragments.AuthorizationFragment;
+import com.shidai.yunshang.fragments.AuthorizationFragment_;
 import com.shidai.yunshang.fragments.HomeFragment_;
 import com.shidai.yunshang.fragments.MineFragment_;
 import com.shidai.yunshang.fragments.SharebenefitFragment_;
@@ -38,11 +41,13 @@ import com.shidai.yunshang.fragments.WalletFragment_;
 import com.shidai.yunshang.intefaces.AcitivtyFinishListener;
 import com.shidai.yunshang.intefaces.ActivityFinish;
 import com.shidai.yunshang.intefaces.DownLoadListener;
+import com.shidai.yunshang.intefaces.RefreshListener;
 import com.shidai.yunshang.intefaces.ResponseResultListener;
 import com.shidai.yunshang.managers.UserManager;
 import com.shidai.yunshang.networks.DownloadTask;
 import com.shidai.yunshang.networks.PosetSubscriber;
 import com.shidai.yunshang.networks.responses.LoginResponse;
+import com.shidai.yunshang.networks.responses.TipsMsgResponse;
 import com.shidai.yunshang.networks.responses.UsermsgResponse;
 import com.shidai.yunshang.networks.responses.VersionResponst;
 import com.shidai.yunshang.utils.ImageLoader;
@@ -52,6 +57,7 @@ import com.shidai.yunshang.utils.ToastUtil;
 import com.shidai.yunshang.utils.Tool;
 import com.shidai.yunshang.utils.Utils;
 import com.shidai.yunshang.view.widget.NoScrollViewPager;
+import com.shidai.yunshang.view.widget.dialogs.MyAlertDialog;
 import com.shidai.yunshang.view.widget.dialogs.UploadAlertDialog;
 import com.tbruyelle.rxpermissions.RxPermissions;
 import com.viewpagerindicator.IconPagerAdapter;
@@ -64,6 +70,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import cn.jpush.android.api.JPushInterface;
@@ -93,6 +100,8 @@ public class MainActivity extends BaseActivity {
         getVersion();
         /*用户信息*/
         getUserMsg();
+        /*获取提示信息*/
+        geMainTips();
     }
 
 
@@ -477,9 +486,22 @@ public class MainActivity extends BaseActivity {
         android.os.Process.killProcess(android.os.Process.myPid());
     }
 
+    @Subscribe
+    public void refreshData(RefreshListener refreshListener){
+        if (refreshListener.tag.equals("finishFragment") && refreshListener.refresh){
+            getUserMsg();
+        }
+    }
+
     private void getUserMsg() {
         Subscriber subscriber = new PosetSubscriber<UsermsgResponse>().getSubscriber(callback_usremsg);
         UserManager.getUsermsg(subscriber);
+    }
+
+
+    private void geMainTips(){
+        Subscriber subscriber = new PosetSubscriber<List<TipsMsgResponse>>().getSubscriber(callback_listtips);
+        UserManager.getTips(subscriber);
     }
 
     ResponseResultListener callback_usremsg = new ResponseResultListener<UsermsgResponse>() {
@@ -507,6 +529,63 @@ public class MainActivity extends BaseActivity {
         }
     };
 
+
+    /*获取消息*/
+    ResponseResultListener callback_listtips = new ResponseResultListener<List<TipsMsgResponse>>() {
+        @Override
+        public void success(List<TipsMsgResponse> returnMsg) {
+            if (returnMsg.size()>0){
+                showTips(returnMsg, 0);
+            }
+        }
+
+        @Override
+        public void fialed(String resCode, String message) {
+
+        }
+    };
+
+    private MyAlertDialog mAlertDialog;
+
+    private void showTips(final List<TipsMsgResponse> returnMsg, final int position) {
+        if (returnMsg.size() > position){
+            final String positive, negtive;
+            final TipsMsgResponse response = returnMsg.get(position);
+            if (response.getName().equals("auth")){
+                positive = "前往完善";
+                negtive = "取消";
+            }else{
+                positive = "立即升级";
+                negtive = "取消";
+            }
+            mAlertDialog = new MyAlertDialog(getActivity(), true);
+            mAlertDialog.show();
+            mAlertDialog.setTitle(response.getTitle());
+            mAlertDialog.setContent(Html.fromHtml(response.getContent()));
+            mAlertDialog.setLeftText(positive);//确认
+            mAlertDialog.setRightText(negtive);
+            mAlertDialog.setOnPositiveListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (response.getName().equals("auth")){
+                        //前往完善
+                        ToastUtil.showToast("完善认证");
+                    }else{
+                        //立即升级
+                        showFragment(AuthorizationFragment_.builder().build());
+                    }
+                    mAlertDialog.dismiss();
+                }
+            });
+            mAlertDialog.setOnNegsitiveListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showTips(returnMsg, 1);
+                    mAlertDialog.dismiss();
+                }
+            });
+        }
+    }
 
     //极光推送的设置
     /*设置别名*/

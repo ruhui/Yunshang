@@ -117,6 +117,9 @@ public class BindCreditFragment extends BaseFragment {
             public void onTimeSelect(Date date)
             {
                 String time = Tool.formatCardTime(date);
+                if (time.length() == 6){
+                    time = time.substring(2);
+                }
                 itemViewEffaceTime.setEdtRight(time);
             }
 

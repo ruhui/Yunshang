@@ -156,7 +156,7 @@ public class Tool {
      * @return
      */
     public static String formatCardTime(Date date){
-        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM");
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMM");
         return format.format(date);
     }
 

@@ -1,5 +1,6 @@
 package com.shidai.yunshang.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +10,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.shidai.yunshang.R;
+import com.shidai.yunshang.activities.UpgradeActivity_;
 import com.shidai.yunshang.adapters.AuthorizaAdapter;
 import com.shidai.yunshang.fragments.base.BaseFragment;
 import com.shidai.yunshang.intefaces.AdapterListener;
@@ -85,12 +87,9 @@ public class AuthorizationFragment extends BaseFragment {
         @Override
         public void setItemClickListener(ShowupResponse o, int position) {
             //升级
-            UpgradeFragment fragment = UpgradeFragment_.builder().build();
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("showupResponse", (Serializable) o);
-            fragment.setArguments(bundle);
-            showFragment(getActivity(), fragment);
-
+            Intent intent = new Intent(getActivity(), UpgradeActivity_.class);
+            intent.putExtra("showupResponse", (Serializable) o);
+            startActivity(intent);
         }
     };
 

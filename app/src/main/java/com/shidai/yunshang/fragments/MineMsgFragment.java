@@ -46,10 +46,11 @@ import rx.Subscriber;
 /**
  * 创建时间： 2017/7/23.
  * 作者：黄如辉
- * 功能描述：
+ * 功能描述：消息通知
  */
 @EFragment(R.layout.fragment_minemsg)
 public class MineMsgFragment extends BaseFragment {
+
 
     @ViewById(R.id.textView19)
     TextView txtContent;

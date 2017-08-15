@@ -3,6 +3,7 @@ package com.shidai.yunshang.managers;
 import com.shidai.yunshang.networks.ResponseParent;
 import com.shidai.yunshang.networks.requests.BandDeleteRequest;
 import com.shidai.yunshang.networks.requests.CreatOrderRequest;
+import com.shidai.yunshang.networks.requests.EmptyRequest;
 import com.shidai.yunshang.networks.requests.ForgetPwdRequest;
 import com.shidai.yunshang.networks.requests.IdRequest;
 import com.shidai.yunshang.networks.requests.LoginRequest;
@@ -17,6 +18,7 @@ import com.shidai.yunshang.networks.requests.SelectchannelRequest;
 import com.shidai.yunshang.networks.requests.SendRegsmsRequest;
 import com.shidai.yunshang.networks.requests.TransferRequest;
 import com.shidai.yunshang.networks.requests.UpdateGradeSelectCard;
+import com.shidai.yunshang.networks.requests.UpgradeQuickPayResponse;
 import com.shidai.yunshang.networks.responses.BillListResponse;
 import com.shidai.yunshang.networks.responses.CreatOrderResponse;
 import com.shidai.yunshang.networks.responses.CreatQcodeResponse;
@@ -28,6 +30,7 @@ import com.shidai.yunshang.networks.responses.RecommenderRequest;
 import com.shidai.yunshang.networks.responses.SelectCardResponse;
 import com.shidai.yunshang.networks.responses.SettletypeResponse;
 import com.shidai.yunshang.networks.responses.ShoukuanDetailResponse;
+import com.shidai.yunshang.networks.responses.TipsMsgResponse;
 import com.shidai.yunshang.networks.responses.TixianDetailResponse;
 import com.shidai.yunshang.networks.responses.TransferResponse;
 import com.shidai.yunshang.networks.responses.VersionResponst;
@@ -229,14 +232,18 @@ public interface ZZCService {
 
     /*升级用到的发送验证码*/
     @POST("upgrade/get_code")
-    Observable<ResponseParent<Boolean>> upgradeGetCode(@HeaderMap Map<String, String> header);
+    Observable<ResponseParent<Boolean>> upgradeGetCode(@Body EmptyRequest request, @HeaderMap Map<String, String> header);
 
     /*升级的快捷支付*/
     @POST("upgrade/quick_pay")
-    Observable<ResponseParent<Double>> upgradequickpay(@Body String sms_code, @HeaderMap Map<String, String> header);
+    Observable<ResponseParent<Double>> upgradequickpay(@Body UpgradeQuickPayResponse request, @HeaderMap Map<String, String> header);
 
     /*首页广告*/
     @GET("ad/gets")
     Observable<ResponseParent<List<HomeAdResponse>>> homeGets(@QueryMap  Map<String, String> hashMap, @HeaderMap Map<String, String> header);
+
+    /*首页的提示*/
+    @GET("account/get_tips")
+    Observable<ResponseParent<List<TipsMsgResponse>>> getTips(@QueryMap  Map<String, String> hashMap, @HeaderMap Map<String, String> header);
 
 }

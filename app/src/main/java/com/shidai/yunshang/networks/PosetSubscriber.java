@@ -31,6 +31,7 @@ public class PosetSubscriber<T> {
                     listener.success(httpResult.data);
                 }else if (httpResult.result_code.equals("401")){
                     //身份验证失败
+                    ToastUtil.showToast(httpResult.result_msg);
                     EventBus.getDefault().post(new ActivityFinish(true));
                 }else{
                     ToastUtil.showToast(httpResult.result_msg);
