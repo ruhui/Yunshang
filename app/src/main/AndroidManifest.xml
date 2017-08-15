@@ -75,6 +75,7 @@
             android:screenOrientation="portrait"></activity>
 
         <activity android:name=".activities.UpgradeActivity_"/>
+        <activity android:name=".activities.GuideActivity_"/>
     </application>
 
 </manifest>

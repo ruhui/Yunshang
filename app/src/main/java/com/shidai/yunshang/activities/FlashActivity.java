@@ -33,7 +33,10 @@ public class FlashActivity extends BaseActivity {
 
     @AfterViews
     void initView(){
-        new FlashAsynTask().execute();
+        Intent intent = new Intent(FlashActivity.this, GuideActivity_.class);
+        startActivity(intent);
+        finish();
+        //new FlashAsynTask().execute();
     }
 
     class FlashAsynTask extends AsyncTask<String, Void, String>{

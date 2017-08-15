@@ -47,6 +47,7 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (!this.isTaskRoot()) {
             Intent intent = getIntent();
             if (intent != null) {
