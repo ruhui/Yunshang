@@ -535,8 +535,11 @@ public class MainActivity extends BaseActivity {
         @Override
         public void success(List<TipsMsgResponse> returnMsg) {
             if (returnMsg.size()>0){
-                position = 0;
-                showTips(returnMsg);
+                if (!MyApplication.getInstance().getTipShow()){
+                    MyApplication.getInstance().setTipShow(true);
+                    position = 0;
+                    showTips(returnMsg);
+                }
             }
         }
 

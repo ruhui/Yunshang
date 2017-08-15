@@ -19,6 +19,8 @@ import cn.jpush.android.api.JPushInterface;
 
 public class MyApplication extends Application {
 
+    private boolean tipsShow = false;
+
     private static MyApplication mInstance;
     private Context appContext;
 
@@ -48,5 +50,13 @@ public class MyApplication extends Application {
     public void onTerminate() {
         super.onTerminate();
         mInstance = null;
+    }
+
+    public void setTipShow(boolean tipsShow) {
+        this.tipsShow = tipsShow;
+    }
+
+    public boolean getTipShow(){
+        return tipsShow;
     }
 }
