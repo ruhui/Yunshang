@@ -27,11 +27,6 @@ import org.greenrobot.eventbus.EventBus;
 
 import rx.Subscriber;
 
-/**
- * 创建时间： 2017/7/29.
- * 作者：黄如辉
- * 功能描述：分润结算
- */
 @EActivity(R.layout.fragment_jiesuan)
 public class JiesuanActivity extends BaseActivity{
     @ViewById(R.id.mNavbar)
