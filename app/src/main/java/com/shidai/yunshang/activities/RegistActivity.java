@@ -30,11 +30,6 @@ import org.greenrobot.eventbus.Subscribe;
 
 import rx.Subscriber;
 
-/**
- * 创建时间： 2017/7/24.
- * 作者：黄如辉
- * 功能描述：注册
- */
 @EActivity(R.layout.activity_regist)
 public class RegistActivity extends BaseActivity {
 
