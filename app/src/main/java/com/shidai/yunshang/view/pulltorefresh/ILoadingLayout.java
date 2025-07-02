@@ -5,12 +5,6 @@ import android.graphics.drawable.Drawable;
 
 public interface ILoadingLayout {
 
-	/**
-	 * Set the Last Updated Text. This displayed under the main label when
-	 * Pulling
-	 * 
-	 * @param label - Label to set
-	 */
 	public void setLastUpdatedLabel(CharSequence label);
 
 	/**
