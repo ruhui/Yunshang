@@ -2,11 +2,6 @@ package com.shidai.yunshang.managers;
 
 import com.shidai.yunshang.R;
 
-/**
- * 描述：
- * 创建作者： 黄如辉
- * 创建时间： 2017/8/1 14:46
- **/
 public class BankManager {
 
     public static int getDrawable(String bankCode){
