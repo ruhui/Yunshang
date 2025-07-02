@@ -14,11 +14,6 @@ import java.io.Serializable;
 
 import rx.Subscriber;
 
-/**
- * 描述：
- * 创建作者： 黄如辉
- * 创建时间： 2017/6/27 14:03
- **/
 @EActivity(R.layout.activity_flash)
 public class FlashActivity extends BaseActivity {
 
